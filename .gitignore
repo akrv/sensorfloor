@@ -35,7 +35,9 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Unit test / coverage reports
+.idea/
+
+# Unit lightfinder / coverage reports
 htmlcov/
 .tox/
 .coverage
