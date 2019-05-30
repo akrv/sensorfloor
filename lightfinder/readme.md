@@ -22,5 +22,5 @@ The node that is closest to the power line is the first list item and the last l
  - A finished fully tested strip will have the list populated as below. 
 	 - `sensor_path = ['/29.EF992F000000', '/29.4F992F000000', '/29.46992F000000', '/29.A5992F000000', '/29.279A2F000000', '/29.8F992F000000', '/29.D4992F000000', '/29.E4992F000000', '/29.CC992F000000', '/29.DC992F000000', '/29.DF992F000000', '/29.0F9A2F000000', '/29.8C992F000000', '/29.84992F000000', '/29.CF992F000000']
 `
- - everytime a new list item is added, this node will be skipped for testing.
- - this config file will be also used, make sure you copy the config file into the deployed respective RPi.
+ - everytime a new list item is added, this node will be skipped for consequent testing.
+ - Config file will be also used in the deployed software, make sure you copy the config file into the respective RPi.
