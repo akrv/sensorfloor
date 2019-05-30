@@ -35,7 +35,7 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
-.idea/*
+/.idea
 
 # Unit lightfinder / coverage reports
 htmlcov/
