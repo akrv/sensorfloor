@@ -8,4 +8,8 @@ PIO_6 = "RS422_EN"# DE_TVHD enable transmit
 PIO_7 = "RS422_RE"# !RE_TVHD enable receive
 
 
-from lightfinder.config import sensor_path as strip_path_order
+from lightfinder.config import sensor_path as strip_path_inorder
+
+NODE_NOT_FOUND = "NODE_NOT_FOUND"
+NODE_NOT_COMPATIBLE = "Node is not DS2408 device Type"
+RS422_NOT_ALL_AT_ONCE = "Cannot set RS422 active for all nodes at once, specify a node"
