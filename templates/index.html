@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block content %}
+<body>
+
+<header>
+    <div class="purple-gradient collapse bg-dark" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                    <h4 class="text-white">About</h4>
+                    <p class="text-white">Management software for PhyNetLab: sensor floor. This is one of the strip
+                        board computer. Its IP Address is {{ipaddress}} and its hostname is {{hostname}}.</p>
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                    <h4 class="text-white">Contact for more info</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="https://twitter.com/akrv1" class="text-white">Follow on Twitter</a></li>
+                        <li><a href="mailto:aswinkarthik.ramachandran@tu-dortmund.de?subject=Sensor floor dev question" class="text-white">Email me</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+                <i class="fa fa-road" aria-hidden="true"> </i>
+                Sensor Floor Strip:
+                <strong>{{hostname}}</strong>
+
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+                    aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main role="main">
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Sensor Floor</h1>
+            <p class="lead purple-gradient text-white">This is one of the many data processors of the strips. <br/>
+                This data-processor contains a strip with 15 sensors connected to it. <br/>
+                </p>
+            <p>
+                <a class="btn btn-secondary" data-toggle="collapse" href="#wire1" role="button"
+                   aria-expanded="false" aria-controls="wire1">1Wire debug</a>
+
+                <a class="btn btn-secondary" data-toggle="collapse" href="#sensorList" role="button"
+                   aria-expanded="false" aria-controls="sensorList">Sensor list</a>
+                <button class="btn btn-secondary" type="button" data-toggle="collapse"
+                        data-target="#apidocs" aria-expanded="false"
+                        aria-controls="apidocs"> API Docs
+                </button>
+            </p>
+        </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row collapse multi-collapse" id="apidocs">
+                <h1>This is where HTTP API docs will live</h1>
+            </div>
+            <div class="row collapse multi-collapse" id="wire1">
+                <iframe src="http://{{ipaddress}}:2121" width="100%" height="100%"></iframe>
+            </div>
+
+            <div class="row collapse multi-collapse" id="sensorList">
+                {% for item in strip_path_inorder -%}
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <!--img class="purple-gradient card-img-top"
+                             data-src="{{url_for('static', filename='img/placeholder100x225.png')}}"
+                             alt="{{ item }}"-->
+
+                        <div class="card-body">
+                            <h5>{{ item }}</h5>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                                additional content. This content is a little bit longer.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                </div>
+                                <small class="text-muted">9 mins</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {%- endfor %}
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
+<footer class="text-muted purple-gradient">
+    <div class="container">
+        <p class="float-right">
+            <a href="#">Back to top</a>
+        </p>
+        <p>Sensor floor strip - data processor. Hostname: {{hostname}}. IP Address: {{ipaddress}}</p>
+        <p> &copy; PhyNetLab Dashboard available at<a href="http://phynetlab.com" target="_blank"> www.phynetlab.com</a> or read see the source at <a href="https://github.com/akrv/sensorfloor" target="_blank"> <i class="fab fa-github"> github</i></a>.</p>
+    </div>
+</footer>
+
+{% endblock %}

@@ -1,7 +1,10 @@
-from flask import Flask
-from flask import jsonify
-
+from flask import Flask, render_template, jsonify
 app = Flask(__name__)
+
+import socket
+import netifaces as ni
+
+
 
 import ow
 (ow.init('localhost:4304'))
@@ -39,10 +42,23 @@ def run_simple_test():
             toggle_rs422_comms(comms_on=False,node=node_ow)
     pprint(messages)
 
+def get_ipaddress():
+    ni.ifaddresses('eth0')
+    try:
+        ip = ni.ifaddresses('eth0')[ni.AF_INET][0]['addr']
+    except KeyError:
+        ip = ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
+    return ip
+
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return render_template('index.html', hostname=socket.gethostname(), ipaddress= get_ipaddress(), strip_path_inorder=strip_path_inorder)
 
 @app.route('/node_inorder')
 def node_inorder():
+    # returns a list of nodes in order as physically installed in the strip starting with the one closest to the RPi
     return jsonify(strip_path_inorder)
+
+
+if __name__ == '__main__':
+    app.run(debug=True,host='0.0.0.0')
