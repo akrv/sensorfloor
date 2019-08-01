@@ -1,0 +1,172 @@
+(ExpressProject ""
+  (ProjectVersion "19981106")
+  (ProjectType "PCB")
+  (Folder "Design Resources"
+    (Folder "Library")
+    (File ".\cc1350sensortag.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (DOCKED "TRUE")
+    (DOCKING_POSITION "59420")
+    (NoModify)
+    ("Create Allegro Netlist" "TRUE")
+    ("Allegro Netlist Directory"
+       "C:\KHT\WORK\CC13XX SENSORTAG\MANUFACTURE\CADENCE\ALLEGRO")
+    ("View Allegro Netlist Files" "FALSE")
+    ("Allegro Netlist Create DCF File" "FALSE")
+    ("Update Allegro Board" "FALSE")
+    ("Allegro Netlist Output Board File" "allegro\CC1350SENSORTAG.brd")
+    ("Allegro Netlist Remove Etch" "FALSE")
+    ("Allegro Netlist Place Changed Component" "ALWAYS_REPLACE")
+    ("Allegro Netlist Open Board in Allegro" "ALLEGRO")
+    ("Allegro Setup Backup Versions" "3")
+    ("Allegro Setup Output Warnings" "TRUE")
+    ("Allegro Setup Ignore Constraints" "FALSE")
+    ("Allegro Setup Part Type Length" "31")
+    ("Allegro Netlist Combine Property String" "PCB Footprint")
+    ("Allegro Netlist Ignore Fixed Property" "FALSE")
+    ("Allegro Netlist User Defined Property" "FALSE")
+    (Netlist_TAB "0"))
+  (Folder "Outputs"
+    (Sort User)
+    (File ".\cc1350sensortag.prp"
+      (Type "Report")
+      (DisplayName "CC1350SENSORTAG.PRP"))
+    (File ".\allegro\pstxnet.dat"
+      (Type "Report")
+      (DisplayName "pstxnet.dat"))
+    (File ".\allegro\pstxprt.dat"
+      (Type "Report")
+      (DisplayName "pstxprt.dat"))
+    (File ".\allegro\pstchip.dat"
+      (Type "Report")
+      (DisplayName "pstchip.dat")))
+  (Folder "Referenced Projects")
+  (PartMRUSelector
+    (IC_PERIPH_DRV5032_SOT23-3
+      (FullPartName "IC_PERIPH_DRV5032_SOT23-3.Normal")
+      (LibraryName "X:\SYMBOLS\IC_PERIPH.OLB")
+      (DeviceIndex "0"))
+    (LABEL_Pb-free_V1
+      (FullPartName "LABEL_Pb-free_V1.Normal")
+      (LibraryName "X:\SYMBOLS\PCB.OLB")
+      (DeviceIndex "0"))
+    (CE_LABEL
+      (FullPartName "CE_LABEL.Normal")
+      (LibraryName "X:\SYMBOLS\PCB.OLB")
+      (DeviceIndex "0"))
+    (LABEL_FOR_EVALUATOIN_ONLY
+      (FullPartName "LABEL_FOR_EVALUATOIN_ONLY.Normal")
+      (LibraryName "X:\SYMBOLS\PCB.OLB")
+      (DeviceIndex "0"))
+    (CAPACITOR
+      (FullPartName "CAPACITOR.Normal")
+      (LibraryName "X:\SYMBOLS\CAPACITOR.OLB")
+      (DeviceIndex "0"))
+    (RESISTOR
+      (FullPartName "RESISTOR.Normal")
+      (LibraryName "X:\SYMBOLS\RESISTOR.OLB")
+      (DeviceIndex "0")))
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources"
+         "C:\kht\work\CC13xx SensorTag\Manufacture\Cadence\cc1350sensortag.dsn")
+      (Path "Design Resources"
+         "C:\kht\work\CC13xx SensorTag\Manufacture\Cadence\cc1350sensortag.dsn"
+         "CC1350 SensorTag")
+      (Path "Design Resources"
+         "C:\kht\work\CC13xx SensorTag\Manufacture\Cadence\cc1350sensortag.dsn"
+         "CC1350")
+      (Path "Design Resources"
+         "C:\kht\work\CC13xx SensorTag\Manufacture\Cadence\cc1350sensortag.dsn"
+         "Peripheral and Power")
+      (Path "Design Resources"
+         "C:\kht\work\CC13xx SensorTag\Manufacture\Cadence\cc1350sensortag.dsn"
+         "Sensors")
+      (Path "Outputs")
+      (Select "Design Resources"
+         "C:\kht\work\CC13xx SensorTag\Manufacture\Cadence\cc1350sensortag.dsn"))
+    (HierarchyView
+      (Path "CC1350 SensorTag")
+      (Path "CC1350 SensorTag" "K1 (PERIPHERAL AND POWER)"))
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 0 250 0 942"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -30 50 1388 50 672")
+        (Scroll "-13 13")
+        (Zoom "108")
+        (Occurrence "/"))
+      (Path
+         "C:\KHT\WORK\CC13XX SENSORTAG\MANUFACTURE\CADENCE\CC1350SENSORTAG.DSN")
+      (Schematic "CC1350 SensorTag")
+      (Page "Top level"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -30 75 1392 75 676")
+        (Scroll "0 213")
+        (Zoom "77")
+        (Occurrence "/H1"))
+      (Path
+         "C:\KHT\WORK\CC13XX SENSORTAG\MANUFACTURE\CADENCE\CC1350SENSORTAG.DSN")
+      (Schematic "CC1350")
+      (Page "CC1350RF"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 2 3 -1 -1 -8 -30 100 1417 100 701")
+        (Scroll "-65 111")
+        (Zoom "88")
+        (Occurrence "/K1"))
+      (Path
+         "C:\KHT\WORK\CC13XX SENSORTAG\MANUFACTURE\CADENCE\CC1350SENSORTAG.DSN")
+      (Schematic "Peripheral and Power")
+      (Page "Peripheral"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -30 125 1442 125 726")
+        (Scroll "0 663")
+        (Zoom "146")
+        (Occurrence "/N1"))
+      (Path
+         "C:\KHT\WORK\CC13XX SENSORTAG\MANUFACTURE\CADENCE\CC1350SENSORTAG.DSN")
+      (Schematic "Sensors")
+      (Page "Sensors"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -30 25 1342 25 626")
+        (Scroll "652 1226")
+        (Zoom "180")
+        (Occurrence "/N1"))
+      (Path
+         "C:\KHT\WORK\CC13XX SENSORTAG\MANUFACTURE\CADENCE\CC1350SENSORTAG.DSN")
+      (Schematic "Sensors")
+      (Page "Mech")))
+  (MPSSessionName "a0190588")
+  (Folder "Simulation Resources"
+    (Folder "Indesign"
+      (File ".\indesign\cds.lib"
+        (Type "Report")
+        (DisplayName ".\Indesign\cds.lib"))
+      (File ".\indesign\hdl.var"
+        (Type "Report")
+        (DisplayName ".\Indesign\hdl.var"))
+      (File ".\indesign\cc1350sensortag.vhd"
+        (Type "VHDL Source")
+        (DisplayName ".\Indesign\CC1350SENSORTAG.vhd"))
+      (File ".\indesign\stubi.vhd"
+        (Type "VHDL Source")
+        (DisplayName ".\Indesign\StubI.vhd"))
+      (File ".\indesign\sdf.cmd"
+        (Type "Report")
+        (DisplayName ".\Indesign\sdf.cmd"))))
+  (ISPCBBASICLICENSE "false"))

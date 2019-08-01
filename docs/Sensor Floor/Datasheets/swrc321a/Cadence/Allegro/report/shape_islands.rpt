@@ -1,0 +1,21 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    Shape Island Report                                              )
+(                                                                     )
+(    Drawing          : CC1350SensorTag.brd                           )
+(    Software Version : 16.6S019                                      )
+(    Date/Time        : Wed Nov 09 09:47:40 2016                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+  Total islands on design: 2
+
+
+  <<<  ETCH  >>>
+
+    Layer = L3
+	Point on shape: (6.4969 8.4176)  Net: GND
+
+    Layer = TOP
+	Point on shape: (4.9820 4.4805)  Net: GND

@@ -1,0 +1,2 @@
+INCLUDE $CDS_INST_DIR\tools\inca\files\cds.lib
+DEFINE indesign ./worklib

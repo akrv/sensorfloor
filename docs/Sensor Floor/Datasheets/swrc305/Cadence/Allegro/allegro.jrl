@@ -1,0 +1,22 @@
+\t (00:00:28) allegro 16.6 S026 (v16-6-112BY) Windows 32
+\t (00:00:28)     Journal start - Fri Apr 10 10:30:11 2015
+\t (00:00:28)         Host=LTA0132599 User=a0132599 Pid=9108 CPUs=4
+\t (00:00:28) CmdLine= C:\Cadence\SPB_16.6\tools\pcb\bin\allegro.exe
+\t (00:00:28) 
+\t (00:00:34) Starting new design...
+\i (00:00:35) trapsize 1577
+\i (00:00:35) trapsize 1509
+\i (00:00:35) trapsize 1589
+\i (00:00:35) trapsize 1613
+\i (00:00:35) trapsize 1613
+\i (00:00:36) etchedit 
+\i (00:01:32) trapsize 1747
+\i (00:07:54) trapsize 647
+\i (00:07:56) open 
+\i (00:08:01) fillin "C:\Users\a0132599\Desktop\Multifi_Gateway_CC2650_V3.brd"
+\i (00:08:01) cd "C:\Users\a0132599\Desktop"
+\t (00:08:01) Opening existing design...
+\i (00:08:02) fillin yes 
+\t (00:08:02) Grids are drawn 16.000, 16.000 apart for enhanced viewability.
+\i (00:08:02) trapsize 14099
+\t (00:08:02)     Journal end - Fri Apr 10 10:37:45 2015

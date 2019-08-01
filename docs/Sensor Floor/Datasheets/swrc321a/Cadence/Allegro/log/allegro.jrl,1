@@ -1,0 +1,19 @@
+\t (00:00:03) allegro 16.6 S019 (v16-6-112BG) Windows 32
+\t (00:00:03)     Journal start - Wed Aug 17 17:12:16 2016
+\t (00:00:03)         Host=LTA0190588A User=a0190588 Pid=11068 CPUs=4
+\t (00:00:03) 
+   (00:00:03) Loading axlcore.cxt 
+\t (00:00:10) Starting new design...
+\i (00:00:10) trapsize 641
+\i (00:00:10) trapsize 629
+\i (00:00:10) trapsize 643
+\i (00:00:11) trapsize 647
+\i (00:00:11) trapsize 1073
+\i (00:00:11) generaledit 
+\i (14:20:13) trapsize 1630
+\i (14:20:22) trapsize 1635
+\i (14:23:55) trapsize 1073
+\i (14:25:07) trapsize 1630
+\i (14:25:11) trapsize 1635
+\i (14:27:19) exit 
+\t (14:27:20)     Journal end - Thu Aug 18 07:39:33 2016

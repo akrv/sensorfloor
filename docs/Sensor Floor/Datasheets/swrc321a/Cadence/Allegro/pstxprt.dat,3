@@ -1,0 +1,1109 @@
+FILE_TYPE = EXPANDEDPARTLIST;
+{ Using PSTWRITER 16.6.0 d001Nov-08-2016 at 13:57:58 }
+DIRECTIVES
+ PST_VERSION='PST_HDL_CENTRIC_VERSION_0';
+ ROOT_DRAWING='CC1350SENSORTAG';
+ POST_TIME='Oct 28 2013 13:12:55';
+ SOURCE_TOOL='CAPTURE_WRITER';
+END_DIRECTIVES;
+
+PART_NAME
+ A1 'ANTENNA_AN043_ANTENNA_AN043AN_B':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS617398@MECHANIC.ANTENNA_AN043.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins617398@mechanic.\antenna_an043.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins617398@mechanic.\antenna_an043.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ A2 'ANTENNA_ANTENNA868_915MHZ_MIRRO':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS608334@MECHANIC.ANTENNA.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins608334@mechanic.\antenna.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins608334@mechanic.\antenna.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ ANT2 'CAPACITOR_CAPC1005X60B2N_0.5PF':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS682128@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins682128@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins682128@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ ANT3 'CAPACITOR_CAPC1005X60N_0.4PF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS682153@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins682153@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins682153@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ ANT4 'INDUCTOR_INDC1005X60B2N_10NH':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS681972@INDUCTOR.INDUCTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins681972@inductor.\inductor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins681972@inductor.\inductor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ ANT5 'CAPACITOR_CAPC1005X60N_4.7PF':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS682015@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins682015@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins682015@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ BAT+1 'BAT+_PAD_S2000OBL3600_1000M3000':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS619963@BATTERY.BAT+.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins619963@battery.\bat+.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins619963@battery.\bat+.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ BAT-1 'BAT-_PAD_S2000OBL3600_1000M3000':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS619977@BATTERY.BAT-.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins619977@battery.\bat-.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins619977@battery.\bat-.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ BT1 'BATT_3PINS_BAT_BATHLD001N_BAT-H':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS622497@BATTERY.BATT_3PINS.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins622497@battery.\batt_3pins.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins622497@battery.\batt_3pins.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ BZ1 'BUZZER_3PINS_BUZ_HCS0503BN_HCS0':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS552674@AQOUSTIC.BUZZER_3PINS.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins552674@aqoustic.\buzzer_3pins.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins552674@aqoustic.\buzzer_3pins.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C1 'CAPACITOR_CAPC1608X90L_DNM_CAPC':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS571207@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins571207@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins571207@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C10 'CAPACITOR_CAPC1005X60L_DNM_0402':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS632324@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins632324@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins632324@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C11 'CAPACITOR_CAPC1005X60N_15PF_CAP':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS669604@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins669604@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins669604@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C12 'CAPACITOR_CAPC1005X60L_1PF_CAPC':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS646911@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins646911@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins646911@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C13 'CAPACITOR_CAPC1005X60L_1PF_CAPC':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS651441@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins651441@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins651441@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C14 'CAPACITOR_CAPC1005X60N_120PF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS669629@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins669629@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins669629@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C15 'CAPACITOR_CAPC1005X60N_5.6PF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS666637@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins666637@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins666637@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C16 'CAPACITOR_CAPC1005X60N_1.8PF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS681860@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins681860@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins681860@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C17 'CAPACITOR_CAPC1005X60L_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS664557@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins664557@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins664557@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C18 'CAPACITOR_CAPC1005X60L_12PF_CAP':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS570979@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins570979@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins570979@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C19 'CAPACITOR_CAPC1005X60L_12PF_CAP':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS570963@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins570963@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins570963@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C2 'CAPACITOR_CAPC1005X60L_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS576505@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins576505@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins576505@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C20 'CAPACITOR_CAPC1005X60L_1UF_CAPC':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS570907@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins570907@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins570907@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C21 'CAPACITOR_CAPC1005X60L_DNM_0402':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS571075@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins571075@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins571075@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C22 'CAPACITOR_CAPC1005X60L_DNM_0402':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS583747@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins583747@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins583747@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C23 'CAPACITOR_CAPC1005X60L_68PF_CAP':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS657736@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins657736@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins657736@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C24 'CAPACITOR_CAPC1005X60L_6.8PF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS657827@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins657827@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins657827@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C27 'CAPACITOR_CAPC0603X35N_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS615082@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins615082@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins615082@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C28 'CAPACITOR_CAPC0603X35N_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS694310@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins694310@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins694310@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C29 'CAPACITOR_CAPC0603X35N_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS694326@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins694326@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins694326@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C3 'CAPACITOR_CAPC1005X60L_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS576521@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins576521@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins576521@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C30 'CAPACITOR_CAPC0603X35N_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS539868@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins539868@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins539868@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C31 'CAPACITOR_CAPC0603X35N_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS693831@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins693831@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins693831@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C32 'CAPACITOR_CAPC0603X35N_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS549400@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins549400@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins549400@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C33 'CAPACITOR_CAPC0603X35N_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS551180@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins551180@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins551180@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C34 'CAPACITOR_CAPC0603X35N_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS537032@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins537032@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins537032@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C35 'CAPACITOR_CAPC0603X35L_10NF_CAP':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS537059@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins537059@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins537059@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C36 'CAPACITOR_CAPC0603X35N_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS537016@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins537016@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins537016@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C37 'CAPACITOR_CAPC0603X35N_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS721301@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins721301@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins721301@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C4 'CAPACITOR_CAPC1005X60L_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS570259@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins570259@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins570259@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C40 'CAPACITOR_CAPC0603X35N_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS638072@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins638072@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins638072@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C41 'CAPACITOR_CAPC1005X60N_1UF_CAPC':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS637722@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins637722@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins637722@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C42 'CAPACITOR_CAPC1005X60N_1UF_CAPC':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS721720@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins721720@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins721720@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C43 'CAPACITOR_CAPC0603X35N_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS721840@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins721840@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins721840@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C5 'CAPACITOR_CAPC1608X100A2N_22UF_':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS679970@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins679970@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins679970@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C6 'CAPACITOR_CAPC1005X60L_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS570275@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins570275@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins570275@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C7 'CAPACITOR_CAPC1608X100A2N_22UF_':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS679954@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins679954@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins679954@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C8 'CAPACITOR_CAPC1005X60L_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS570413@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins570413@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins570413@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C9 'CAPACITOR_CAPC1005X60L_100NF_CA':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS570429@CAPACITOR.CAPACITOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins570429@capacitor.\capacitor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins570429@capacitor.\capacitor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ CR1 'LED_LEDC1708X67L_LS L296-P2Q2-1':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS320430@OPTOELECTRONICS.LED.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins320430@optoelectronics.\led.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins320430@optoelectronics.\led.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ FIDU1 'FIDMARK_FID127X142_FIDU_1.27MM':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS717935@PCB.FIDMARK.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins717935@pcb.\fidmark.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page5_ins717935@pcb.\fidmark.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ FIDU2 'FIDMARK_FID127X142_FIDU_1.27MM':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS717965@PCB.FIDMARK.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins717965@pcb.\fidmark.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page5_ins717965@pcb.\fidmark.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ FIDU3 'FIDMARK_FID127X142_FIDU_1.27MM':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS717945@PCB.FIDMARK.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins717945@pcb.\fidmark.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page5_ins717945@pcb.\fidmark.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ FIDU4 'FIDMARK_FID127X142_FIDU_1.27MM':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS717955@PCB.FIDMARK.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins717955@pcb.\fidmark.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page5_ins717955@pcb.\fidmark.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ FIDU5 'FIDMARK_FID127X142_FIDU_1.27MM':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS717985@PCB.FIDMARK.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins717985@pcb.\fidmark.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page5_ins717985@pcb.\fidmark.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ FIDU6 'FIDMARK_FID127X142_FIDU_1.27MM':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS717975@PCB.FIDMARK.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins717975@pcb.\fidmark.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page5_ins717975@pcb.\fidmark.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ FL1 'FILTER_2PIN_FIL_BLM18HE152SN1DL':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS571191@FILTER.FILTER_2PIN.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins571191@filter.\filter_2pin.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins571191@filter.\filter_2pin.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ J1 'CONN_SOCKET_2X10_J_V1_SAMTEC_LS':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS559009@CONNECTOR.CONN_SOCKET_2X10_J_V1.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins559009@connector.\conn_socket_2x10_j_v1.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins559009@connector.\conn_socket_2x10_j_v1.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ J10 'CONN_COAX_1_1_P_2MH_V1_MURATA_M':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS683067@CONNECTOR.CONN_COAX_1_1_P_2MH_V1.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins683067@connector.\conn_coax_1_1_p_2mh_v1.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins683067@connector.\conn_coax_1_1_p_2mh_v1.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ J12 'CONN_COAX_1_1_P_2MH_V1_MURATA_M':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS686226@CONNECTOR.CONN_COAX_1_1_P_2MH_V1.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins686226@connector.\conn_coax_1_1_p_2mh_v1.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins686226@connector.\conn_coax_1_1_p_2mh_v1.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ L1 'INDUCTOR_INDC2012X150L_6.8UH_IN':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS571381@INDUCTOR.INDUCTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins571381@inductor.\inductor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins571381@inductor.\inductor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ L15 'INDUCTOR_INDC1005X60L_68NH_IND_':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS656466@INDUCTOR.INDUCTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins656466@inductor.\inductor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins656466@inductor.\inductor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ L16 'INDUCTOR_INDC1005X60L_15NH_INDC':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS657045@INDUCTOR.INDUCTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins657045@inductor.\inductor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins657045@inductor.\inductor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ L2 'INDUCTOR_INDC1005X60L_2.4NH_IND':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS646927@INDUCTOR.INDUCTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins646927@inductor.\inductor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins646927@inductor.\inductor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ L7 'INDUCTOR_INDC1005X60N_5.6NH_IND':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS681805@INDUCTOR.INDUCTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins681805@inductor.\inductor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins681805@inductor.\inductor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ LBL1 'LABEL_FOR_EVALUATOIN_ONLY_LABEL':;
+
+SECTION_NUMBER -1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS720453@PCB.LABEL_FOR_EVALUATOIN_ONLY.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins720453@pcb.\label_for_evaluatoin_only.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page5_ins720453@pcb.\label_for_evaluatoin_only.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ CLASS='MECHANICAL',
+ SECTION='';
+
+PART_NAME
+ LBL2 'CE_LABEL_CE_LABEL_CE_LABEL':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS720472@PCB.CE_LABEL.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins720472@pcb.\ce_label.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page5_ins720472@pcb.\ce_label.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ LBL3 'LABEL_PB-FREE_V1_LABEL_PB-FREE_':;
+
+SECTION_NUMBER -1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS720491@PCB.LABEL_PB-FREE_V1.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins720491@pcb.\label_pb-free_v1.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page5_ins720491@pcb.\label_pb-free_v1.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ CLASS='MECHANICAL',
+ SECTION='';
+
+PART_NAME
+ P1 'CONN_HEADER_2X5_P_GRADCON_BB02B':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS582801@CONNECTOR.CONN_HEADER_2X5_P.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins582801@connector.\conn_header_2x5_p.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins582801@connector.\conn_header_2x5_p.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ Q1 'TRANSISTOR_NPN_BEC_CIR_SOT95P23':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS553280@TRANSISTOR.TRANSISTOR_NPN_BEC_CIR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins553280@transistor.\transistor_npn_bec_cir.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins553280@transistor.\transistor_npn_bec_cir.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R1 'RESISTOR_RESC0603X35N_DISCRETE_':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS572802@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins572802@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins572802@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R10 'RESISTOR_RESC1005X40A2N_DISCRET':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS685610@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins685610@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins685610@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R11 'RESISTOR_RESC1005X40A2N_DISCRET':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS685574@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins685574@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins685574@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R12 'RESISTOR_RESC1005X40A2N_DISCRET':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS588487@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins588487@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins588487@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R13 'RESISTOR_RESC0603X35N_DISCRET_1':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS626144@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins626144@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins626144@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R16 'RESISTOR_RESC1005X40N_DISCRETE_':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS256027@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins256027@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins256027@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R17 'RESISTOR_RESC1005X40N_DISCRET_1':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS593002@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins593002@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins593002@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R18 'RESISTOR_RESC1005X40N_DISCRET_1':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS593056@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins593056@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins593056@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R19 'RESISTOR_RESC0603X35N_DISCRET_2':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS553218@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins553218@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins553218@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R2 'RESISTOR_RESC0603X35N_DISCRET_3':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS581608@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins581608@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins581608@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R20 'RESISTOR_RESC0603X35L_DISCRETE_':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS612371@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins612371@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins612371@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R21 'RESISTOR_RESC0603X35N_DISCRET_2':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS614858@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins614858@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins614858@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R22 'RESISTOR_RESC0603X35N_DISCRET_2':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS614884@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins614884@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins614884@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R23 'RESISTOR_RESC1005X40N_DISCRET_2':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS592247@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins592247@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins592247@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R24 'RESISTOR_RESC1005X40A2N_DISCRET':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS686258@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins686258@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins686258@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R26 'RESISTOR_RESC1005X40A2N_DISCRET':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS620071@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins620071@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins620071@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R28 'RESISTOR_RESC0603X35N_DISCRETE_':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS636422@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins636422@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins636422@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R3 'RESISTOR_RESC0603X35N_DISCRET_3':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS581624@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins581624@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins581624@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R4 'RESISTOR_RESC0603X35N_DISCRET_3':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS581640@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins581640@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins581640@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R5 'RESISTOR_RESC0603X35N_DISCRET_3':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS581656@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins581656@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins581656@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R6 'RESISTOR_RESC0603X35N_DISCRET_4':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS570603@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins570603@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins570603@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R7 'RESISTOR_RESC0603X35N_DISCRET_3':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS553687@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins553687@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins553687@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R8 'RESISTOR_RESC0603X35L_DISCRET_1':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS553975@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins553975@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins553975@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R9 'RESISTOR_RESC1005X40A2N_DISCRET':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS636598@RESISTOR.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins636598@resistor.\resistor.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins636598@resistor.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ SW1 'SWITCH_2PIN_SW_MTA2AN_MTA2-WNC':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS552892@SWITCH.SWITCH_2PIN.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins552892@switch.\switch_2pin.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins552892@switch.\switch_2pin.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ SW2 'SWITCH_2PIN_SW_MTA2AN_MTA2-WNC':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS552908@SWITCH.SWITCH_2PIN.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins552908@switch.\switch_2pin.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins552908@switch.\switch_2pin.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U1 'IC_RF_CC13XX_7X7_QFN48_V2_QFNFC':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS638861@IC_RF.IC_RF_CC13XX_7X7_QFN48_V2A.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins638861@ic_rf.\ic_rf_cc13xx_7x7_qfn48_v2a.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins638861@ic_rf.\ic_rf_cc13xx_7x7_qfn48_v2a.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='A';
+
+SECTION_NUMBER 2
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS639147@IC_RF.IC_RF_CC13XX_7X7_QFN48_V2B.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins639147@ic_rf.\ic_rf_cc13xx_7x7_qfn48_v2b.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins639147@ic_rf.\ic_rf_cc13xx_7x7_qfn48_v2b.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='B';
+
+PART_NAME
+ U10 'IC_FLASH_MX25R8035F_USON8_SON50':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS616209@IC_FLASH.IC_FLASH_MX25R8035F_USON8.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins616209@ic_flash.\ic_flash_mx25r8035f_uson8.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins616209@ic_flash.\ic_flash_mx25r8035f_uson8.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U11 'IC_PM_TPS22910A_DSBGA4_BGAFC4C5':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS721148@IC_PM.IC_PM_TPS22910A_DSBGA4.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins721148@ic_pm.\ic_pm_tps22910a_dsbga4.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins721148@ic_pm.\ic_pm_tps22910a_dsbga4.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U2 'IC_PM_TPS22910A_DSBGA4_BGAFC4C5':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):K?@CC1350SENSORTAG.PERIPHERAL AND POWER(SCH_1):INS635191@IC_PM.IC_PM_TPS22910A_DSBGA4.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\k?\@cc1350sensortag.\peripheral and power\(sch_1):ins635191@ic_pm.\ic_pm_tps22910a_dsbga4.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_k?\@cc1350sensortag.\peripheral and power\(sch_1):page3_ins635191@ic_pm.\ic_pm_tps22910a_dsbga4.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U3 'IC_PERIPH_BMP280_XDCR_BMP280N_B':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS694246@IC_PERIPH.IC_PERIPH_BMP280.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins694246@ic_periph.\ic_periph_bmp280.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins694246@ic_periph.\ic_periph_bmp280.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U4 'IC_PERIPH_TMP007_DSBGA8_BGAFC8C':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS537867@IC_PERIPH.IC_PERIPH_TMP007_DSBGA8.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins537867@ic_periph.\ic_periph_tmp007_dsbga8.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins537867@ic_periph.\ic_periph_tmp007_dsbga8.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U5 'IC_PERIPH_HDC1000_BGA8_BGAFC8C5':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS693737@IC_PERIPH.IC_PERIPH_HDC1000_BGA8.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins693737@ic_periph.\ic_periph_hdc1000_bga8.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins693737@ic_periph.\ic_periph_hdc1000_bga8.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U6 'IC_PERIPH_SPH0641LM4H-1_MIC_SPH':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS558202@IC_PERIPH.IC_PERIPH_SPH0641LM4H-1.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins558202@ic_periph.\ic_periph_sph0641lm4h-1.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins558202@ic_periph.\ic_periph_sph0641lm4h-1.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U7 'IC_PERIPH_OPT3001_SON6_SON65P20':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS550470@IC_PERIPH.IC_PERIPH_OPT3001_SON6.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins550470@ic_periph.\ic_periph_opt3001_son6.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins550470@ic_periph.\ic_periph_opt3001_son6.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U8 'IC_ACC_MPU-9250_QFN24_QFNFC40P3':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS535433@IC_ACC.IC_ACC_MPU-9250_QFN24.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins535433@ic_acc.\ic_acc_mpu-9250_qfn24.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins535433@ic_acc.\ic_acc_mpu-9250_qfn24.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U9 'IC_PERIPH_DRV5032_SOT23-3_SOT95':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):N@CC1350SENSORTAG.SENSORS(SCH_1):INS720586@IC_PERIPH.IC_PERIPH_DRV5032_SOT23-3.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):n@cc1350sensortag.sensors(sch_1):ins720586@ic_periph.\ic_periph_drv5032_sot23-3.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):page1_n@cc1350sensortag.sensors(sch_1):page4_ins720586@ic_periph.\ic_periph_drv5032_sot23-3.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ Y1 'CRYSTAL_XTAL_FC-135N_32.768KHZ_':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS610871@CRYSTAL.CRYSTAL.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins610871@crystal.\crystal.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins610871@crystal.\crystal.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ Y2 'XTAL_4PIN_S_OSCCC250X320X60-4N_':;
+
+SECTION_NUMBER 1
+ '@CC1350SENSORTAG.CC1350 SENSORTAG(SCH_1):H?@CC1350SENSORTAG.CC1350(SCH_1):INS571047@CRYSTAL.XTAL_4PIN_S.NORMAL(CHIPS)':
+ C_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\h?\@cc1350sensortag.cc1350(sch_1):ins571047@crystal.\xtal_4pin_s.normal\(chips)',
+ P_PATH='@cc1350sensortag.\cc1350 sensortag\(sch_1):\page1_h?\@cc1350sensortag.cc1350(sch_1):page2_ins571047@crystal.\xtal_4pin_s.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+END.
