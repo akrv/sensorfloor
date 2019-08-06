@@ -24,7 +24,7 @@ If the IEEE is EE:E:... then device is not going into serial bootloader mode. Ca
 {'IEEE': '00:12:4B:00:13:E1:FD:07', 'id': 14, 'wire1': '/29.84992F000000'}
 {'IEEE': '00:12:4B:00:0D:2A:CE:00', 'id': 15, 'wire1': '/29.CF992F000000'}
 ID 0 means the device ID was not found 
- IEEE address is EE:EE:... there is problems with bootloader mode.
+IEEE address is EE:EE:... there is problems with bootloader mode.
 ```
 
 ```
