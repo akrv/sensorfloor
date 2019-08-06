@@ -173,10 +173,9 @@ if __name__ == '__main__':
     # read_all()
     # test_run_table()
     addr_find()
-    (json.dumps(nodes_inorder, sort_keys=True)) # probably this helps in sorting the nodes in order
+    (json.dumps(nodes_inorder, sort_keys=True))  # probably this helps in sorting the nodes in order
+    with open('node_order.json', 'w') as outfile:
+        json.dump(nodes_inorder,outfile)
     for node in nodes_inorder:
         pprint(nodes_inorder[node])
-    print("ID 0 means the device ID was not found \n IEEE address is EE:EE:... there is problems with bootloader mode.")
-
-# /29.8C992F000000
-# /29.CF992F000000
+    print("ID 0 means the device ID was not found\nIEEE address is EE:EE:... there is problems with bootloader mode.")
