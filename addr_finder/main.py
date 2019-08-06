@@ -1,6 +1,5 @@
 import ow
 from time import sleep, time
-from config import sensor_path as excluded_sensors
 import json
 from pprint import pprint
 (ow.init('localhost:4304'))
@@ -89,8 +88,9 @@ def get_all_name():
         if sensor.type == "DS2408":
             list_of_nodes.append(sensor._path)
 
-
 def set_all_0():
+    # zero with comms turned off. so it is 64 and not 0 itself.
+    # here every node is set to 0
     for sensor in node_list:
         if sensor.type == "DS2408":
             # print(sensor)
@@ -98,15 +98,13 @@ def set_all_0():
             # sleep(.3)
             # print(sensor.sensed_BYTE)
             # sleep(3)
-    # # sensor on desk: /29.CF992F000000 - DS2408
-
 
 def set_to_0(node):
+    # zero with comms turned off. so it is 64 and not 0 itself.
     for sensor in node_list:
         if sensor._path == node:
             sensor.PIO_BYTE = "64"  # lsb is PIO0 msb is PIO7
             #sleep(.3)
-
 
 def read_all():
     for sensor in node_list:
@@ -135,47 +133,20 @@ def addr_find():
                                     "IEEE"  : ieee_addr,
                                     "id"    : id
                                   }
-
-
-def test_run_table():
-    for sensor in node_list:
-        if sensor.type == "DS2408":
-            if "/29.DF992F000000" == sensor._path:
-                set_blm(sensor)
-                term_res = run_jelmer()
-                if term_res and sensor.sensed_BYTE == "105":
-                    term_res = run_jelmer()
-                    print(sensor._path, sensor.sensed_BYTE, term_res)
-                else:
-                    print("successful")
-                set_to_0(sensor._path)
-                print(sensor._path, sensor.sensed_BYTE, term_res)
-
-            # if sensor.sensed_BYTE == 105:
-            #     run_jelmer()
-            # else:
-            #     sensor.PIO_BYTE = b'00000000'
-            #     print(sensor.sensed_BYTE)
-            #     sensor.PIO_BYTE = b'10011100'
-            #     sensor.PIO_BYTE = b'10010110'
-            #     print(sensor.sensed_BYTE)
-            #     if sensor.sensed_BYTE == 105:
-            #         run_jelmer()
-            #
-            #
-
-
 if __name__ == '__main__':
     # populate the list
     get_all_name()
-    # set all nodes to 64
-    set_all_0()
-    # read_all()
-    # test_run_table()
-    addr_find()
-    (json.dumps(nodes_inorder, sort_keys=True))  # probably this helps in sorting the nodes in order
-    with open('node_order.json', 'w') as outfile:
-        json.dump(nodes_inorder,outfile)
-    for node in nodes_inorder:
-        pprint(nodes_inorder[node])
-    print("ID 0 means the device ID was not found\nIEEE address is EE:EE:... there is problems with bootloader mode.")
+    if len(list_of_nodes) == 15:
+        # set all nodes to 64
+        set_all_0()
+        # read_all()
+        # test_run_table()
+        addr_find()
+        (json.dumps(nodes_inorder, sort_keys=True))  # probably this helps in sorting the nodes in order
+        with open('node_order.json', 'w') as outfile:
+            json.dump(nodes_inorder,outfile)
+        for node in nodes_inorder:
+            pprint(nodes_inorder[node])
+        print("ID 0 means the device ID was not found\nIEEE address is EE:EE:... there is problems with bootloader mode.")
+    else:
+        print("Only %d/15 1wire nodes are seen, fix this" % (len(list_of_nodes)) )
