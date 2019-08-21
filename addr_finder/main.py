@@ -4,6 +4,7 @@ import json
 from pprint import pprint
 (ow.init('localhost:4304'))
 node_list = ow.Sensor('/').sensorList()
+import os
 
 from subprocess import Popen, PIPE
 
@@ -112,6 +113,7 @@ def read_all():
             print(sensor._path, sensor.sensed_BYTE)
 
 def addr_find():
+    nodes_inorder = {}
     for sensor in node_list:
         if sensor.type == "DS2408":
             # if sensor._path in excluded_sensors:
@@ -134,6 +136,11 @@ def addr_find():
                                     "id"    : id
                                   }
             pprint(nodes_inorder[id])
+    (json.dumps(nodes_inorder, sort_keys=True))  # probably this helps in sorting the nodes in order
+    # path will work with production as well.
+    with open(os.path.dirname(os.path.realpath(__file__)) + '/node_order.json', 'w') as outfile:
+        json.dump(nodes_inorder, outfile)
+    return nodes_inorder
 if __name__ == '__main__':
     # populate the list
     get_all_name()
@@ -142,10 +149,8 @@ if __name__ == '__main__':
         set_all_0()
         # read_all()
         # test_run_table()
-        addr_find()
-        (json.dumps(nodes_inorder, sort_keys=True))  # probably this helps in sorting the nodes in order
-        with open('node_order.json', 'w') as outfile:
-            json.dump(nodes_inorder,outfile)
+        nodes_inorder = addr_find()
+
         for node in nodes_inorder:
             pprint(nodes_inorder[node])
         print("ID 0 means the device ID was not found\nIEEE address is EE:EE:... there is problems with bootloader mode.")

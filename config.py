@@ -9,6 +9,7 @@ PIO_7 = "RS422_RE"# !RE_TVHD enable receive
 
 
 from lightfinder.config import sensor_path as strip_path_inorder
+from addr_finder.main import addr_find as address_finder
 
 NODE_NOT_FOUND = "NODE_NOT_FOUND"
 NODE_NOT_COMPATIBLE = "Node is not DS2408 device Type"

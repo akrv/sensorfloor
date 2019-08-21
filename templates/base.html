@@ -13,12 +13,16 @@
             --jumbotron-padding-y: 3rem;
         }
 
+
         .jumbotron {
-            padding-top: var(--jumbotron-padding-y);
-            padding-bottom: var(--jumbotron-padding-y);
-            margin-bottom: 0;
-            background-image: url("{{url_for('static', filename='img/InoLab_Boden.jpg')}}");
-            background-size: cover;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            border-radius: 0.3rem;
+            background: #642B73; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #C6426E, #642B73); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #C6426E, #642B73); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
         }
 
         @media (min-width: 768px) {
@@ -47,7 +51,10 @@
             bottom: 0;
             width: 100%;
             height: 60px; /* Height of the footer */
-            background: #6cf;
+            background: #642B73; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #C6426E, #642B73); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #C6426E, #642B73); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
         }
 
         footer p {
@@ -61,6 +68,11 @@
 
         #sticky-footer {
             flex-shrink: none;
+        }
+
+        #inp {
+            text-align: center;
+            margin: auto;
         }
 
     </style>

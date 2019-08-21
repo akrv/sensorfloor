@@ -4,7 +4,7 @@
     <body>
 
     <header>
-        <div class="purple-gradient collapse bg-dark" id="navbarHeader">
+        <div class="collapse bg-dark" id="navbarHeader">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8 col-md-7 py-4">
@@ -41,13 +41,21 @@
 
         <section class="jumbotron text-center">
             <div class="container">
-                <h1 class="jumbotron-heading">Sensor Floor</h1>
-                <p class="lead purple-gradient text-white">This is one of the many data processors of the strips. <br/>
+                <div class="lead text-white">
+                    <h1 class="jumbotron-heading">Sensor Floor</h1>
+                    <form method="post" action="/" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Flash all sensors in this strip with the same program</label>
+                            <input type="file" class="form-control-file" id="inp" name="file">
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Flash</button>
+                    </form>
+                    This is one of the many data processors of the strips. <br/>
                     This data-processor contains a strip with 15 sensors connected to it. <br/>
-                </p>
+                </div>
                 <p>
-                    <a class="btn btn-secondary" data-toggle="collapse" href="#wire1" role="button"
-                       aria-expanded="false" aria-controls="wire1">1Wire debug</a>
+                    <a class="btn btn-secondary btn-link" role="button" href="http://{{ ipaddress }}:2121"
+                       target="_blank">1Wire debug</a>
 
                     <a class="btn btn-secondary" data-toggle="collapse" href="#sensorList" role="button"
                        aria-expanded="false" aria-controls="sensorList">Sensor list</a>
@@ -59,47 +67,57 @@
             </div>
         </section>
 
+
         <div class="album py-5 bg-light">
+            <!-- FLASH MESSAGES HERE -->
+            {% if message %}
+                <div class="container">
+                    <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            {% endif %}
+
             <div class="container">
 
                 <div class="row collapse multi-collapse" id="apidocs">
                     <h1>This is where HTTP API docs will live</h1>
                 </div>
-                <div class="row collapse multi-collapse" id="wire1">
-                    <iframe src="http://{{ ipaddress }}:2121" width="100%" height="50%"></iframe>
-                </div>
 
                 <div class="row multi-collapse" id="sensorList">
-                    {% for item in strip_path_inorder -%}
-                        <div class="col-md-4">
-                            <div class="card mb-4 box-shadow">
-                                <!--img class="purple-gradient card-img-top"
-                             data-src="{{url_for('static', filename='img/placeholder100x225.png')}}"
-                             alt="{{ item }}"-->
 
-                                <div class="card-body">
-                                    <h5>{{ item }}</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural
-                                        lead-in to
-                                        additional content. This content is a little bit longer.</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-sm btn-outline-secondary"
-                                                    data-toggle="modal" data-target="#ViewModal">
-                                                View
-                                            </button>
-                                            <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-sm btn-outline-secondary"
-                                                    data-toggle="modal" data-target="#EditModal">
-                                                Edit
-                                            </button>
+                    {% for item in string_list -%}
+                            <div class="col-md-4">
+                                <div class="card mb-4 box-shadow">
+                                    <div class="card-body">
+                                        <h5>{{ strip_path_inorder[item].wire1 }}</h5>
+                                        <p class="card-text">Position: {{ strip_path_inorder[item].id  }} <br/>
+                                            IEEE Address: {{ strip_path_inorder[item].IEEE  }}</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                        data-toggle="modal" data-target="#ViewModal">
+                                                    View
+                                                </button>
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                        data-toggle="modal" data-target="#EditModal">
+                                                    Edit
+                                                </button>
+                                            </div>
+                                            <small class="text-muted">9 mins</small>
                                         </div>
-                                        <small class="text-muted">9 mins</small>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            {% with device=item %}
+                                {% include 'ViewModal.html' %}
+                                {% block editModal %}{% endblock %}
+                            {% endwith %}
                     {%- endfor %}
                 </div>
 
@@ -108,7 +126,7 @@
 
     </main>
 
-    <footer id="sticky-footer" class="footer text-muted purple-gradient">
+    <footer id="sticky-footer" class="footer text-muted">
         <div class="container">
             <p class="float-right">
                 <a href="#">Back to top</a>
@@ -120,7 +138,4 @@
             </p>
         </div>
     </footer>
-{% include 'ViewModal.html' %}
-{% include 'EditModal.html' %}
-
 {% endblock %}
