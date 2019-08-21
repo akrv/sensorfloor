@@ -1,4 +1,5 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request, flash, redirect
+import os
 app = Flask(__name__)
 
 import socket
@@ -50,8 +51,33 @@ def get_ipaddress():
         ip = ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
     return ip
 
-@app.route("/")
+
+ALLOWED_EXTENSIONS = set(['hex'])
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route("/",methods=['GET','POST'])
 def hello():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            flash('No file selected for uploading')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            flash('File successfully uploaded')
+            return redirect('/')
+        else:
+            flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
+            return redirect(request.url)
+
     return render_template('index.html', hostname=socket.gethostname(), ipaddress= get_ipaddress(), strip_path_inorder=strip_path_inorder)
 
 @app.route('/node_inorder')
@@ -59,6 +85,6 @@ def node_inorder():
     # returns a list of nodes in order as physically installed in the strip starting with the one closest to the RPi
     return jsonify(strip_path_inorder)
 
-
 if __name__ == '__main__':
+    app.secret_key = "secret_key"
     app.run(debug=True,host='0.0.0.0')
