@@ -133,6 +133,7 @@ def addr_find():
                                     "IEEE"  : ieee_addr,
                                     "id"    : id
                                   }
+            pprint(nodes_inorder[id])
 if __name__ == '__main__':
     # populate the list
     get_all_name()
