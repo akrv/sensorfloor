@@ -78,6 +78,7 @@ def hex_file_processing(request):
         print('Allowed file type HEX')
         return('error','Allowed file type HEX')
     return None
+
 def flashing_hex_file(file=None,device=None):
     if device:
         pass
@@ -97,7 +98,7 @@ def device_specific(device_name):
         return redirect(url_for('hello'), message="No file found")
     # GET is not allowed in this method at this moment
     return render_template('index.html', hostname=socket.gethostname(), ipaddress=get_ipaddress(),
-                           strip_path_inorder=strip_path_inorder,string_list = string_list, message="GET not allowed")
+                           strip_path_inorder=strip_path_inorder[1:], message="GET not allowed")
 
 @app.route("/",methods=['GET','POST'])
 def hello():
@@ -106,12 +107,10 @@ def hello():
             [success, message] = hex_file_processing(request)
             # todo start a thread to flash all devices one by one
             flashing_hex_file()
-            return render_template('index.html', hostname=socket.gethostname(), ipaddress= get_ipaddress(), strip_path_inorder=strip_path_inorder,string_list = string_list, message=message)
-        return render_template('index.html', hostname=socket.gethostname(), ipaddress= get_ipaddress(), strip_path_inorder=strip_path_inorder,string_list = string_list, message="No file found")
+            return render_template('index.html', hostname=socket.gethostname(), ipaddress= get_ipaddress(), strip_path_inorder=strip_path_inorder[1:], message=message)
+        return render_template('index.html', hostname=socket.gethostname(), ipaddress= get_ipaddress(), strip_path_inorder=strip_path_inorder[1:], message="No file found")
     if request.method == 'GET':
-        return render_template('index.html', hostname=socket.gethostname(), ipaddress= get_ipaddress(), strip_path_inorder=strip_path_inorder, string_list = string_list)
-
-
+        return render_template('index.html', hostname=socket.gethostname(), ipaddress= get_ipaddress(), strip_path_inorder=strip_path_inorder[1:])
 @app.route('/node_inorder')
 def node_inorder():
     # returns a list of nodes in order as physically installed in the strip starting with the one closest to the RPi
@@ -125,10 +124,12 @@ def addrs_finder():
 
 if __name__ == '__main__':
     strip_path_inorder = []
+
+    # read the stored file which is a json with a list of items
     with open(os.path.dirname(os.path.realpath(__file__))+'/addr_finder/node_order.json') as json_file:
-        strip_path = json.load(json_file)
+        strip_path_inorder = json.load(json_file)
     json_file.close()
-    strip_path_inorder = strip_path
+
     app.secret_key = "secret_key"
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.run(debug=True,host='0.0.0.0')
