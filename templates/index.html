@@ -89,13 +89,13 @@
 
                 <div class="row multi-collapse" id="sensorList">
 
-                    {% for item in string_list -%}
+                    {% for item in strip_path_inorder -%}
                             <div class="col-md-4">
                                 <div class="card mb-4 box-shadow">
                                     <div class="card-body">
-                                        <h5>{{ strip_path_inorder[item].wire1 }}</h5>
-                                        <p class="card-text">Position: {{ strip_path_inorder[item].id  }} <br/>
-                                            IEEE Address: {{ strip_path_inorder[item].IEEE  }}</p>
+                                        <h5>{{ item.wire1 }}</h5>
+                                        <p class="card-text">Position: {{ item.id  }} <br/>
+                                            IEEE Address: {{ item.IEEE  }}</p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
                                                 <!-- Button trigger modal -->
