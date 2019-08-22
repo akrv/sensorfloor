@@ -71,46 +71,38 @@ def hex_file_processing(request):
         return('error','No file selected for uploading')
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        file_and_path = (os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        file.save(file_and_path)
         print('File successfully uploaded')
-        return('OK','File successfully uploaded')
+        return('OK',
+               'File successfully uploaded',
+               file_and_path)
     else:
         print('Allowed file type HEX')
         return('error','Allowed file type HEX')
     return None
 
-def flashing_hex_file(file=None,device=None):
-    if device:
+def flashing_hex_file(filepath_to_flash=None,device_id=0):
+    print(filepath_to_flash,device_id)
+    if device_id == 0:
         pass
     else:
         pass
-
-@app.route("/<device_name>",methods=['GET','POST'])
-def device_specific(device_name):
-    print(device_name)
-    if request.method == 'POST':
-        if request.files['file']:
-            [success, message] = hex_file_processing(request)
-            # everything went well
-            session['message'] = message
-            return redirect(url_for('hello', message=message))
-        # request didnt have file
-        return redirect(url_for('hello'), message="No file found")
-    # GET is not allowed in this method at this moment
-    return render_template('index.html', hostname=socket.gethostname(), ipaddress=get_ipaddress(),
-                           strip_path_inorder=strip_path_inorder[1:], message="GET not allowed")
 
 @app.route("/",methods=['GET','POST'])
 def hello():
     if request.method == 'POST':
         if request.files['file']:
-            [success, message] = hex_file_processing(request)
+            [success, message, filepath_to_flash] = hex_file_processing(request)
             # todo start a thread to flash all devices one by one
-            flashing_hex_file()
+            # print (request.form['device']) device to flash is available on this device
+            print(filepath_to_flash)
+            flashing_hex_file(filepath_to_flash=filepath_to_flash,device_id=request.form['device'])
             return render_template('index.html', hostname=socket.gethostname(), ipaddress= get_ipaddress(), strip_path_inorder=strip_path_inorder[1:], message=message)
         return render_template('index.html', hostname=socket.gethostname(), ipaddress= get_ipaddress(), strip_path_inorder=strip_path_inorder[1:], message="No file found")
     if request.method == 'GET':
         return render_template('index.html', hostname=socket.gethostname(), ipaddress= get_ipaddress(), strip_path_inorder=strip_path_inorder[1:])
+
 @app.route('/node_inorder')
 def node_inorder():
     # returns a list of nodes in order as physically installed in the strip starting with the one closest to the RPi

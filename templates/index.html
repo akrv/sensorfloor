@@ -44,12 +44,28 @@
                 <div class="lead text-white">
                     <h1 class="jumbotron-heading">Sensor Floor</h1>
                     <form method="post" action="/" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label>Flash all sensors in this strip with the same program</label>
-                            <input type="file" class="form-control-file" id="inp" name="file">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupFileAddon01">
+                                <select name="device" class="browser-default custom-select">
+                                    <option selected value="0">0</option>
+                                    {% for i in range(1,16) -%}
+                                        <option value="{{ i }}">{{ i }}</option>
+                                    {%- endfor %}
+                                </select>
+                                </span>
+                            </div>
+                            <div class="custom-file">
+                                <input name="file" type="file" class="custom-file-input" id="inputGroupFile01"
+                                       aria-describedby="inputGroupFileAddon01">
+                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            </div>
+
                         </div>
                         <button type="submit" class="btn btn-secondary">Flash</button>
+
                     </form>
+
                     This is one of the many data processors of the strips. <br/>
                     This data-processor contains a strip with 15 sensors connected to it. <br/>
                 </div>
@@ -90,34 +106,34 @@
                 <div class="row multi-collapse" id="sensorList">
 
                     {% for item in strip_path_inorder -%}
-                            <div class="col-md-4">
-                                <div class="card mb-4 box-shadow">
-                                    <div class="card-body">
-                                        <h5>{{ item.wire1 }}</h5>
-                                        <p class="card-text">Position: {{ item.id  }} <br/>
-                                            IEEE Address: {{ item.IEEE  }}</p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-sm btn-outline-secondary"
-                                                        data-toggle="modal" data-target="#ViewModal">
-                                                    View
-                                                </button>
-                                                <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-sm btn-outline-secondary"
-                                                        data-toggle="modal" data-target="#EditModal">
-                                                    Edit
-                                                </button>
-                                            </div>
-                                            <small class="text-muted">9 mins</small>
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <div class="card-body">
+                                    <h5>{{ item.wire1 }}</h5>
+                                    <p class="card-text">Position: {{ item.id }} <br/>
+                                        IEEE Address: {{ item.IEEE }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                    data-toggle="modal" data-target="#ViewModal">
+                                                View
+                                            </button>
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                    data-toggle="modal" data-target="#EditModal">
+                                                Edit
+                                            </button>
                                         </div>
+                                        <small class="text-muted">9 mins</small>
                                     </div>
                                 </div>
                             </div>
-                            {% with device=item %}
-                                {% include 'ViewModal.html' %}
-                                {% block editModal %}{% endblock %}
-                            {% endwith %}
+                        </div>
+                        {% with device=item %}
+                            {% include 'ViewModal.html' %}
+                            {% block editModal %}{% endblock %}
+                        {% endwith %}
                     {%- endfor %}
                 </div>
 
