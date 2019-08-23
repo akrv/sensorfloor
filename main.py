@@ -18,6 +18,9 @@ from wire1_wrapper import find_nodeObj, put_all_pins_to_zero, read_state_byte, r
 
 string_list = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15']
 
+def toggle_pin_hw(position, pin_number):
+    pass
+
 def run_simple_test():
     messages = []
     put_all_pins_to_zero()
@@ -64,11 +67,11 @@ def hex_file_processing(request):
     # check if the post request has the file part
     if 'file' not in request.files:
         print('No file part')
-        return('error','No file part')
+        return('error','No file part', None)
     file = request.files['file']
     if file.filename == '':
         print('No file selected for uploading')
-        return('error','No file selected for uploading')
+        return('error','No file selected for uploading', None)
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file_and_path = (os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -79,7 +82,7 @@ def hex_file_processing(request):
                file_and_path)
     else:
         print('Allowed file type HEX')
-        return('error','Allowed file type HEX')
+        return('error','Allowed file type HEX', None)
     return None
 
 def flashing_hex_file(filepath_to_flash=None,device_id=0):
@@ -110,9 +113,27 @@ def node_inorder():
 
 @app.route('/addr_finder')
 def addrs_finder():
+    global returned_from_address_finder
     # address finder will be started
     returned_from_address_finder = address_finder()
     return jsonify(returned_from_address_finder)
+
+@app.route('/addresses')
+def addresses():
+    # address finder will be started
+    return jsonify(returned_from_address_finder)
+
+@app.route('/toggle/<position>/<pin_number>')
+def toggle_pin_number(position,pin_number):
+    # address finder will be started
+    if 0 <= int(position) <= 15:
+        if pin_number == 'DP12' or pin_number == 'DP11':
+            toggle_pin_hw(int(position),pin_number)
+            return jsonify({ 'status': 'ok', 'pin_number': pin_number, 'position': position})
+        else:
+            return jsonify({'status':'error', 'msg': 'ping to toggle is either 11 or 12'})
+    else:
+        return jsonify({'status':'error', 'msg': 'position should be between 0 and 15'})
 
 if __name__ == '__main__':
     strip_path_inorder = []
@@ -121,7 +142,7 @@ if __name__ == '__main__':
     with open(os.path.dirname(os.path.realpath(__file__))+'/addr_finder/node_order.json') as json_file:
         strip_path_inorder = json.load(json_file)
     json_file.close()
-
+    returned_from_address_finder = strip_path_inorder
     app.secret_key = "secret_key"
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.run(debug=True,host='0.0.0.0')
