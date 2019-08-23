@@ -21,6 +21,13 @@ string_list = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15'
 def toggle_pin_hw(position, pin_number):
     pass
 
+def flashing_hex_file(filepath_to_flash=None,device_id=0):
+    print(filepath_to_flash,device_id)
+    if device_id == 0:
+        pass
+    else:
+        pass
+
 def run_simple_test():
     messages = []
     put_all_pins_to_zero()
@@ -55,7 +62,6 @@ def get_ipaddress():
         ip = ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
     return ip
 
-# TODO needs to be changed for production
 UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))+'/flash'
 ALLOWED_EXTENSIONS = set(['hex'])
 
@@ -68,10 +74,13 @@ def hex_file_processing(request):
     if 'file' not in request.files:
         print('No file part')
         return('error','No file part', None)
+
     file = request.files['file']
+
     if file.filename == '':
         print('No file selected for uploading')
         return('error','No file selected for uploading', None)
+
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file_and_path = (os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -80,17 +89,11 @@ def hex_file_processing(request):
         return('OK',
                'File successfully uploaded',
                file_and_path)
+
     else:
         print('Allowed file type HEX')
         return('error','Allowed file type HEX', None)
     return None
-
-def flashing_hex_file(filepath_to_flash=None,device_id=0):
-    print(filepath_to_flash,device_id)
-    if device_id == 0:
-        pass
-    else:
-        pass
 
 @app.route("/",methods=['GET','POST'])
 def hello():
