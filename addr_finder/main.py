@@ -32,7 +32,7 @@ def read_data(sensor_path):
     ponce = False
     ser = serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=1)
     start_time = time()
-    while time() - start_time < 1:
+    while time() - start_time < 0.5:
         rcvdData = ser.readline().decode('ascii')
         if rcvdData:
             #verify its the logging line
@@ -133,6 +133,7 @@ def addr_find():
                 # get IEEE address
                 ieee_addr = run_jelmer()
                 sensor.PIO_BYTE = "64"  # lsb is PIO0 msb is PIO7
+
                 # this is an ordered list with 0 is 0 and the rest is populated
                 nodes_inorder_list[id] = {
                                         "wire1" : sensor._path,
@@ -142,14 +143,23 @@ def addr_find():
                 pprint(nodes_inorder_list)
 
         (json.dumps(nodes_inorder, sort_keys=True))  # probably this helps in sorting the nodes in order
+        write_go_ahead = status = True
+        # write to file only if test passes
+        # since 0 is not dict
+        for node_info in nodes_inorder_list[1:]:
+            if type(node_info) == 'dict':
+                if node_info['IEEE']=='EE:EE:EE:EE:EE:EE:EE:EE':
+                    write_go_ahead = False
+                    status = 'error'
 
+        if write_go_ahead:
         # path will work with production as well.
-        with open(os.path.dirname(os.path.realpath(__file__)) + '/node_order.json', 'w') as outfile:
-            json.dump(nodes_inorder_list, outfile)
-        return ('ok',nodes_inorder_list)
-
+            with open(os.path.dirname(os.path.realpath(__file__)) + '/node_order.json', 'w') as outfile:
+                json.dump(nodes_inorder_list, outfile)
+        return {'status':status,'node_list':nodes_inorder_list}
     else:
-        return ('error','not all devices are seen on the wire1 bus')
+
+        return {'status':'error','msg':'not all devices are seen on the wire1 bus'}
 if __name__ == '__main__':
     # populate the list
     list_of_nodes = get_all_name()
