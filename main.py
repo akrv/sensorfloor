@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request, flash, redirect, url_for, session
 from werkzeug.utils import secure_filename
-
+import serial
 import os, json
 app = Flask(__name__)
 
@@ -17,6 +17,27 @@ from wire1_wrapper import find_nodeObj, put_all_pins_to_zero, read_state_byte, r
 
 
 string_list = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15']
+
+def read_data_rs422(position, num_lines, event_pin=None):
+    read_line = []
+    ser = serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=1)
+
+    if event_pin:
+        # interrupt based
+        toggle_rs422_comms()
+
+    else:
+        # line based
+        # turn on position using 1 wire
+        while 1:
+            rcvdData = ser.readline().decode('ascii')
+            if rcvdData:
+                read_line.append(rcvdData)
+            if len(read_line) == int(num_lines):
+                ser.close()
+                break
+
+    return read_line
 
 def toggle_pin_hw(position, pin_number):
     pass
@@ -136,9 +157,30 @@ def toggle_pin_number(position,pin_number):
         else:
             return jsonify({'status':'error', 'msg': 'ping to toggle is either 11 or 12'})
     else:
-        return jsonify({'status':'error', 'msg': 'position should be between 0 and 15'})
+        return jsonify({'status':'error', 'msg': 'position should be between 0 and 15'})\
+
+@app.route('/read/<position>/<event_pin>')
+def read_lines(position,num_lines, event_pin=None):
+    global read_lock
+    if read_lock:
+        read_lock = False
+        # address finder will be started
+        if 0 <= int(position) <= 15:
+            if event_pin ==  None:
+                read_line = read_data_rs422(position,num_lines,event_pin)
+            else:
+                read_line = read_data_rs422(position,num_lines)
+            read_lock = True
+            return jsonify(read_line)
+
+        else:
+            return jsonify({'status':'error', 'msg': 'position should be between 0 and 15'})
+    else:
+        return jsonify({'status': 'error', 'msg': 'someone else is reading, try using MQTT channels for multiple clients'})
+
 
 if __name__ == '__main__':
+    read_lock = True
     strip_path_inorder = []
 
     # read the stored file which is a json with a list of items
