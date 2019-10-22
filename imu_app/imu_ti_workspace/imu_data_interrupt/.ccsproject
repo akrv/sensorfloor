@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?ccsproject version="1.0"?>
+<projectOptions>
+	<ccsVersion value="9.2.0"/>
+	<deviceVariant value="Cortex M.CC1350F128"/>
+	<deviceFamily value="TMS470"/>
+	<deviceEndianness value="little"/>
+	<codegenToolVersion value="18.12.3.LTS"/>
+	<isElfFormat value="true"/>
+	<connection value="common/targetdb/connections/TIXDS110_Connection.xml"/>
+	<rts value=""/>
+	<createSlaveProjects value=""/>
+	<ignoreDefaultDeviceSettings value="true"/>
+	<ignoreDefaultCCSSettings value="true"/>
+	<templateProperties value="id=uartecho_CC1350STK_tirtos_ccs.projectspec.uartecho_CC1350STK_tirtos_ccs,buildProfile=release,isHybrid=true"/>
+	<origin value="/home/gouda/ti/simplelink_cc13x0_sdk_3_20_00_23/examples/rtos/CC1350STK/drivers/uartecho/tirtos/ccs/uartecho_CC1350STK_tirtos_ccs.projectspec"/>
+	<filesToOpen value=""/>
+	<isTargetManual value="true"/>
+</projectOptions>
