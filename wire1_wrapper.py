@@ -76,8 +76,7 @@ def turn_on(node=None):
 def toggle_rs422_comms(comms_on, node):
     if node:
         nodeObj = find_nodeObj(node)
-        if nodeObj == NODE_NOT_FOUND:
-            return (('error',NODE_NOT_FOUND))
+
         if comms_on:
             # turn on RS422 comms
             if nodeObj.type == "DS2408":

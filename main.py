@@ -80,7 +80,10 @@ def get_ipaddress():
     try:
         ip = ni.ifaddresses('eth0')[ni.AF_INET][0]['addr']
     except KeyError:
-        ip = ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
+        try:
+            ip = ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
+        except:
+            ip = "0.0.0.0"
     return ip
 
 UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))+'/flash'

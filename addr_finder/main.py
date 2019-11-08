@@ -94,6 +94,10 @@ def set_all_0():
     # here every node is set to 0
     for sensor in node_list:
         if sensor.type == "DS2408":
+            sensor.out_of_testmode = "0"
+            sleep(0.1)
+            sensor.out_of_testmode = "1"
+            sleep(0.1)
             # print(sensor)
             sensor.PIO_BYTE = "64"  # lsb is PIO0 msb is PIO7
             # sleep(.3)
@@ -104,6 +108,8 @@ def set_to_0(node):
     # zero with comms turned off. so it is 64 and not 0 itself.
     for sensor in node_list:
         if sensor._path == node:
+            sensor.out_of_testmode = "1"
+            sleep(0.1)
             sensor.PIO_BYTE = "64"  # lsb is PIO0 msb is PIO7
             #sleep(.3)
 
@@ -115,7 +121,7 @@ def read_all():
 def addr_find():
     node_list = ow.Sensor('/').sensorList()
     list_of_nodes = get_all_name(node_list)
-    if len(list_of_nodes) == 15:
+    if len(list_of_nodes) <= 16:
         nodes_inorder_list = range(0,16)
         for sensor in node_list:
             if sensor.type == "DS2408":
@@ -124,6 +130,7 @@ def addr_find():
                 # else:
                 # print(sensor._path)
                 sensor.PIO_BYTE = "147"  # lsb is PIO0 msb is PIO7
+                print(sensor._path)
                 ## read data
                 (id,sensor_path) = read_data(sensor._path)
                 sensor.PIO_BYTE = "64"  # lsb is PIO0 msb is PIO7
@@ -162,8 +169,9 @@ def addr_find():
         return {'status':'error','msg':'not all devices are seen on the wire1 bus'}
 if __name__ == '__main__':
     # populate the list
-    list_of_nodes = get_all_name()
-    if len(list_of_nodes) == 15:
+    list_of_nodes = get_all_name(node_list)
+    print list_of_nodes
+    if len(list_of_nodes) <= 16:
         # set all nodes to 64
         set_all_0()
         # read_all()

@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import re, os, time, struct
+import ow
+(ow.init('localhost:4304'))
+from time import sleep
 
 def readOutput(slave):
     try:
@@ -46,27 +49,18 @@ sensor_path1 = ['29-0000002f9946',
                '29-0000002f99cf',
                '29-0000002f99e4',
                ]
-sensor_path = ['/29.CF992F000000',  # closest to the RPi
-               '/29.84992F000000',
-               '/29.8C992F000000',
-               '/29.0F9A2F000000',
-               '/29.DF992F000000',
-               '/29.DC992F000000',
-               '/29.CC992F000000',
-               '/29.E4992F000000',
-               '/29.D4992F000000',
-               '/29.8F992F000000',
-               '/29.279A2F000000',
-               '/29.A5992F000000',
-               '/29.46992F000000',
-               '/29.4F992F000000',
-               '/29.EF992F000000'   # farthest to the RPi
-               ]
+#sensor_path = ['/29.24FF2F000000', '/29.A4EB2F000000', '/29.A4CF2F000000', '/29.B4EB2F000000', '/29.740A30000000', '/29.F2FE2F000000', '/29.AAF12F000000', '/29.9EEB2F000000', '/29.01E42F000000', '/29.A1FE2F000000', '/29.A9FC2F000000', '/29.35EB2F000000', '/29.5D0530000000', '/29.5FFC2F000000']
+sensor_path = ow.Sensor('/').sensorList()
+
 
 for slave in sensor_path:
     # print(readOutput(slave))
     # print("State")
-
-    writeOutput(64,slave), slave
-    print(readState(slave),slave)
+     
+    #writeOutput(64,slave), slave
+    #print(readState(slave),slave)
+    for sensor in sensor_path:
+         sensor.PIO_BYTE = "64"  # lsb is PIO0 msb is PIO7
+         sleep(0.01)
+         
 
