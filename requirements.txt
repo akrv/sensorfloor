@@ -16,7 +16,7 @@ ow===3.2p3
 pycrypto==2.6.1
 PyGObject==3.30.4
 pyserial==3.4
-pyxdg==0.25
+pyxdg==0.26
 PyYAML==5.1.2
 RPi.GPIO==0.7.0
 SecretStorage==2.3.1
