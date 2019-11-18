@@ -7,12 +7,15 @@ node_list = ow.Sensor('/').sensorList()
 import os, json, yaml
 
 from subprocess import Popen, PIPE
-
+import argparse
 import serial
 nodes_inorder = {}
 
-def run_jelmer():
-    process = Popen(['python', '../cc2538-bsl/cc2538-bsl.py'], stdout=PIPE, stderr=PIPE)
+def run_jelmer(bootloader_path = None):
+    if bootloader_path:
+        process = Popen(['python', bootloader_path], stdout=PIPE, stderr=PIPE)
+    else:
+        process = Popen(['python', '../cc2538-bsl/cc2538-bsl.py'], stdout=PIPE, stderr=PIPE)
     stdout, stderr = process.communicate()
     process.wait()
     # print(stdout, stderr)
@@ -118,7 +121,7 @@ def read_all():
         if sensor.type == "DS2408":
             print(sensor._path, sensor.sensed_BYTE)
 
-def addr_find(force_find=False):
+def  addr_find(force_find=False,bootloader_path=None):
     # check for node order file. if exists, use this instead of querying.
     if not force_find:
         try:
@@ -150,7 +153,7 @@ def addr_find(force_find=False):
                     # check bootloader
                     set_blm(sensor)
                     # get IEEE address
-                    ieee_addr = run_jelmer()
+                    ieee_addr = run_jelmer(bootloader_path=bootloader_path)
                     sensor.PIO_BYTE = "64"  # lsb is PIO0 msb is PIO7
 
                     # this is an ordered list with 0 is 0 and the rest is populated
@@ -182,6 +185,11 @@ def addr_find(force_find=False):
             return {'status':'error','msg':'not all devices are seen on the wire1 bus'}
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Find addresses of nodes in the sensor floor')
+    parser.add_argument('--force',
+                        help='Force finding the wire1 addresses (default: prints node_inorder.json)')
+    args = parser.parse_args()
+
     # populate the list
     list_of_nodes = get_all_name(node_list)
     # print list_of_nodes
@@ -190,8 +198,10 @@ if __name__ == '__main__':
         set_all_0()
         # read_all()
         # test_run_table()
-        nodes_inorder = addr_find()
-
+        if args.force:
+            nodes_inorder = addr_find(force_find=True)
+        else:
+            nodes_inorder = addr_find(force_find=False)
         for node in nodes_inorder:
             pprint(node)
         print("ID 0 means the device ID was not found\nIEEE address is EE:EE:... there is problems with bootloader mode.")
