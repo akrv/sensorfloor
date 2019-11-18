@@ -142,7 +142,7 @@ def node_inorder():
 def addrs_finder():
     global returned_from_address_finder
     # address finder will be started
-    returned_from_address_finder = address_finder()
+    returned_from_address_finder = address_finder(force_find=False)
     return jsonify(returned_from_address_finder)
 
 @app.route('/addresses')

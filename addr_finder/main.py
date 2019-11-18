@@ -118,7 +118,7 @@ def read_all():
         if sensor.type == "DS2408":
             print(sensor._path, sensor.sensed_BYTE)
 
-def addr_find(force_find=None):
+def addr_find(force_find=False):
     # check for node order file. if exists, use this instead of querying.
     if not force_find:
         try:
