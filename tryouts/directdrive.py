@@ -53,14 +53,25 @@ sensor_path1 = ['29-0000002f9946',
 sensor_path = ow.Sensor('/').sensorList()
 
 
-for slave in sensor_path:
-    # print(readOutput(slave))
-    # print("State")
-     
-    #writeOutput(64,slave), slave
-    #print(readState(slave),slave)
-    for sensor in sensor_path:
-         sensor.PIO_BYTE = "64"  # lsb is PIO0 msb is PIO7
-         sleep(0.01)
+# for slave in sensor_path:
+#     # print(readOutput(slave))
+#     # print("State")
+#
+#     #writeOutput(64,slave), slave
+#     #print(readState(slave),slave)
+for sensor in sensor_path:
+    sensor.PIO_BYTE = "64"  # lsb is PIO0 msb is PIO7
+for sensor in sensor_path:
+    print (sensor._path)
+    if sensor._path == '/29.EF992F000000':
+         sleep(1)
+         sensor.PIO_BYTE = "147"
+         sleep(1)
+         sensor.PIO_BYTE = "159"
+         sleep(1)  # wait until chip boots to BL mode
+         sensor.PIO_BYTE = "150"
+         sleep(1)
+         break
+
          
 

@@ -6,16 +6,18 @@ app = Flask(__name__)
 from time import sleep
 import socket
 import netifaces as ni
+from subprocess import Popen, PIPE
 import ow
+
 (ow.init('localhost:4304'))
 node_list = ow.Sensor('/').sensorList()
 
 from pprint import pprint
-from config import strip_path_inorder, NODE_NOT_FOUND, address_finder
+from config import NODE_NOT_FOUND, address_finder
 
 from wire1_wrapper import find_nodeObj, put_all_pins_to_zero, read_state_byte, read_data, power_reset, turn_on,toggle_rs422_comms
 
-
+bootloader_path = 'cc2538-bsl/cc2538-bsl.py'
 string_list = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15']
 
 def read_data_rs422(position, num_lines, event_pin=None):
@@ -63,6 +65,12 @@ def flashing_hex_file(filepath_to_flash=None,device_id=0):
 
         if device_found:
 
+
+            for sensor in node_list:
+                # set all devices PIO 6 and 7 RX and TX off.
+                if sensor.type == "DS2408":
+                    sensor.PIO_7 = "0"
+                    sensor.PIO_6 = "1"
             for sensor in node_list:
                 if sensor.type == "DS2408" and sensor._path == strip_path_inorder[device_id]:
                     print(sensor._path)
@@ -72,6 +80,14 @@ def flashing_hex_file(filepath_to_flash=None,device_id=0):
                     sleep(0.1)  # wait until chip boots to BL mode
                     sensor.PIO_BYTE = "150"
                     print ('sensor set in BLM')
+                    process = Popen(['python', bootloader_path, '-e', '-w', '-v',filepath_to_flash], stdout=PIPE, stderr=PIPE)
+                    stdout, stderr = process.communicate()
+                    process.wait()
+                    print(stdout, stderr)
+
+                    # turn back to the right state
+                    sensor.PIO_BYTE = "64"
+
                     return ('OK','Flash successful',device_id)
         else:
             return ('error','device not found in this strip')
@@ -166,9 +182,9 @@ def node_inorder():
 
 @app.route('/addr_finder')
 def addrs_finder():
-    global returned_from_address_finder
+    global returned_from_address_finder, bootloader_path
     # address finder will be started
-    returned_from_address_finder = address_finder(force_find=False,bootloader_path='cc2538-bsl/cc2538-bsl.py')
+    returned_from_address_finder = address_finder(force_find=False,bootloader_path=bootloader_path)
     return jsonify(returned_from_address_finder)
 
 @app.route('/addresses')
