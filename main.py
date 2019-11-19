@@ -3,19 +3,21 @@ from werkzeug.utils import secure_filename
 import serial
 import os, json
 app = Flask(__name__)
-
+from time import sleep
 import socket
 import netifaces as ni
+from subprocess import Popen, PIPE
 import ow
+
 (ow.init('localhost:4304'))
 node_list = ow.Sensor('/').sensorList()
 
 from pprint import pprint
-from config import strip_path_inorder, NODE_NOT_FOUND, address_finder
+from config import NODE_NOT_FOUND, address_finder
 
 from wire1_wrapper import find_nodeObj, put_all_pins_to_zero, read_state_byte, read_data, power_reset, turn_on,toggle_rs422_comms
 
-
+bootloader_path = 'cc2538-bsl/cc2538-bsl.py'
 string_list = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15']
 
 def read_data_rs422(position, num_lines, event_pin=None):
@@ -43,12 +45,52 @@ def toggle_pin_hw(position, pin_number):
     pass
 
 def flashing_hex_file(filepath_to_flash=None,device_id=0):
+
+    global returned_from_address_finder, strip_path_inorder
+    node_list = ow.Sensor('/').sensorList()
     print(filepath_to_flash,device_id)
     if device_id == 0:
+        # flash all devices
         pass
     else:
-        pass
+        device_id = int(device_id)
+        # flash device with position number
+        device_found = False
+        for sensor_iter in returned_from_address_finder:
 
+            if sensor_iter["id"] == device_id:
+                sensor = sensor_iter["wire1"]
+                device_found = True
+                break
+
+        if device_found:
+
+
+            for sensor in node_list:
+                # set all devices PIO 6 and 7 RX and TX off.
+                if sensor.type == "DS2408":
+                    sensor.PIO_7 = "0"
+                    sensor.PIO_6 = "1"
+            for sensor in node_list:
+                if sensor.type == "DS2408" and sensor._path == strip_path_inorder[device_id]:
+                    print(sensor._path)
+                    sensor.PIO_BYTE = "147"
+                    sleep(0.01)
+                    sensor.PIO_BYTE = "159"
+                    sleep(0.1)  # wait until chip boots to BL mode
+                    sensor.PIO_BYTE = "150"
+                    print ('sensor set in BLM')
+                    process = Popen(['python', bootloader_path, '-e', '-w', '-v',filepath_to_flash], stdout=PIPE, stderr=PIPE)
+                    stdout, stderr = process.communicate()
+                    process.wait()
+                    print(stdout, stderr)
+
+                    # turn back to the right state
+                    sensor.PIO_BYTE = "64"
+
+                    return ('OK','Flash successful',device_id)
+        else:
+            return ('error','device not found in this strip')
 def run_simple_test():
     messages = []
     put_all_pins_to_zero()
@@ -80,7 +122,10 @@ def get_ipaddress():
     try:
         ip = ni.ifaddresses('eth0')[ni.AF_INET][0]['addr']
     except KeyError:
-        ip = ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
+        try:
+            ip = ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
+        except:
+            ip = "0.0.0.0"
     return ip
 
 UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))+'/flash'
@@ -106,7 +151,7 @@ def hex_file_processing(request):
         filename = secure_filename(file.filename)
         file_and_path = (os.path.join(app.config['UPLOAD_FOLDER'], filename))
         file.save(file_and_path)
-        print('File successfully uploaded')
+        # print('File successfully uploaded')
         return('OK',
                'File successfully uploaded',
                file_and_path)
@@ -123,8 +168,8 @@ def hello():
             [success, message, filepath_to_flash] = hex_file_processing(request)
             # todo start a thread to flash all devices one by one
             # print (request.form['device']) device to flash is available on this device
-            print(filepath_to_flash)
-            flashing_hex_file(filepath_to_flash=filepath_to_flash,device_id=request.form['device'])
+            flash_status = flashing_hex_file(filepath_to_flash=filepath_to_flash,device_id=request.form['device'])
+            print(flash_status)
             return render_template('index.html', hostname=socket.gethostname(), ipaddress= get_ipaddress(), strip_path_inorder=strip_path_inorder[1:], message=message)
         return render_template('index.html', hostname=socket.gethostname(), ipaddress= get_ipaddress(), strip_path_inorder=strip_path_inorder[1:], message="No file found")
     if request.method == 'GET':
@@ -137,9 +182,9 @@ def node_inorder():
 
 @app.route('/addr_finder')
 def addrs_finder():
-    global returned_from_address_finder
+    global returned_from_address_finder, bootloader_path
     # address finder will be started
-    returned_from_address_finder = address_finder()
+    returned_from_address_finder = address_finder(force_find=False,bootloader_path=bootloader_path)
     return jsonify(returned_from_address_finder)
 
 @app.route('/addresses')
@@ -188,6 +233,7 @@ if __name__ == '__main__':
         strip_path_inorder = json.load(json_file)
     json_file.close()
     returned_from_address_finder = strip_path_inorder
+    strip_path_inorder = [node_name['wire1'] for node_name in strip_path_inorder]
     app.secret_key = "secret_key"
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.run(debug=True,host='0.0.0.0')
