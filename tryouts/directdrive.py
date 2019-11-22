@@ -66,11 +66,11 @@ for sensor in sensor_path:
     if sensor._path == '/29.EF992F000000':
          sleep(1)
          sensor.PIO_BYTE = "147"
-         sleep(1)
-         sensor.PIO_BYTE = "159"
-         sleep(1)  # wait until chip boots to BL mode
-         sensor.PIO_BYTE = "150"
-         sleep(1)
+         # sleep(1)
+         # sensor.PIO_BYTE = "159"
+         # sleep(1)  # wait until chip boots to BL mode
+         # sensor.PIO_BYTE = "150"
+         # sleep(1)
          break
 
          
