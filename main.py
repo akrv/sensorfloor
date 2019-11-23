@@ -49,9 +49,35 @@ def flashing_hex_file(filepath_to_flash=None,device_id=0):
     global returned_from_address_finder, strip_path_inorder
     node_list = ow.Sensor('/').sensorList()
     print(filepath_to_flash,device_id)
-    if device_id == 0:
+    if device_id == '0':
+        stderr_concat = []
+        # put all devices in the right state to flash
+        for sensor in node_list:
+            # set all devices PIO 6 and 7 RX and TX off.
+            if sensor.type == "DS2408":
+                sensor.PIO_7 = "0"
+                sensor.PIO_6 = "1"
         # flash all devices
-        pass
+        for sensor in node_list:
+            if sensor.type == "DS2408":
+                sensor.PIO_BYTE = "147"
+                sleep(0.01)
+                sensor.PIO_BYTE = "159"
+                sleep(0.1)  # wait until chip boots to BL mode
+                sensor.PIO_BYTE = "150"
+                process = Popen(['python', bootloader_path, '-e', '-w', '-v', filepath_to_flash], stdout=PIPE,
+                                stderr=PIPE)
+                stdout, stderr = process.communicate()
+                process.wait()
+                stderr_concat.append(stderr)
+                print(stdout, stderr)
+                # turn back to the right state
+                # turn on and put it in a no communicate state.
+                sensor.PIO_BYTE = "147"
+                sensor.PIO_7 = "0"
+                sensor.PIO_6 = "1"
+
+        return ('OK',stderr_concat,device_id)
     else:
         device_id = int(device_id)
         # flash device with position number
@@ -64,8 +90,6 @@ def flashing_hex_file(filepath_to_flash=None,device_id=0):
                 break
 
         if device_found:
-
-
             for sensor in node_list:
                 # set all devices PIO 6 and 7 RX and TX off.
                 if sensor.type == "DS2408":
@@ -73,22 +97,25 @@ def flashing_hex_file(filepath_to_flash=None,device_id=0):
                     sensor.PIO_6 = "1"
             for sensor in node_list:
                 if sensor.type == "DS2408" and sensor._path == strip_path_inorder[device_id]:
-                    print(sensor._path)
                     sensor.PIO_BYTE = "147"
                     sleep(0.01)
                     sensor.PIO_BYTE = "159"
                     sleep(0.1)  # wait until chip boots to BL mode
                     sensor.PIO_BYTE = "150"
-                    print ('sensor set in BLM')
                     process = Popen(['python', bootloader_path, '-e', '-w', '-v',filepath_to_flash], stdout=PIPE, stderr=PIPE)
                     stdout, stderr = process.communicate()
                     process.wait()
                     print(stdout, stderr)
-
                     # turn back to the right state
+                    # turn on and put it in a no communicate state.
+                    # reset power to reboot
                     sensor.PIO_BYTE = "64"
-
-                    return ('OK','Flash successful',device_id)
+                    # set at running
+                    sensor.PIO_BYTE = "147"
+                    # stop communicating
+                    sensor.PIO_7 = "0"
+                    sensor.PIO_6 = "1"
+                    return ('OK',stderr,device_id)
         else:
             return ('error','device not found in this strip')
 def run_simple_test():
@@ -129,7 +156,7 @@ def get_ipaddress():
     return ip
 
 UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))+'/flash'
-ALLOWED_EXTENSIONS = set(['hex'])
+ALLOWED_EXTENSIONS = set(['hex','bin'])
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -170,6 +197,7 @@ def hello():
             # print (request.form['device']) device to flash is available on this device
             flash_status = flashing_hex_file(filepath_to_flash=filepath_to_flash,device_id=request.form['device'])
             print(flash_status)
+            message = flash_status[1]
             return render_template('index.html', hostname=socket.gethostname(), ipaddress= get_ipaddress(), strip_path_inorder=strip_path_inorder[1:], message=message)
         return render_template('index.html', hostname=socket.gethostname(), ipaddress= get_ipaddress(), strip_path_inorder=strip_path_inorder[1:], message="No file found")
     if request.method == 'GET':
