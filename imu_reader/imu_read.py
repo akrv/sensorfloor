@@ -56,7 +56,7 @@ def reader_worker(strip_id,strip_path_inorder,node_list,serial_handler, mqtt_con
                 sensor.PIO_7 = "0"
                 sensor.PIO_6 = "1"
         # print(time()-start_time)
-        ret = client1.publish('imu_reader/latency', str(time()-start_time))  # publish
+        ret = client1.publish('imu_reader/'+strip_id+'/latency', str(time()-start_time))  # publish
 if __name__ == '__main__':
     broker = "129.217.152.1"
     port = 8883
