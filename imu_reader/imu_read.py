@@ -2,8 +2,9 @@ import serial
 from time import sleep, time
 import os, json
 from subprocess import Popen, PIPE
-import ow
+import ow, json
 import paho.mqtt.client as paho
+from pprint import pprint
 
 def reader_worker(strip_id,strip_path_inorder,node_list,serial_handler, mqtt_connection_info):
     # strip id is important for constructing the topic
@@ -25,9 +26,9 @@ def reader_worker(strip_id,strip_path_inorder,node_list,serial_handler, mqtt_con
         start_time = time()
         for sensor in node_list:
             if sensor.type == "DS2408":
-
+                node_id = str(1+strip_path_inorder.index(sensor._path))
                 # construct topic for publishing
-                mqtt_publish_topic = 'imu_reader'+"/"+strip_id+"/"+str(1+strip_path_inorder.index(sensor._path))
+                mqtt_publish_topic = 'imu_reader'+"/"+strip_id+"/"+node_id
 
                 # set all devices PIO 6 and 7 RX and TX off.
                 # turn on RS422 before read
@@ -50,7 +51,45 @@ def reader_worker(strip_id,strip_path_inorder,node_list,serial_handler, mqtt_con
                     if len(data_received)==2:
                         all_read = False
                 # print(mqtt_publish_topic,data_received)
-                ret = client1.publish(mqtt_publish_topic,str(data_received))  # publish
+
+                # IMU data parsing
+                try:
+                    accel = data_received[0].split(',')[1:4]
+                except:
+                    accel = [0, 0, 0]
+
+                try:
+                    gyro = data_received[1].split(',')[1:4]
+                except:
+                    gyro = [0, 0, 0]
+                try:
+                    mag = data_received[1].split(',')[5:8]
+                except:
+                    mag = [0,0,0]
+
+                for i in range(3):
+                    # gyro: value = (data * 1.0) / (65536 / 500)
+                    try:
+                        gyro[i] = (int(gyro[i])*1.0)/(65536 / 500)
+                    except:
+                        gyro = [0, 0, 0]
+                    # accel: 2G
+                    # v = (rawData * 1.0) / (32768/2);
+                    try:
+                        accel[i] = (int(accel[i])*1.0)/((32768/2))
+                    except:
+                        accel = [0, 0, 0]
+                # mag: reading is already processed
+                data_to_publsih = {
+                                    'node': int(node_id),
+                                    'strip': (strip_id),
+                                    'accel':    accel,
+                                    'gyro':     gyro,
+                                    'mag':      mag
+                                    }
+                # pprint(data_to_publsih)
+
+                ret = client1.publish(mqtt_publish_topic,json.dumps(data_to_publsih))  # publish
 
                 # turn off RS422 after read
                 sensor.PIO_7 = "0"
