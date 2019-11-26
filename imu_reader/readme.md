@@ -1,4 +1,4 @@
-**Latency measurements for looping through the strip**
+**Latency measurements for looping through the strip**<br/>
 {'interrupt': 0.04644303639729818,
  <br/>'parsing': 0.04644303639729818,
  <br/>'publish': 0.04644303639729818,
