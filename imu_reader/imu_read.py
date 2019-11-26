@@ -26,7 +26,7 @@ def reader_worker(strip_id,strip_path_inorder,node_list,serial_handler, mqtt_con
     rs422_latency = parsing_latency = publish_latency = switching_latency = interrupt_latency =[]
     while continously_run:
         for sensor in node_list:
-
+            loop_start_time = time()
             # if sensor.type == "DS2408" and sensor._path == '/29.EF992F000000':
             if sensor.type == "DS2408":
                 node_id = str(1+strip_path_inorder.index(sensor._path))
@@ -92,7 +92,7 @@ def reader_worker(strip_id,strip_path_inorder,node_list,serial_handler, mqtt_con
                 # mag: reading is already processed
 
                 publish_start_time = time()
-                data_to_publsih = {
+                data_to_publish = {
                                     'node': int(node_id),
                                     'strip': (strip_id),
                                     'accel':    accel,
@@ -100,7 +100,7 @@ def reader_worker(strip_id,strip_path_inorder,node_list,serial_handler, mqtt_con
                                     'mag':      mag
                                     }
 
-                ret = client1.publish(mqtt_publish_topic,json.dumps(data_to_publsih))  # publish
+                ret = client1.publish(mqtt_publish_topic,json.dumps(data_to_publish))  # publish
                 publish_latency.append(time()-publish_start_time)
 
                 switching2 = time()
