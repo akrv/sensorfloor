@@ -16,16 +16,18 @@ def reader_worker(strip_id,strip_path_inorder,node_list,serial_handler, mqtt_con
     client1 = paho.Client("raspi-dev")  # create client
     client1.connect(mqtt_connection_info[0], mqtt_connection_info[1])  # establish connection
 
+    # turn on and put them in a not communicating mode
+    for sensor in node_list:
+        if sensor.type == "DS2408":
+            sensor.PIO_BYTE = "64"      # turn off
+            sensor.PIO_BYTE = "147"     # turn on with comms
+            sensor.PIO_7 = "0"          # turn off RX & TX
+            sensor.PIO_6 = "1"
     while continously_run:
-        for sensor in node_list:
-            if sensor.type == "DS2408":
-                sensor.PIO_BYTE = "64"
-                sensor.PIO_BYTE = "147"
-                sensor.PIO_7 = "0"
-                sensor.PIO_6 = "1"
         start_time = time()
         for sensor in node_list:
-            if sensor.type == "DS2408":
+            if sensor.type == "DS2408" and sensor._path == '/29.EF992F000000':
+            # if sensor.type == "DS2408":
                 node_id = str(1+strip_path_inorder.index(sensor._path))
                 # construct topic for publishing
                 mqtt_publish_topic = 'imu_reader'+"/"+strip_id+"/"+node_id
@@ -88,9 +90,7 @@ def reader_worker(strip_id,strip_path_inorder,node_list,serial_handler, mqtt_con
                                     'mag':      mag
                                     }
                 # pprint(data_to_publsih)
-
                 ret = client1.publish(mqtt_publish_topic,json.dumps(data_to_publsih))  # publish
-
                 # turn off RS422 after read
                 sensor.PIO_7 = "0"
                 sensor.PIO_6 = "1"

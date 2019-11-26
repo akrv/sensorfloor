@@ -31,18 +31,17 @@ def on_message(client, userdata, msg):
       accel_x = j_msg['accel'][0]
       accel_y = j_msg['accel'][1]
       accel_z = j_msg['accel'][2]
-      # if j_msg['node']==1:
 
-      # plot data
-      global count
-      count += 1
-      data.add(count, accel_x, accel_y,accel_z)
-      dataPlotting.plot(data)
-      plt.pause(0.001)
+      with open('data_1.txt', 'a+') as f:
+          f.write(j_msg + "\n")
 
-
-
-
+      if j_msg['node']==1:
+          # plot data
+          global count
+          count += 1
+          data.add(count, accel_x, accel_y,accel_z)
+          dataPlotting.plot(data)
+          plt.pause(0.001)
 
 # set paho.mqtt callback
 client = mqtt.Client()
