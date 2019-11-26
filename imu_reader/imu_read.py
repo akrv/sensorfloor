@@ -23,27 +23,31 @@ def reader_worker(strip_id,strip_path_inorder,node_list,serial_handler, mqtt_con
             sensor.PIO_BYTE = "147"     # turn on with comms
             sensor.PIO_7 = "0"          # turn off RX & TX
             sensor.PIO_6 = "1"
+    rs422_latency = parsing_latency = publish_latency = switching_latency = interrupt_latency =[]
     while continously_run:
-        start_time = time()
         for sensor in node_list:
-            if sensor.type == "DS2408" and sensor._path == '/29.EF992F000000':
-            # if sensor.type == "DS2408":
+
+            # if sensor.type == "DS2408" and sensor._path == '/29.EF992F000000':
+            if sensor.type == "DS2408":
                 node_id = str(1+strip_path_inorder.index(sensor._path))
                 # construct topic for publishing
                 mqtt_publish_topic = 'imu_reader'+"/"+strip_id+"/"+node_id
 
+                switching_start_time = time()
                 # set all devices PIO 6 and 7 RX and TX off.
                 # turn on RS422 before read
                 sensor.PIO_7 = "1"
                 sensor.PIO_6 = "0"
+                switching_start_time = (time()-switching_start_time)
 
-                # sending this give 1 as value
-                # print(sensor.sensed_2)
-
+                interrupt_start_time = time()
                 # send interrupt
                 sensor.PIO_2 = "1"
                 sensor.PIO_2 = "0"
                 sensor.PIO_2 = "1"
+                interrupt_latency.append(time()-interrupt_start_time)
+
+                read_start_time = time()
                 all_read = True
                 data_received = []
                 while all_read:
@@ -51,9 +55,12 @@ def reader_worker(strip_id,strip_path_inorder,node_list,serial_handler, mqtt_con
                     if rcvdData:
                         data_received.append(rcvdData)
                     if len(data_received)==2:
+                        rs422_latency.append(time() - read_start_time)
                         all_read = False
+
                 # print(mqtt_publish_topic,data_received)
 
+                parsing_start_time =  time()
                 # IMU data parsing
                 try:
                     accel = data_received[0].split(',')[1:4]
@@ -81,7 +88,10 @@ def reader_worker(strip_id,strip_path_inorder,node_list,serial_handler, mqtt_con
                         accel[i] = (int(accel[i])*1.0)/((32768/2))
                     except:
                         accel = [0, 0, 0]
+                parsing_latency.append(time() - parsing_start_time)
                 # mag: reading is already processed
+
+                publish_start_time = time()
                 data_to_publsih = {
                                     'node': int(node_id),
                                     'strip': (strip_id),
@@ -89,13 +99,25 @@ def reader_worker(strip_id,strip_path_inorder,node_list,serial_handler, mqtt_con
                                     'gyro':     gyro,
                                     'mag':      mag
                                     }
-                # pprint(data_to_publsih)
+
                 ret = client1.publish(mqtt_publish_topic,json.dumps(data_to_publsih))  # publish
+                publish_latency.append(time()-publish_start_time)
+
+                switching2 = time()
                 # turn off RS422 after read
                 sensor.PIO_7 = "0"
                 sensor.PIO_6 = "1"
-        # print(time()-start_time)
-        ret = client1.publish('imu_reader/'+strip_id+'/latency', str(time()-start_time))  # publish
+                switching_latency.append(switching_start_time+(time()-switching2))
+
+        latency_info = {'publish':      sum(publish_latency)/len(publish_latency),
+                        'interrupt':    sum(interrupt_latency)/len(interrupt_latency),
+                        'parsing':      sum(parsing_latency)/len(parsing_latency),
+                        'switching':    sum(switching_latency)/len(switching_latency),
+                        'rs422':        sum(rs422_latency)/len(rs422_latency)
+                        }
+
+        pprint(latency_info)
+        # ret = client1.publish('imu_reader/'+strip_id+'/latency', json.dumps(latency_info))  # publish
 if __name__ == '__main__':
     broker = "129.217.152.1"
     port = 8883

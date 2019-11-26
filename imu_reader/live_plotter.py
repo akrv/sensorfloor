@@ -28,12 +28,9 @@ def on_message(client, userdata, msg):
       # print(msg.payload)
       j_msg = json.loads(msg.payload.decode('utf-8'))
       print(j_msg)
-      accel_x = j_msg['accel'][0]
-      accel_y = j_msg['accel'][1]
-      accel_z = j_msg['accel'][2]
-
-      with open('data_1.txt', 'a+') as f:
-          f.write(j_msg + "\n")
+      accel_x = float(j_msg['mag'][0])
+      accel_y = float(j_msg['mag'][1])
+      accel_z = float(j_msg['mag'][2])
 
       if j_msg['node']==1:
           # plot data
