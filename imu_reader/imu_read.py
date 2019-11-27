@@ -23,12 +23,16 @@ def reader_worker(strip_id,strip_path_inorder,node_list,serial_handler, mqtt_con
             sensor.PIO_BYTE = "147"     # turn on with comms
             sensor.PIO_7 = "0"          # turn off RX & TX
             sensor.PIO_6 = "1"
-    rs422_latency = parsing_latency = publish_latency = switching_latency = interrupt_latency =[]
+    rs422_latency = []
+    parsing_latency = []
+    publish_latency = []
+    switching_latency = []
+    interrupt_latency =[]
     while continously_run:
         for sensor in node_list:
             loop_start_time = time()
-            # if sensor.type == "DS2408" and sensor._path == '/29.EF992F000000':
-            if sensor.type == "DS2408":
+            if sensor.type == "DS2408" and sensor._path == '/29.EF992F000000':
+            # if sensor.type == "DS2408":
                 node_id = str(1+strip_path_inorder.index(sensor._path))
                 # construct topic for publishing
                 mqtt_publish_topic = 'imu_reader'+"/"+strip_id+"/"+node_id
