@@ -32,6 +32,10 @@ def on_message(client, userdata, msg):
       accel_y = float(j_msg['mag'][1])
       accel_z = float(j_msg['mag'][2])
 
+      with open("test_data_1.txt", "a+") as test_data:
+          test_data.write(json.dumps(j_msg)+'\n')
+      test_data.close()
+
       if j_msg['node']==1:
           # plot data
           global count
