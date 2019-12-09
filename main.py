@@ -96,7 +96,7 @@ def flashing_hex_file(filepath_to_flash=None,device_id=0):
                     sensor.PIO_7 = "0"
                     sensor.PIO_6 = "1"
             for sensor in node_list:
-                if sensor.type == "DS2408" and sensor._path == strip_path_inorder[device_id]:
+                if sensor.type == "DS2408" and sensor._path == strip_path_inorder[device_id-1]:
                     sensor.PIO_BYTE = "147"
                     sleep(0.01)
                     sensor.PIO_BYTE = "159"
