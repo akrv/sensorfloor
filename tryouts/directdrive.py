@@ -64,20 +64,29 @@ sensor_path = ow.Sensor('/').sensorList()
 #     #writeOutput(64,slave), slave
 #     #print(readState(slave),slave)
 for sensor in sensor_path:
-    sensor.PIO_BYTE = "64"  # lsb is PIO0 msb is PIO7
+    if sensor.type == "DS2408":
+        sensor.PIO_BYTE = "64"  # lsb is PIO0 msb is PIO7
 for sensor in sensor_path:
     print (sensor._path)
     if sensor._path == '/29.EF992F000000':
+    # if sensor.type == "DS2408":
+
         # normal operation with Comms On
         # sleep(1)
-        sensor.PIO_BYTE = "147"
+
+        sensor.out_of_testmode = "0"
+        sleep(.1)
+        sensor.out_of_testmode = "1"
+        sleep(.1)
+        sensor.PIO_BYTE = "64"
+        # sensor.PIO_BYTE = "147"
         sleep(.1)
 
-        # set node bootloader mode
-        sensor.PIO_BYTE = "159"
-        sleep(.1)  # wait until chip boots to BL mode
-        sensor.PIO_BYTE = "150"
-        sleep(.1)
+        # # set node bootloader mode
+        # sensor.PIO_BYTE = "159"
+        # sleep(.1)  # wait until chip boots to BL mode
+        # sensor.PIO_BYTE = "150"
+        # sleep(.1)
 
         # Interrupt to read IMU
         # sensor.PIO_2 = "1"

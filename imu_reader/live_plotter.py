@@ -28,9 +28,9 @@ def on_message(client, userdata, msg):
       # print(msg.payload)
       j_msg = json.loads(msg.payload.decode('utf-8'))
       print(j_msg)
-      accel_x = float(j_msg['mag'][0])
-      accel_y = float(j_msg['mag'][1])
-      accel_z = float(j_msg['mag'][2])
+      accel_x = float(j_msg['gyro'][0])
+      accel_y = float(j_msg['gyro'][1])
+      accel_z = float(j_msg['gyro'][2])
 
       with open("test_data_1.txt", "a+") as test_data:
           test_data.write(json.dumps(j_msg)+'\n')
