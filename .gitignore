@@ -105,3 +105,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 docs/.DS_Store
+imu_app/.DS_Store
+imu_app/imu_ti_workspace/.DS_Store
+imu_app/imu_ti_workspace/imu_data_interrupt/.DS_Store
+imu_reader/data_1.txt
+imu_reader/test_data_1.txt
+imu_reader/test_data_all_nodes.txt
