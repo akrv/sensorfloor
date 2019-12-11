@@ -158,27 +158,21 @@ void *mainThread(void *arg0)
         // overflowed  {last+1:BUFFER_SIZE-1 and 0:last}
         if      (!buffer_overflowed) {start_index=0; last_index=index;}
         else if (buffer_overflowed)  {start_index=index+1;}
-        UART_write(uart, "[", 1);
         i = start_index;
         while(1)
         {
             /* Accel */
-            UART_write(uart, "{", 1);
-            UART_write(uart, "\"a\":[", 5);
-            ltoa(buffer[i][0], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
-            ltoa(buffer[i][1], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
-            ltoa(buffer[i][2], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, "],", 2);
+            UART_write(uart, (void*)buffer[i][0], 2);
+            UART_write(uart, (void*)buffer[i][1], 2);
+            UART_write(uart, (void*)buffer[i][2], 2);
             /* Mag */
-            UART_write(uart, "\"m\":[", 5);
-            ltoa(buffer[i][3], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
-            ltoa(buffer[i][4], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
-            ltoa(buffer[i][5], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, "],",  2);
+            UART_write(uart, (void*)buffer[i][3], 2);
+            UART_write(uart, (void*)buffer[i][4], 2);
+            UART_write(uart, (void*)buffer[i][5], 2);
             /* Gyro */
-            UART_write(uart, "\"g\":[", 5);
-            ltoa(buffer[i][6], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
-            ltoa(buffer[i][7], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
-            ltoa(buffer[i][8], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, "]",  1);
-            UART_write(uart, "}", 1);
+            UART_write(uart, (void*)buffer[i][6], 2);
+            UART_write(uart, (void*)buffer[i][7], 2);
+            UART_write(uart, (void*)buffer[i][8], 2);
 
             i++;
 
@@ -190,9 +184,8 @@ void *mainThread(void *arg0)
             if (flushed_count == BUFFER_SIZE) {break;}
 
 
-            UART_write(uart, ",", 1);
         }
-        UART_write(uart, "]\n", 3);
+        UART_write(uart, "\n", 2);
 
         //UART_write(uart, "No: ", 4); ltoa(no_of_prints, msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, "\r\n", 2);
 
