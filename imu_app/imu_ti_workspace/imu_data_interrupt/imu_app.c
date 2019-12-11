@@ -38,7 +38,7 @@ static Event_Struct structEvent;
 /*  ======== buttonCallbackFxn ======== */
 void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId) {
     /* Debounce logic, only toggle if the button is still pushed */
-    CPUdelay(50); //TODO maybe it after testing
+    CPUdelay(1000); //TODO maybe it after testing
     if (!PIN_getInputValue(pinId)) {
         switch (pinId) {
             case IOID_16:
@@ -76,10 +76,8 @@ void *mainThread(void *arg0)
     uint8_t index = 255; //overflow when increment to skip increment for first time
     uint32_t loop_time;
     bool buffer_overflowed = false;
-    uint8_t print_index, print_last;
-    bool second_half_printed = false;
-
-    uint16_t no_of_prints = 0;
+    uint8_t start_index, flushed_count = 0, last_index;
+    int i;
 
     Event_Params_init(&eventParams);
     Event_construct(&structEvent, &eventParams);
@@ -158,50 +156,50 @@ void *mainThread(void *arg0)
         // handling buffer_overflow
         // no overflow {0:last}
         // overflowed  {last+1:BUFFER_SIZE-1 and 0:last}
-        if      (!buffer_overflowed) {print_index=0; print_last=index;}
-        else if (buffer_overflowed)  {print_index=index+1; print_last=BUFFER_SIZE-1;}
+        if      (!buffer_overflowed) {start_index=0; last_index=index;}
+        else if (buffer_overflowed)  {start_index=index+1;}
         UART_write(uart, "[", 1);
-        while(1) {
+        i = start_index;
+        while(1)
+        {
             /* Accel */
             UART_write(uart, "{", 1);
             UART_write(uart, "\"a\":[", 5);
-            ltoa(buffer[print_index][0], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
-            ltoa(buffer[print_index][1], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
-            ltoa(buffer[print_index][2], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, "],", 2);
+            ltoa(buffer[i][0], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
+            ltoa(buffer[i][1], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
+            ltoa(buffer[i][2], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, "],", 2);
             /* Mag */
             UART_write(uart, "\"m\":[", 5);
-            ltoa(buffer[print_index][3], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
-            ltoa(buffer[print_index][4], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
-            ltoa(buffer[print_index][5], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, "],",  2);
+            ltoa(buffer[i][3], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
+            ltoa(buffer[i][4], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
+            ltoa(buffer[i][5], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, "],",  2);
             /* Gyro */
             UART_write(uart, "\"g\":[", 5);
-            ltoa(buffer[print_index][6], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
-            ltoa(buffer[print_index][7], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
-            ltoa(buffer[print_index][8], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, "]",  1);
+            ltoa(buffer[i][6], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
+            ltoa(buffer[i][7], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, ",",  1);
+            ltoa(buffer[i][8], msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, "]",  1);
             UART_write(uart, "}", 1);
 
-            no_of_prints++;
+            i++;
 
-            print_index++;
-            if      (!buffer_overflowed) {if(print_index>print_last) {break;}}
-            else if (buffer_overflowed)  {
-                if(second_half_printed && print_index>print_last) {
-                    break;
-                }
-                else if(print_index>print_last) {
-                    second_half_printed=true; print_index=0; print_last=index;
-                }
-            }
+            // no overflow
+            if (!buffer_overflowed && i == last_index+1) {break;}
+            // overflow
+            if (buffer_overflowed && i==BUFFER_SIZE) {i = 0;}
+            flushed_count++;
+            if (flushed_count == BUFFER_SIZE) {break;}
+
+
             UART_write(uart, ",", 1);
         }
-        UART_write(uart, "]\r\n", 3);
+        UART_write(uart, "]\n", 3);
 
         //UART_write(uart, "No: ", 4); ltoa(no_of_prints, msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, "\r\n", 2);
 
         //reset
-        no_of_prints = 0;
         index = 255;
+        start_index = 0;
+        flushed_count = 0;
         buffer_overflowed = false;
-        second_half_printed = false;
     }
 }
