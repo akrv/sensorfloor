@@ -145,7 +145,7 @@ void *mainThread(void *arg0)
             buffer[index][4] = (((int16_t)data[3]) << 8) | data[2];
             buffer[index][5] = (((int16_t)data[5]) << 8) | data[4];
             /* Gyro */
-            SensorMpu9250_gyroRead((uint16_t*) &data);
+            SensorMpu9250_magRead((uint16_t*) &data);
             buffer[index][6] = (((int16_t)data[1]) << 8) | data[0];
             buffer[index][7] = (((int16_t)data[3]) << 8) | data[2];
             buffer[index][8] = (((int16_t)data[5]) << 8) | data[4];
