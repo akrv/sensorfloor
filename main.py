@@ -73,7 +73,7 @@ def flashing_hex_file(filepath_to_flash=None,device_id=0):
                 print(stdout, stderr)
                 # turn back to the right state
                 # turn on and put it in a no communicate state.
-                sensor.PIO_BYTE = "147"
+                sensor.PIO_BYTE = "64"
                 sensor.PIO_7 = "0"
                 sensor.PIO_6 = "1"
 
