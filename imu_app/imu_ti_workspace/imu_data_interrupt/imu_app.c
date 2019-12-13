@@ -62,7 +62,7 @@ void *mainThread(void *arg0)
     //const char  printInfo[] = "Print finished\r\n";
     UART_Handle uart;
     UART_Params uartParams;
-    char msg[5] = 0;
+    //char msg[5] = 0;
 
     uint16_t buffer[BUFFER_SIZE][9]; // buffer 100 readings (3 accel, 3 gyro, 3 mag)
 
@@ -77,6 +77,7 @@ void *mainThread(void *arg0)
     uint32_t loop_time;
     bool buffer_overflowed = false;
     uint8_t start_index, flushed_count = 0, last_index;
+    uint16_t no_of_readings;
     int i;
 
     Event_Params_init(&eventParams);
@@ -156,23 +157,28 @@ void *mainThread(void *arg0)
         // handling buffer_overflow
         // no overflow {0:last}
         // overflowed  {last+1:BUFFER_SIZE-1 and 0:last}
-        if      (!buffer_overflowed) {start_index=0; last_index=index;}
-        else if (buffer_overflowed)  {start_index=index+1;}
+        if      (!buffer_overflowed) {start_index=0; last_index=index; no_of_readings = index+1; }
+        else if (buffer_overflowed)  {start_index=index+1; no_of_readings = BUFFER_SIZE; }
         i = start_index;
+
+        UART_write(uart, "[[", 2);
+
+        UART_write(uart, &no_of_readings, 2);
+
         while(1)
         {
             /* Accel */
-            UART_write(uart, (void*)buffer[i][0], 2);
-            UART_write(uart, (void*)buffer[i][1], 2);
-            UART_write(uart, (void*)buffer[i][2], 2);
+            UART_write(uart, &buffer[i][0], 2);
+            UART_write(uart, &buffer[i][1], 2);
+            UART_write(uart, &buffer[i][2], 2);
             /* Mag */
-            UART_write(uart, (void*)buffer[i][3], 2);
-            UART_write(uart, (void*)buffer[i][4], 2);
-            UART_write(uart, (void*)buffer[i][5], 2);
+            UART_write(uart, &buffer[i][3], 2);
+            UART_write(uart, &buffer[i][4], 2);
+            UART_write(uart, &buffer[i][5], 2);
             /* Gyro */
-            UART_write(uart, (void*)buffer[i][6], 2);
-            UART_write(uart, (void*)buffer[i][7], 2);
-            UART_write(uart, (void*)buffer[i][8], 2);
+            UART_write(uart, &buffer[i][6], 2);
+            UART_write(uart, &buffer[i][7], 2);
+            UART_write(uart, &buffer[i][8], 2);
 
             i++;
 
@@ -182,9 +188,8 @@ void *mainThread(void *arg0)
             if (buffer_overflowed && i==BUFFER_SIZE) {i = 0;}
             flushed_count++;
             if (flushed_count == BUFFER_SIZE) {break;}
-
-
         }
+        UART_write(uart, "]]", 2);
         UART_write(uart, "\n", 2);
 
         //UART_write(uart, "No: ", 4); ltoa(no_of_prints, msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, "\r\n", 2);
