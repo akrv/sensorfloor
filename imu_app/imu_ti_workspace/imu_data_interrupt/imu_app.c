@@ -38,7 +38,7 @@ static Event_Struct structEvent;
 /*  ======== buttonCallbackFxn ======== */
 void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId) {
     /* Debounce logic, only toggle if the button is still pushed */
-    CPUdelay(1000); //TODO maybe it after testing
+    //CPUdelay(1000); //TODO maybe it after testing
     if (!PIN_getInputValue(pinId)) {
         switch (pinId) {
             case IOID_16:
@@ -74,7 +74,8 @@ void *mainThread(void *arg0)
     uint8_t data[6];
 
     uint8_t index = 255; //overflow when increment to skip increment for first time
-    uint32_t loop_time;
+    uint32_t loop_time, loop_delay_count, delay_count;
+    bool event_status = false;
     bool buffer_overflowed = false;
     uint8_t start_index, flushed_count = 0, last_index;
     uint16_t no_of_readings;
@@ -126,10 +127,10 @@ void *mainThread(void *arg0)
 
     /* buffer data and check for event*/
     // timeout input in Event_pend function controls the buffer time
-    loop_time = (uint32_t) 16000000/FREQ; /* in cycles */
+    loop_time = (uint32_t) 16000000/FREQ; /* in cycles */ /* CPU_delay takes 3 cycles - CPU clock 48MHz - 48MHz/3=16MHz */
     while(1) {
         while(1) {
-            if (Event_pend(event, Event_Id_NONE, START_PRINT_EVT, 0)) {break;}
+            if (event_status == true) {break;}
 
             if(index == BUFFER_SIZE-1) {index = 0; buffer_overflowed=true;}
             else                       {index++;}
@@ -150,7 +151,15 @@ void *mainThread(void *arg0)
             buffer[index][7] = (((int16_t)data[3]) << 8) | data[2];
             buffer[index][8] = (((int16_t)data[5]) << 8) | data[4];
 
-            CPUdelay(loop_time);
+            loop_delay_count = (uint32_t)loop_time/100000;
+            for(delay_count = 0; delay_count < 100000; delay_count++)
+            {
+                if (Event_pend(event, Event_Id_NONE, START_PRINT_EVT, 0))
+                {
+                    event_status = true;
+                }
+                CPUdelay(loop_delay_count);
+            }
         }
 
         /* flush the buffer */
@@ -195,6 +204,7 @@ void *mainThread(void *arg0)
         //UART_write(uart, "No: ", 4); ltoa(no_of_prints, msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, "\r\n", 2);
 
         //reset
+        event_status = false;
         index = 255;
         start_index = 0;
         flushed_count = 0;
