@@ -128,7 +128,11 @@ void *mainThread(void *arg0)
     /* buffer data and check for event*/
     // timeout input in Event_pend function controls the buffer time
     loop_time = (uint32_t) 16000000/FREQ; /* in cycles */ /* CPU_delay takes 3 cycles - CPU clock 48MHz - 48MHz/3=16MHz */
+    loop_delay_count = (uint32_t)loop_time/100000;
+
     while(1) {
+        //UART_write(uart, "loop: ", 6); ltoa(loop_delay_count, msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, "\r\n", 2);
+
         while(1) {
             if (event_status == true) {break;}
 
@@ -151,14 +155,15 @@ void *mainThread(void *arg0)
             buffer[index][7] = (((int16_t)data[3]) << 8) | data[2];
             buffer[index][8] = (((int16_t)data[5]) << 8) | data[4];
 
-            loop_delay_count = (uint32_t)loop_time/100000;
             for(delay_count = 0; delay_count < 100000; delay_count++)
             {
                 if (Event_pend(event, Event_Id_NONE, START_PRINT_EVT, 0))
                 {
                     event_status = true;
+                    break;
+                } else  {
+                    CPUdelay(loop_delay_count);
                 }
-                CPUdelay(loop_delay_count);
             }
         }
 
