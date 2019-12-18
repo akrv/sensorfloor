@@ -1,4 +1,5 @@
 import serial
+# import pytty as serial
 from time import sleep, time
 import os, json
 from subprocess import Popen, PIPE
@@ -22,27 +23,25 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
     for sensor in node_list:
         if sensor.type == "DS2408":
             sensor.PIO_BYTE = "64"  # turn off
-            sleep(0.1)
             sensor.PIO_BYTE = "147"  # turn on with comms
 
             sensor.PIO_7 = "0"  # turn off RX & TX
             sensor.PIO_6 = "1"
-
-    rs422_latency = []
-    parsing_latency = []
-    publish_latency = []
-    switching_latency = []
-    interrupt_latency = []
     count = 0
     while continously_run:
+        rs422_latency = []
+        parsing_latency = []
+        publish_latency = []
+        switching_latency = []
+        interrupt_latency = []
         data_received = []
         count += 1
+        total_time = time()
         for sensor in node_list:
-
-            loop_start_time = time()
             # if sensor.type == "DS2408" and sensor._path == '/29.EF992F000000':
             if sensor.type == "DS2408":
                 node_id = str(1 + strip_path_inorder.index(sensor._path))
+
                 # construct topic for publishing
                 mqtt_publish_topic = 'imu_reader' + "/" + strip_id + "/" + node_id
 
@@ -57,7 +56,9 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
                 # serial_handler.reset_input_buffer()
                 serial_handler.reset_input_buffer()
                 interrupt_start_time = time()
+
                 # send interrupt
+
                 sensor.PIO_2 = "1"
                 sensor.PIO_2 = "0"
                 sensor.PIO_2 = "1"
@@ -65,68 +66,54 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
                 interrupt_latency.append(time() - interrupt_start_time)
 
                 read_start_time = time()
-                # calculate the length
-                if serial_handler.read(2) == '[[':
-                    # print("Correct beginning of RX")
-                    # read dat  a from serial port
-                    buffer_length = struct.unpack('<H', serial_handler.read(2))
-                    buffer_length = buffer_length[0]
-                    buffer = serial_handler.read(buffer_length * 9 * 2)
-                    data = struct.unpack('<' + str(buffer_length * 9) + 'H', buffer)
-                    serial_handler.reset_input_buffer()
-                    # rest = serial_handler.readline()
-                    # if (rest == ']]\n'):
-                    #     # print(data)
-                    #     pass
-                    # else:
-                    #     print('Error in buffer end')
-                else:
-                    print("ERROR parsing RX")
+                try:
+                    rcvdData = ser.read(size=4)
+                    length_to_read = (struct.unpack('<H', rcvdData[2:]))[0]
+                    rcvdData = ser.read(size=length_to_read * 9 * 2)
+                    data = struct.unpack('<' + str(length_to_read * 9) + 'H', rcvdData)
+
+                except Exception as e:
+                    print(e)
                 rs422_latency.append(time() - read_start_time)
 
                 parsing_start_time = time()
-                reading_to_publish = []
-                current_reading = {}
+                parse = True
+                if parse:
+                    reading_to_publish = []
+                    current_reading = {}
 
-                # data prototype
-                # [{a:[x,y,z],m:[],},..]
-                for reading in range(0, len(data), 9):
-
-                    current_reading['a'] = [(i * 1.0) / (32768 / 2) for i in data[reading:reading + 3]]
-                    current_reading['m'] = data[reading + 3:reading + 6]
-                    current_reading['g'] = [(i * 1.0) / (65536 / 500) for i in data[reading + 6:reading + 9]]
-                    reading_to_publish.append(current_reading)
-
-                parsing_latency.append(time() - parsing_start_time)
-
-                publish_start_time = time()
-                # format data to be published with metadata
-                data_to_publish = {'strip_id': strip_id,
-                                   'node_id': node_id,
-                                   'data': reading_to_publish,
-                                   'timestamp': time()
-                                   }
-                ret = client1.publish(mqtt_publish_topic, json.dumps(data_to_publish))  # publish
-                publish_latency.append(time() - publish_start_time)
+                    for reading in range(0, len(data), 9):
+                        current_reading['a'] = [(i * 1.0) / (32768 / 2) for i in data[reading:reading + 3]]
+                        current_reading['m'] = data[reading + 3:reading + 6]
+                        current_reading['g'] = [(i * 1.0) / (65536 / 500) for i in data[reading + 6:reading + 9]]
+                        reading_to_publish.append(current_reading)
+                    parsing_latency.append(time() - parsing_start_time)
+                    publish_start_time = time()
+                    # format data to be published with metadata
+                    data_to_publish = {'strip_id': strip_id,
+                                       'node_id': node_id,
+                                       'data': reading_to_publish,
+                                       'timestamp': time()
+                                       }
+                    ret = client1.publish(mqtt_publish_topic, json.dumps(data_to_publish))  # publish
+                    publish_latency.append(time() - publish_start_time)
                 # print(reading_to_publish)
                 switching2 = time()
                 # turn off RS422 after read
                 sensor.PIO_7 = "0"
                 sensor.PIO_6 = "1"
                 switching_latency.append(switching_start_time + (time() - switching2))
-        # pprint(data_received)
-        # print("rcvd stats: ", len(reading_to_publish))
-
-        latency_info = {'publish': sum(publish_latency) / len(publish_latency),
+        latency_info = {
+                        # 'publish': sum(publish_latency) / len(publish_latency),
                         'interrupt': sum(interrupt_latency) / len(interrupt_latency),
-                        'parsing': sum(parsing_latency) / len(parsing_latency),
+                        # 'parsing': sum(parsing_latency) / len(parsing_latency),
                         'switching': sum(switching_latency) / len(switching_latency),
                         'rs422': sum(rs422_latency) / len(rs422_latency),
-                        'rcvd_stats': len(reading_to_publish)
                         }
-
-        pprint(latency_info)
+        print(time() - total_time, 30 * '$')
+        # pprint(latency_info)
         ret = client1.publish('imu_reader/' + strip_id + '/latency', json.dumps(latency_info))  # publish
+
 
 
 def getMAC(interface='eth0'):
@@ -149,7 +136,7 @@ if __name__ == '__main__':
     continously_run = True
 
     # serial port to talk through rs422
-    ser = serial.Serial('/dev/ttyUSB0', baudrate=115200, timeout=1)
+    ser = serial.Serial('/dev/ttyUSB0', baudrate=921600, timeout=1)
     ser.reset_input_buffer()
     # read json file from file system
     # next version should read from mongodb (when?)

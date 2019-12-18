@@ -17,8 +17,23 @@ from config import NODE_NOT_FOUND, address_finder
 
 from wire1_wrapper import find_nodeObj, put_all_pins_to_zero, read_state_byte, read_data, power_reset, turn_on,toggle_rs422_comms
 
-bootloader_path = 'cc2538-bsl/cc2538-bsl.py'
+bootloader_path = os.path.dirname(os.path.realpath(__file__))+'/cc2538-bsl/cc2538-bsl.py'
 string_list = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15']
+
+strip_path_inorder = []
+
+# read the stored file which is a json with a list of items
+with open(os.path.dirname(os.path.realpath(__file__))+'/addr_finder/node_order.json') as json_file:
+    strip_path_inorder = json.load(json_file)
+json_file.close()
+returned_from_address_finder = strip_path_inorder
+strip_path_inorder = [node_name['wire1'] for node_name in strip_path_inorder]
+
+# file upload params
+# UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))+'/flash'
+UPLOAD_FOLDER = '/home/pi/sensorfloor/flash'
+ALLOWED_EXTENSIONS = set(['hex','bin'])
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def read_data_rs422(position, num_lines, event_pin=None):
     read_line = []
@@ -155,8 +170,6 @@ def get_ipaddress():
             ip = "0.0.0.0"
     return ip
 
-UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))+'/flash'
-ALLOWED_EXTENSIONS = set(['hex','bin'])
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -254,14 +267,7 @@ def read_lines(position,num_lines, event_pin=None):
 
 if __name__ == '__main__':
     read_lock = True
-    strip_path_inorder = []
 
-    # read the stored file which is a json with a list of items
-    with open(os.path.dirname(os.path.realpath(__file__))+'/addr_finder/node_order.json') as json_file:
-        strip_path_inorder = json.load(json_file)
-    json_file.close()
-    returned_from_address_finder = strip_path_inorder
-    strip_path_inorder = [node_name['wire1'] for node_name in strip_path_inorder]
     app.secret_key = "secret_key"
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
     app.run(debug=True,host='0.0.0.0')
