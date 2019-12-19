@@ -2,7 +2,7 @@ import urllib.request
 import json
 
 from fabric.api import *
-
+from time import sleep
 
 
 RPi_IPs = [
@@ -45,13 +45,13 @@ env.reject_unknown_hosts = False
 
 @parallel
 def r():
-    run('mkdir -p /home/pi/sensorfloor/flash')
+    run('sudo apt-get -y install dtach')
 
 
 @parallel
 def imuread():
     with cd('~/sensorfloor/imu_reader'):
-        run('nohup python read_past_imu.py &')
+        run('dtach -n python /home/pi/sensorfloor/imu_reader/read_past_imu.py')
 
 @parallel
 def deploy():
@@ -97,22 +97,23 @@ def cssh():
 #     # install apache2 and mod-wsgi
 #     run('sudo apt-get update')
 #     run('sudo apt-get install -y apache2 libapache2-mod-wsgi git libcairo2-dev libjpeg-dev libgif-dev')
-#
-#     # disable default conf
-#     run('sudo a2dissite 000-default.conf')
-#
 #     with cd('~/'):
 #         run('sudo rm -rf sensorfloor')
 #         # git clone
 #         run('git clone --recurse-submodules http://github.com/akrv/sensorfloor')
 #         # copy conf and the rest of the folder
 #         run('sudo cp sensorfloor/sensorfloor.conf /etc/apache2/sites-available')
-#
-#         # copy to www folder the source code
-#         run('sudo cp -rf sensorfloor /var/www/')
 #     with cd('~/sensorfloor'):
 #         run('pip install -r requirements.txt')
 #         run('mkdir -p /home/pi/sensorfloor/flash')
+#     with cd('~/sensorfloor/addr_finder'):
+#         run('python main.py')
+#         # copy to www folder the source code
+#     with cd('~/'):
+#         run('sudo cp -rf sensorfloor /var/www/')
+#
+#     # disable default conf
+#     run('sudo a2dissite 000-default.conf')
 #     # enable site
 #     run('sudo a2ensite sensorfloor.conf')
 #     run('sudo systemctl reload apache2')
