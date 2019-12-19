@@ -16,7 +16,7 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
     # serial handler when this function is used from another thread which has access
     # mqtt connection info is a list with broker and port
 
-    client1 = paho.Client("raspi-dev")  # create client
+    client1 = paho.Client(strip_id)  # create client
     client1.connect(mqtt_connection_info[0], mqtt_connection_info[1])  # establish connection
 
     # turn on and put them in a not communicating mode
