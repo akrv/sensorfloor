@@ -78,7 +78,7 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
                         data = struct.unpack('<' + str(length_to_read * 9) + 'H', rcvdData)
 
                     except Exception as e:
-                        print(e)
+                        print('dev_id: ',node_id, e)
                     rs422_latency.append(time() - read_start_time)
 
                     parsing_start_time = time()
