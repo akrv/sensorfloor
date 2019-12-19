@@ -40,7 +40,7 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
         for sensor in node_list:
             # if sensor.type == "DS2408" and sensor._path == '/29.EF992F000000':
             if sensor.type == "DS2408":
-                if sensor._path == "/29.BC992F000000":
+                if sensor._path == "/29.BC992F000000" or sensor._path == "/29.47FC2F000000":
                     # sensor cannot be flashed.
                     data = [0,0,0,0,0,0,0,0,0]
 
