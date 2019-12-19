@@ -8,7 +8,7 @@ import socket
 import netifaces as ni
 from subprocess import Popen, PIPE
 import ow
-
+from pprint import pprint
 (ow.init('localhost:4304'))
 node_list = ow.Sensor('/').sensorList()
 
@@ -204,6 +204,7 @@ def hex_file_processing(request):
 @app.route("/",methods=['GET','POST'])
 def hello():
     if request.method == 'POST':
+
         if request.files['file']:
             [success, message, filepath_to_flash] = hex_file_processing(request)
             # todo start a thread to flash all devices one by one

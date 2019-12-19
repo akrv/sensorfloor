@@ -45,7 +45,7 @@ env.reject_unknown_hosts = False
 
 @parallel
 def r():
-    run('mkdir /home/pi/sensorfloor/flash')
+    run('mkdir -p /home/pi/sensorfloor/flash')
 
 
 @parallel
