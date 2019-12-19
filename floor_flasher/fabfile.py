@@ -36,7 +36,7 @@ for hosts in RPi_IPs:
     env.hosts.append(hosts['ip_addr'])
 
 env.user = "pi"
-env.password = "raspberry"
+env.password = "raspberry" # ofc we use the default password
 
 # some stats to printout
 success_list = []
@@ -85,17 +85,6 @@ def reboot():
     run('sudo reboot now')
 
 # /Users/akrv/Documents/dev/sensorfloor/imu_app/imu_ti_workspace/imu_data_interrupt/Release/imu_data_interrupt.bin
-def flash():
-    env.hosts=[]
-    # send a post request to port 5000
-
-    url = "http://129.217.152.54"
-    payload = {'device':1,
-               'file':open('/Users/akrv/Documents/dev/sensorfloor/imu_app/imu_ti_workspace/imu_data_interrupt/Release/imu_data_interrupt.bin', 'wb')
-               }
-    response = requests.request("POST", url, data=payload)
-
-    print(response.text)
 
 def cssh():
     result = run('uname')
