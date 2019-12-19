@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 #import DataPlot and RealtimePlot from the file plot_data.py
 from plot_data import DataPlot, RealtimePlot
 
+from floor_flasher.fabfile import RPi_IPs
 
 fig, axes = plt.subplots()
 plt.title('Data from TTN console')
@@ -20,29 +21,30 @@ import json
 
 def on_connect(client, userdata, flags, rc):
   print("Connected with result code "+str(rc))
-  for node in range(15):
-    client.subscribe("imu_reader/dev/"+str(node+1))
+  for RPi in RPi_IPs:
+      for node in range(1,16):
+        client.subscribe("imu_reader/"+RPi['mac_id']+"/"+str(node+1))
 
 def on_message(client, userdata, msg):
   if msg.payload.decode():
       # print(msg.payload)
       j_msg = json.loads(msg.payload.decode('utf-8'))
-      print(j_msg)
-      accel_x = float(j_msg['gyro'][0])
-      accel_y = float(j_msg['gyro'][1])
-      accel_z = float(j_msg['gyro'][2])
+      # print(j_msg)
+      # accel_x = float(j_msg['gyro'][0])
+      # accel_y = float(j_msg['gyro'][1])
+      # accel_z = float(j_msg['gyro'][2])
 
-      with open("test_data_1.txt", "a+") as test_data:
+      with open("test_data.txt", "a+") as test_data:
           test_data.write(json.dumps(j_msg)+'\n')
       test_data.close()
 
-      if j_msg['node']==1:
-          # plot data
-          global count
-          count += 1
-          data.add(count, accel_x, accel_y,accel_z)
-          dataPlotting.plot(data)
-          plt.pause(0.001)
+      # if j_msg['node']==1:
+      #     # plot data
+      #     global count
+      #     count += 1
+      #     data.add(count, accel_x, accel_y,accel_z)
+      #     dataPlotting.plot(data)
+      #     plt.pause(0.001)
 
 # set paho.mqtt callback
 client = mqtt.Client()
