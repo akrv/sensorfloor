@@ -42,14 +42,24 @@ env.password = "raspberry"
 success_list = []
 error_list = []
 env.reject_unknown_hosts = False
+
+@parallel
 def r():
     run('mkdir /home/pi/sensorfloor/flash')
+
+
+@parallel
+def imuread():
+    with cd('~/sensorfloor/imu_reader'):
+        run('nohup python read_past_imu.py &')
 
 @parallel
 def deploy():
     with cd('~/sensorfloor'):
         run('git pull')
-        run('sudo cp -rf sensorfloor /var/www/')
+    result = run('sudo cp -rf sensorfloor /var/www/')
+    if result.failed:
+        print('failed: ',env.host)
 
 @parallel
 def webui():
@@ -86,6 +96,12 @@ def flash():
     response = requests.request("POST", url, data=payload)
 
     print(response.text)
+
+def cssh():
+    result = run('uname')
+    if result.failed:
+        print('failed: ',env.host)
+
 
 # @parallel
 # def setup():
