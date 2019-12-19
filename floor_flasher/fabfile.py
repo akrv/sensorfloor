@@ -45,13 +45,14 @@ env.reject_unknown_hosts = False
 
 @parallel
 def r():
-    run('sudo apt-get -y install dtach')
+    with cd('~/sensorfloor'):
+        run('git pull')
 
 
 @parallel
 def imuread():
     with cd('~/sensorfloor/imu_reader'):
-        run('dtach -n python /home/pi/sensorfloor/imu_reader/read_past_imu.py')
+        run('python read_past_imu.py')
 
 @parallel
 def deploy():
