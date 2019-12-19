@@ -112,6 +112,7 @@ def cssh():
 #         run('sudo cp -rf sensorfloor /var/www/')
 #     with cd('~/sensorfloor'):
 #         run('pip install -r requirements.txt')
+#         run('mkdir -p /home/pi/sensorfloor/flash')
 #     # enable site
 #     run('sudo a2ensite sensorfloor.conf')
 #     run('sudo systemctl reload apache2')
