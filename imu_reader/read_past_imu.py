@@ -40,43 +40,49 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
         for sensor in node_list:
             # if sensor.type == "DS2408" and sensor._path == '/29.EF992F000000':
             if sensor.type == "DS2408":
-                node_id = str(1 + strip_path_inorder.index(sensor._path))
+                if sensor._path == "/29.BC992F000000":
+                    # sensor cannot be flashed.
+                    data = [0,0,0,0,0,0,0,0,0]
 
-                # construct topic for publishing
-                mqtt_publish_topic = 'imu_reader' + "/" + strip_id + "/" + node_id
+                else:
+                    node_id = str(1 + strip_path_inorder.index(sensor._path))
 
-                switching_start_time = time()
-                # set all devices PIO 6 and 7 RX and TX off.
-                # turn on RS422 before read
-                sensor.PIO_7 = "1"
-                sensor.PIO_6 = "0"
-                switching_start_time = (time() - switching_start_time)
+                    # construct topic for publishing
+                    mqtt_publish_topic = 'imu_reader' + "/" + strip_id + "/" + node_id
 
-                # reset input buffer before sending an interrupt.
-                # serial_handler.reset_input_buffer()
-                serial_handler.reset_input_buffer()
-                interrupt_start_time = time()
+                    switching_start_time = time()
+                    # set all devices PIO 6 and 7 RX and TX off.
+                    # turn on RS422 before read
+                    sensor.PIO_7 = "1"
+                    sensor.PIO_6 = "0"
+                    switching_start_time = (time() - switching_start_time)
 
-                # send interrupt
+                    # reset input buffer before sending an interrupt.
+                    # serial_handler.reset_input_buffer()
+                    serial_handler.reset_input_buffer()
+                    interrupt_start_time = time()
 
-                sensor.PIO_2 = "1"
-                sensor.PIO_2 = "0"
-                sensor.PIO_2 = "1"
+                    # send interrupt
 
-                interrupt_latency.append(time() - interrupt_start_time)
+                    sensor.PIO_2 = "1"
+                    sensor.PIO_2 = "0"
+                    sensor.PIO_2 = "1"
 
-                read_start_time = time()
-                try:
-                    rcvdData = ser.read(size=4)
-                    length_to_read = (struct.unpack('<H', rcvdData[2:]))[0]
-                    rcvdData = ser.read(size=length_to_read * 9 * 2)
-                    data = struct.unpack('<' + str(length_to_read * 9) + 'H', rcvdData)
+                    interrupt_latency.append(time() - interrupt_start_time)
 
-                except Exception as e:
-                    print(e)
-                rs422_latency.append(time() - read_start_time)
+                    read_start_time = time()
+                    try:
+                        rcvdData = ser.read(size=4)
+                        length_to_read = (struct.unpack('<H', rcvdData[2:]))[0]
+                        rcvdData = ser.read(size=length_to_read * 9 * 2)
+                        data = struct.unpack('<' + str(length_to_read * 9) + 'H', rcvdData)
 
-                parsing_start_time = time()
+                    except Exception as e:
+                        print(e)
+                    rs422_latency.append(time() - read_start_time)
+
+                    parsing_start_time = time()
+                # if its a not working sensor, then data is set to a list of 9 zeros
                 parse = True
                 if parse:
                     reading_to_publish = []
@@ -113,8 +119,6 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
         print(time() - total_time, 30 * '$')
         # pprint(latency_info)
         ret = client1.publish('imu_reader/' + strip_id + '/latency', json.dumps(latency_info))  # publish
-
-
 
 def getMAC(interface='eth0'):
     # Return the MAC address of the specified interface
