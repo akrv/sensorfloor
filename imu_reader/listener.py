@@ -16,7 +16,7 @@ def callback(data):
         'rotation': [data.rotation.x, data.rotation.y, data.rotation.z],
         'time': time()
     }
-    with open("test_data.txt", "a+") as test_data:
+    with open("vicon_data.txt", "a+") as test_data:
         test_data.write(json.dumps(j_msg) + '\n')
     test_data.close()
 
