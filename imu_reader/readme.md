@@ -20,9 +20,7 @@ it will only start to populate after the next step.
 **starting imu data**<br />
 cd ~/sensorfloor/floor_flasher<br />
 fab imuread<br />
-
-
-
+this fab recipe will block the terminal and this need to be alive to run the programs on all the RPi hosts.
 
 **Latency measurements for looping through the strip**<br/>
   3.8s latency with 7Hz sample rate <br />
