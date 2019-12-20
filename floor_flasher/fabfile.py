@@ -45,8 +45,8 @@ env.reject_unknown_hosts = False
 
 @parallel
 def r():
-    with cd('~/sensorfloor'):
-        run('git pull')
+
+    run('sudo timedatectl set-timezone Europe/Berlin')
 
 
 @parallel
