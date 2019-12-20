@@ -11,7 +11,7 @@ cd ~/sensorfloor/imu_reader<br />
 python listener.py <br />
 this will create a vicon_data.txt file with line delimited json objects which contain a reading with timestamp from the local machine.<br />
 
-**collection imu data**<br />
+**Collecting imu data**<br />
 cd ~/sensorfloor/imu_reader
 python live_plotter.py<br />
 this will create a file test_data.txt with json per reading per node timestampped at the RPi<br />
