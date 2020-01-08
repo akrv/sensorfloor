@@ -86,9 +86,10 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
                 parse = True
                 if parse:
                     reading_to_publish = []
-                    current_reading = {}
+
 
                     for reading in range(0, len(data), 9):
+                        current_reading = {}
                         current_reading['a'] = [(i * 1.0) / (32768 / 2) for i in data[reading:reading + 3]]
                         current_reading['m'] = data[reading + 3:reading + 6]
                         current_reading['g'] = [(i * 1.0) / (65536 / 500) for i in data[reading + 6:reading + 9]]
