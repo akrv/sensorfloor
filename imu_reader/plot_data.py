@@ -9,7 +9,7 @@ import threading
 
 from random import randint
 
-from statistics import *
+import statistics
 
 
 class DataPlot:
