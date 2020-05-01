@@ -1,4 +1,4 @@
-/* Includes */
+/***** Includes *****/
 #include <stdint.h>
 #include <stddef.h>
 #include <unistd.h>
@@ -10,18 +10,40 @@
 
 #include <ti/drivers/UART.h>
 
+#include "Board.h"
+
+/* MPU Headers */
 #include "sensors/SensorI2C.h"
 #include "sensors/SensorMpu9250.h"
 
-#include "Board.h"
+/* RF Headers */
+#include <ti/drivers/rf/RF.h>
+#include DeviceFamily_constructPath(driverlib/rf_prop_mailbox.h)
+/* Application Header files */
+#include "RFQueue.h"
+#include "smartrf_settings/smartrf_settings.h"
 
+/***** Defines *****/
 
+/* Packet RX Configuration */
+#define DATA_ENTRY_HEADER_SIZE 8  /* Constant header size of a Generic Data Entry */
+#define MAX_LENGTH             10 /* Max length byte the radio will accept */
+#define NUM_DATA_ENTRIES       2  /* NOTE: Only two data entries supported at the moment */
+#define NUM_APPENDED_BYTES     2  /* The Data Entries data field will contain:
+                                   * 1 Header byte (RF_cmdPropRx.rxConf.bIncludeHdr = 0x1)
+                                   * Max 30 payload bytes
+                                   * 1 status byte (RF_cmdPropRx.rxConf.bAppendStatus = 0x1) */
+
+/* Events */
 #define START_PRINT_EVT         Event_Id_00
 
-#define BUFFER_SIZE 28
-#define FREQ 7
+/* Application definitions */
+#define BUFFER_SIZE 24
+#define FREQ 6
 
-/* Variable Declaration */
+/***** Variable declarations *****/
+
+/* Button */
 static PIN_Handle buttonPinHandle;
 static PIN_State buttonPinState;
 
@@ -31,11 +53,77 @@ PIN_Config buttonPinTable[] = {
     PIN_TERMINATE
 };
 
+/* Events */
 static Event_Handle event;
 static Event_Params eventParams;
 static Event_Struct structEvent;
 
-/*  ======== buttonCallbackFxn ======== */
+/* RF */
+static RF_Object rfObject;
+static RF_Handle rfHandle;
+
+static rfc_propRxOutput_t rxStatistics;
+static int8_t RSSIout;
+
+/* Buffer which contains all Data Entries for receiving data.
+ * Pragmas are needed to make sure this buffer is 4 byte aligned (requirement from the RF Core) */
+#if defined(__TI_COMPILER_VERSION__)
+#pragma DATA_ALIGN (rxDataEntryBuffer, 4);
+static uint8_t
+rxDataEntryBuffer[RF_QUEUE_DATA_ENTRY_BUFFER_SIZE(NUM_DATA_ENTRIES,
+                                                  MAX_LENGTH,
+                                                  NUM_APPENDED_BYTES)];
+#elif defined(__IAR_SYSTEMS_ICC__)
+#pragma data_alignment = 4
+static uint8_t
+rxDataEntryBuffer[RF_QUEUE_DATA_ENTRY_BUFFER_SIZE(NUM_DATA_ENTRIES,
+                                                  MAX_LENGTH,
+                                                  NUM_APPENDED_BYTES)];
+#elif defined(__GNUC__)
+static uint8_t
+rxDataEntryBuffer[RF_QUEUE_DATA_ENTRY_BUFFER_SIZE(NUM_DATA_ENTRIES,
+                                                  MAX_LENGTH,
+                                                  NUM_APPENDED_BYTES)]
+                                                  __attribute__((aligned(4)));
+#else
+#error This compiler is not supported.
+#endif
+
+/* Receive dataQueue for RF Core to fill in data */
+static dataQueue_t dataQueue;
+//static rfc_dataEntryGeneral_t* currentDataEntry;
+//static uint8_t packetLength;
+//static uint8_t* packetDataPointer;
+
+//static uint8_t packet[MAX_LENGTH + NUM_APPENDED_BYTES - 1]; /* The length byte is stored in a separate variable */
+
+/***** Callbacks *****/
+/*  ======== RX callback function ======== */
+void RxCallback(RF_Handle h, RF_CmdHandle ch, RF_EventMask e)
+{
+    if (e & RF_EventRxEntryDone)
+    {
+        /* Get current unhandled data entry */
+        //currentDataEntry = RFQueue_getDataEntry();
+
+        /* Handle the packet data, located at &currentDataEntry->data:
+         * - Length is the first byte with the current configuration
+         * - Data starts from the second byte */
+        //packetLength      = *(uint8_t*)(&currentDataEntry->data);
+        //packetDataPointer = (uint8_t*)(&currentDataEntry->data + 1);
+
+        /* Copy the payload + the status byte to the packet variable */
+        //memcpy(packet, packetDataPointer, (packetLength + 1));
+
+        RFQueue_nextEntry();
+
+        RSSIout = rxStatistics.lastRssi;
+
+        RF_postCmd(rfHandle, (RF_Op*)&RF_cmdPropRx, RF_PriorityNormal, &RxCallback, RF_EventRxEntryDone);
+    }
+}
+
+/*  ======== button callback function ======== */
 void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId) {
     /* Debounce logic, only toggle if the button is still pushed */
     //CPUdelay(1000); //TODO maybe it after testing
@@ -57,14 +145,12 @@ void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId) {
  */
 void *mainThread(void *arg0)
 {
-    //const char  progStart[] = "Prog Start\r\n";
-    //const char  ISRInfo[] = "ISR called\r\n";
-    //const char  printInfo[] = "Print finished\r\n";
     UART_Handle uart;
     UART_Params uartParams;
-    //char msg[5] = 0;
 
-    uint16_t buffer[BUFFER_SIZE][9]; // buffer 100 readings (3 accel, 3 gyro, 3 mag)
+    uint16_t imu_buffer[BUFFER_SIZE][9]; // buffer 100 readings (3 accel, 3 gyro, 3 mag)
+    int8_t rssi_buffer[BUFFER_SIZE];
+    //char msg[5] = 0;
 
     //uint16_t accel_x, accel_y, accel_z;
     //float accelx, accely, accelz;
@@ -81,9 +167,43 @@ void *mainThread(void *arg0)
     uint16_t no_of_readings;
     int i;
 
+    RF_Params rfParams;
+    RF_Params_init(&rfParams);
+
+    if( RFQueue_defineQueue(&dataQueue,
+                            rxDataEntryBuffer,
+                            sizeof(rxDataEntryBuffer),
+                            NUM_DATA_ENTRIES,
+                            MAX_LENGTH + NUM_APPENDED_BYTES))
+    {
+        /* Failed to allocate space for all data entries */
+        while(1);
+    }
+
+    /* Modify CMD_PROP_RX command for application needs */
+    /* Set the Data Entity queue for received data */
+    RF_cmdPropRx.pQueue = &dataQueue;
+    /* Discard ignored packets from Rx queue */
+    RF_cmdPropRx.rxConf.bAutoFlushIgnored = 1;
+    /* Discard packets with CRC error from Rx queue */
+    RF_cmdPropRx.rxConf.bAutoFlushCrcErr = 1;
+    /* Implement packet length filtering to avoid PROP_ERROR_RXBUF */
+    RF_cmdPropRx.maxPktLen = MAX_LENGTH;
+    RF_cmdPropRx.pktConf.bRepeatOk = 1;
+    RF_cmdPropRx.pktConf.bRepeatNok = 1;
+
+    RF_cmdPropRx.pOutput = (uint8_t*)&rxStatistics;
+
+    /* Request access to the radio */
+    rfHandle = RF_open(&rfObject, &RF_prop, (RF_RadioSetup*)&RF_cmdPropRadioDivSetup, &rfParams);
+
+    /* Set the frequency */
+    RF_postCmd(rfHandle, (RF_Op*)&RF_cmdFs, RF_PriorityNormal, NULL, 0);
+
     Event_Params_init(&eventParams);
     Event_construct(&structEvent, &eventParams);
     event = Event_handle(&structEvent);
+
 
     /* Call driver init functions */
     UART_init();
@@ -125,6 +245,9 @@ void *mainThread(void *arg0)
         SensorMpu9250_accSetRange(ACC_RANGE_2G);
     }
 
+    /* call RX and callback will schedule next Rx cmds */
+    RF_postCmd(rfHandle, (RF_Op*)&RF_cmdPropRx, RF_PriorityNormal, &RxCallback, RF_EventRxEntryDone);
+
     /* buffer data and check for event*/
     // timeout input in Event_pend function controls the buffer time
     loop_time = (uint32_t) 16000000/FREQ; /* in cycles */ /* CPU_delay takes 3 cycles - CPU clock 48MHz - 48MHz/3=16MHz */
@@ -141,19 +264,22 @@ void *mainThread(void *arg0)
 
             /* Accel */
             SensorMpu9250_accRead((uint16_t*) &data);
-            buffer[index][0] = (((int16_t)data[1]) << 8) | data[0];
-            buffer[index][1] = (((int16_t)data[3]) << 8) | data[2];
-            buffer[index][2] = (((int16_t)data[5]) << 8) | data[4];
+            imu_buffer[index][0] = (((int16_t)data[1]) << 8) | data[0];
+            imu_buffer[index][1] = (((int16_t)data[3]) << 8) | data[2];
+            imu_buffer[index][2] = (((int16_t)data[5]) << 8) | data[4];
             /* Mag */
             SensorMpu9250_magRead((uint16_t*) &data);
-            buffer[index][3] = (((int16_t)data[1]) << 8) | data[0];
-            buffer[index][4] = (((int16_t)data[3]) << 8) | data[2];
-            buffer[index][5] = (((int16_t)data[5]) << 8) | data[4];
+            imu_buffer[index][3] = (((int16_t)data[1]) << 8) | data[0];
+            imu_buffer[index][4] = (((int16_t)data[3]) << 8) | data[2];
+            imu_buffer[index][5] = (((int16_t)data[5]) << 8) | data[4];
             /* Gyro */
             SensorMpu9250_gyroRead((uint16_t*) &data);
-            buffer[index][6] = (((int16_t)data[1]) << 8) | data[0];
-            buffer[index][7] = (((int16_t)data[3]) << 8) | data[2];
-            buffer[index][8] = (((int16_t)data[5]) << 8) | data[4];
+            imu_buffer[index][6] = (((int16_t)data[1]) << 8) | data[0];
+            imu_buffer[index][7] = (((int16_t)data[3]) << 8) | data[2];
+            imu_buffer[index][8] = (((int16_t)data[5]) << 8) | data[4];
+            /* RSSI */
+            rssi_buffer[index] = RSSIout;
+            RSSIout = 0; // make it zero so if nothing received till next buffer no wrong values get reported
 
             for(delay_count = 0; delay_count < 100000; delay_count++)
             {
@@ -182,17 +308,19 @@ void *mainThread(void *arg0)
         while(1)
         {
             /* Accel */
-            UART_write(uart, &buffer[i][0], 2);
-            UART_write(uart, &buffer[i][1], 2);
-            UART_write(uart, &buffer[i][2], 2);
+            UART_write(uart, &imu_buffer[i][0], 2);
+            UART_write(uart, &imu_buffer[i][1], 2);
+            UART_write(uart, &imu_buffer[i][2], 2);
             /* Mag */
-            UART_write(uart, &buffer[i][3], 2);
-            UART_write(uart, &buffer[i][4], 2);
-            UART_write(uart, &buffer[i][5], 2);
+            UART_write(uart, &imu_buffer[i][3], 2);
+            UART_write(uart, &imu_buffer[i][4], 2);
+            UART_write(uart, &imu_buffer[i][5], 2);
             /* Gyro */
-            UART_write(uart, &buffer[i][6], 2);
-            UART_write(uart, &buffer[i][7], 2);
-            UART_write(uart, &buffer[i][8], 2);
+            UART_write(uart, &imu_buffer[i][6], 2);
+            UART_write(uart, &imu_buffer[i][7], 2);
+            UART_write(uart, &imu_buffer[i][8], 2);
+            /* RSSI */
+            UART_write(uart, &rssi_buffer[index], 1);
 
             i++;
 
