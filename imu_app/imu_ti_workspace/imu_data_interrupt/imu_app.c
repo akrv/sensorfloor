@@ -36,6 +36,7 @@
 
 /* Events */
 #define START_PRINT_EVT         Event_Id_00
+#define RSSI_UPDATED_EVT        Event_Id_01
 
 /* Application definitions */
 #define BUFFER_SIZE 24
@@ -63,31 +64,14 @@ static RF_Object rfObject;
 static RF_Handle rfHandle;
 
 static rfc_propRxOutput_t rxStatistics;
-static int8_t RSSIout;
 
 /* Buffer which contains all Data Entries for receiving data.
  * Pragmas are needed to make sure this buffer is 4 byte aligned (requirement from the RF Core) */
-#if defined(__TI_COMPILER_VERSION__)
 #pragma DATA_ALIGN (rxDataEntryBuffer, 4);
 static uint8_t
 rxDataEntryBuffer[RF_QUEUE_DATA_ENTRY_BUFFER_SIZE(NUM_DATA_ENTRIES,
                                                   MAX_LENGTH,
                                                   NUM_APPENDED_BYTES)];
-#elif defined(__IAR_SYSTEMS_ICC__)
-#pragma data_alignment = 4
-static uint8_t
-rxDataEntryBuffer[RF_QUEUE_DATA_ENTRY_BUFFER_SIZE(NUM_DATA_ENTRIES,
-                                                  MAX_LENGTH,
-                                                  NUM_APPENDED_BYTES)];
-#elif defined(__GNUC__)
-static uint8_t
-rxDataEntryBuffer[RF_QUEUE_DATA_ENTRY_BUFFER_SIZE(NUM_DATA_ENTRIES,
-                                                  MAX_LENGTH,
-                                                  NUM_APPENDED_BYTES)]
-                                                  __attribute__((aligned(4)));
-#else
-#error This compiler is not supported.
-#endif
 
 /* Receive dataQueue for RF Core to fill in data */
 static dataQueue_t dataQueue;
@@ -117,7 +101,7 @@ void RxCallback(RF_Handle h, RF_CmdHandle ch, RF_EventMask e)
 
         RFQueue_nextEntry();
 
-        RSSIout = rxStatistics.lastRssi;
+        Event_post(event, RSSI_UPDATED_EVT);
 
         RF_postCmd(rfHandle, (RF_Op*)&RF_cmdPropRx, RF_PriorityNormal, &RxCallback, RF_EventRxEntryDone);
     }
@@ -160,7 +144,7 @@ void *mainThread(void *arg0)
     uint8_t data[6];
 
     uint8_t index = 255; //overflow when increment to skip increment for first time
-    uint32_t loop_time, loop_delay_count, delay_count;
+    uint32_t loop_time, loop_delay_count, delay_count, no_of_loops;
     bool event_status = false;
     bool buffer_overflowed = false;
     uint8_t start_index, flushed_count = 0, last_index;
@@ -251,7 +235,8 @@ void *mainThread(void *arg0)
     /* buffer data and check for event*/
     // timeout input in Event_pend function controls the buffer time
     loop_time = (uint32_t) 16000000/FREQ; /* in cycles */ /* CPU_delay takes 3 cycles - CPU clock 48MHz - 48MHz/3=16MHz */
-    loop_delay_count = (uint32_t)loop_time/100000;
+    no_of_loops = 1000;
+    loop_delay_count = (uint32_t)loop_time/no_of_loops;
 
     while(1) {
         //UART_write(uart, "loop: ", 6); ltoa(loop_delay_count, msg); UART_write(uart, msg, strlen(msg)); UART_write(uart, "\r\n", 2);
@@ -278,10 +263,10 @@ void *mainThread(void *arg0)
             imu_buffer[index][7] = (((int16_t)data[3]) << 8) | data[2];
             imu_buffer[index][8] = (((int16_t)data[5]) << 8) | data[4];
             /* RSSI */
-            rssi_buffer[index] = RSSIout;
-            RSSIout = 0; // make it zero so if nothing received till next buffer no wrong values get reported
+            if (Event_pend(event, Event_Id_NONE, RSSI_UPDATED_EVT, 0)) { rssi_buffer[index] = rxStatistics.lastRssi; }
+            else                                                       { rssi_buffer[index] = 0; }
 
-            for(delay_count = 0; delay_count < 100000; delay_count++)
+            for(delay_count = 0; delay_count < no_of_loops; delay_count++)
             {
                 if (Event_pend(event, Event_Id_NONE, START_PRINT_EVT, 0))
                 {
@@ -320,7 +305,7 @@ void *mainThread(void *arg0)
             UART_write(uart, &imu_buffer[i][7], 2);
             UART_write(uart, &imu_buffer[i][8], 2);
             /* RSSI */
-            UART_write(uart, &rssi_buffer[index], 1);
+            UART_write(uart, &rssi_buffer[i], 1);
 
             i++;
 
