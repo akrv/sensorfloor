@@ -109,8 +109,7 @@ void RxCallback(RF_Handle h, RF_CmdHandle ch, RF_EventMask e)
 
 /*  ======== button callback function ======== */
 void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId) {
-    /* Debounce logic, only toggle if the button is still pushed */
-    //CPUdelay(1000); //TODO maybe it after testing
+    //CPUdelay(30000); //TODO use it to when debugging to prevent button debounce
     if (!PIN_getInputValue(pinId)) {
         switch (pinId) {
             case IOID_16:
@@ -132,7 +131,9 @@ void *mainThread(void *arg0)
     UART_Handle uart;
     UART_Params uartParams;
 
-    uint16_t imu_buffer[BUFFER_SIZE][9]; // buffer 100 readings (3 accel, 3 gyro, 3 mag)
+    // buffer 100 readings (3 accel, 3 gyro, 3 mag)
+    uint16_t imu_buffer[BUFFER_SIZE][6];
+    int16_t mag_buffer[BUFFER_SIZE][3];
     int8_t rssi_buffer[BUFFER_SIZE];
     //char msg[5] = 0;
 
@@ -142,6 +143,8 @@ void *mainThread(void *arg0)
     //float gyrox, gyroy, gyroz;
     //uint16_t mag_x, mag_y, mag_z;
     uint8_t data[6];
+    int16_t data_mag[3];
+    uint8_t mag_status;
 
     uint8_t index = 255; //overflow when increment to skip increment for first time
     uint32_t loop_time, loop_delay_count, delay_count, no_of_loops;
@@ -252,16 +255,26 @@ void *mainThread(void *arg0)
             imu_buffer[index][0] = (((int16_t)data[1]) << 8) | data[0];
             imu_buffer[index][1] = (((int16_t)data[3]) << 8) | data[2];
             imu_buffer[index][2] = (((int16_t)data[5]) << 8) | data[4];
-            /* Mag */
-            SensorMpu9250_magRead((uint16_t*) &data);
+            /* Gyro */
+            SensorMpu9250_gyroRead((uint16_t*) &data);
             imu_buffer[index][3] = (((int16_t)data[1]) << 8) | data[0];
             imu_buffer[index][4] = (((int16_t)data[3]) << 8) | data[2];
             imu_buffer[index][5] = (((int16_t)data[5]) << 8) | data[4];
-            /* Gyro */
-            SensorMpu9250_gyroRead((uint16_t*) &data);
-            imu_buffer[index][6] = (((int16_t)data[1]) << 8) | data[0];
-            imu_buffer[index][7] = (((int16_t)data[3]) << 8) | data[2];
-            imu_buffer[index][8] = (((int16_t)data[5]) << 8) | data[4];
+            /* Mag */
+            mag_status = SensorMpu9250_magRead((int16_t*) &data_mag);
+            if (mag_status == MAG_STATUS_OK)
+            {
+                mag_buffer[index][0] = data_mag[0];
+                mag_buffer[index][1] = data_mag[1];
+                mag_buffer[index][2] = data_mag[2];
+            }
+            else
+            {
+                mag_buffer[index][0] = 0;
+                mag_buffer[index][1] = 0;
+                mag_buffer[index][2] = 0;
+            }
+
             /* RSSI */
             if (Event_pend(event, Event_Id_NONE, RSSI_UPDATED_EVT, 0)) { rssi_buffer[index] = rxStatistics.lastRssi; }
             else                                                       { rssi_buffer[index] = 0; }
@@ -296,14 +309,14 @@ void *mainThread(void *arg0)
             UART_write(uart, &imu_buffer[i][0], 2);
             UART_write(uart, &imu_buffer[i][1], 2);
             UART_write(uart, &imu_buffer[i][2], 2);
-            /* Mag */
+            /* Gyro */
             UART_write(uart, &imu_buffer[i][3], 2);
             UART_write(uart, &imu_buffer[i][4], 2);
             UART_write(uart, &imu_buffer[i][5], 2);
-            /* Gyro */
-            UART_write(uart, &imu_buffer[i][6], 2);
-            UART_write(uart, &imu_buffer[i][7], 2);
-            UART_write(uart, &imu_buffer[i][8], 2);
+            /* Mag */
+            UART_write(uart, &mag_buffer[i][0], 2);
+            UART_write(uart, &mag_buffer[i][1], 2);
+            UART_write(uart, &mag_buffer[i][2], 2);
             /* RSSI */
             UART_write(uart, &rssi_buffer[i], 1);
 
