@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?ccsproject version="1.0"?>
+<projectOptions>
+	<ccsVersion value="10.0.0"/>
+	<deviceVariant value="Cortex M.CC1350F128"/>
+	<deviceFamily value="TMS470"/>
+	<deviceEndianness value="little"/>
+	<codegenToolVersion value="20.2.0.LTS"/>
+	<isElfFormat value="true"/>
+	<connection value="common/targetdb/connections/TIXDS110_Connection.xml"/>
+	<rts value=""/>
+	<createSlaveProjects value=""/>
+	<ignoreDefaultDeviceSettings value="true"/>
+	<ignoreDefaultCCSSettings value="true"/>
+	<templateProperties value="id=rfPacketTx_CC1350STK_tirtos_ccs.projectspec.rfPacketTx_CC1350STK_tirtos_ccs,buildProfile=release,isHybrid=true"/>
+	<origin value="/home/gouda/sensor_floor/sensorfloor/imu_app/imu_ti_workspace/robot_TX"/>
+	<filesToOpen value=""/>
+</projectOptions>

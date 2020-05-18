@@ -74,11 +74,10 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
                     try:
                         rcvdData = ser.read(size=4)
                         length_to_read = (struct.unpack('<H', rcvdData[2:]))[0]
-                        rcvdData = ser.read(size=length_to_read * 9 * 2)
-                        data = struct.unpack('<' + str(length_to_read * 9) + 'H', rcvdData)
 
                     except Exception as e:
                         print('dev_id: ',node_id, e)
+                        continue
                     rs422_latency.append(time() - read_start_time)
 
                     parsing_start_time = time()
@@ -87,13 +86,31 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
                 if parse:
                     reading_to_publish = []
 
-
-                    for reading in range(0, len(data), 9):
+                    broken_node = False
+                    for reading in range(length_to_read):
                         current_reading = {}
-                        current_reading['a'] = [(i * 1.0) / (32768 / 2) for i in data[reading:reading + 3]]
-                        current_reading['m'] = data[reading + 3:reading + 6]
-                        current_reading['g'] = [(i * 1.0) / (65536 / 500) for i in data[reading + 6:reading + 9]]
-                        reading_to_publish.append(current_reading)
+                        try:
+                            # IMU
+                            rcvdData = ser.read(size=9*2)
+                            data = struct.unpack('<' + str(9) + 'h', rcvdData)
+                            #current_reading['a'] = data[0:3]
+                            #current_reading['g'] = data[3:6]
+                            #current_reading['m'] = data[6:9]
+                            current_reading['a'] = [(i * 1.0) / (32768 / 2) for i in data[0:3]]
+                            current_reading['g'] = [(i * 1.0) / (65536 / 500) for i in data[3:6]]
+                            current_reading['m'] = [i * 0.15 for i in data[6:9]]
+                            # RSSI
+                            rcvdData = ser.read(size=1)
+                            data = struct.unpack('<' + str(1) + 'b', rcvdData)
+                            current_reading['r'] = data
+                            # publish the msg
+                            reading_to_publish.append(current_reading)
+                        except Exception as e:
+                            print('broken node: ', sensor._path ,node_id, e)
+                            broken_node = True
+                            break
+                    if broken_node is True:
+                        continue
                     parsing_latency.append(time() - parsing_start_time)
                     publish_start_time = time()
                     # format data to be published with metadata

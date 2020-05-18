@@ -12,8 +12,8 @@ def callback(data):
     global topic
     j_msg = {
         'object': topic,
-        'translation': [data.translation.x, data.translation.y, data.translation.z],
-        'rotation': [data.rotation.x, data.rotation.y, data.rotation.z],
+        'translation': [data.transform.translation.x, data.transform.translation.y, data.transform.translation.z],
+        'rotation': [data.transform.rotation.x, data.transform.rotation.y, data.transform.rotation.z],
         'time': time()
     }
     with open("vicon_data.txt", "a+") as test_data:
