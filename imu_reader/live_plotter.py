@@ -47,8 +47,8 @@ import json
 def on_connect(client, userdata, flags, rc):
   print("Connected with result code "+str(rc))
   for RPi in RPi_IPs:
-      for node in range(1,16):
-        client.subscribe("imu_reader/"+RPi['mac_id']+"/"+str(node+1))
+      for node in range(1,16): # range 1 to 16 is an array from 1 to 15.
+        client.subscribe("imu_reader/"+RPi['mac_id']+"/"+str(node))
 
 def on_message(client, userdata, msg):
   if msg.payload.decode():
