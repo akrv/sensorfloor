@@ -1,3 +1,4 @@
+#!/usr/bin/python2
 import serial
 import os
 import json

@@ -1,3 +1,4 @@
+#!/usr/bin/python2
 import serial
 import os
 import json
@@ -31,7 +32,7 @@ if __name__ == '__main__':
     json_file.close()
     strip_path_inorder = [node_name['wire1'] for node_name in strip_path_inorder]
 
-    # turn on and put them in a not communicating mode
+    # turn off all nodes communication
     for sensor in node_list:
         if sensor.type == "DS2408":
             sensor.PIO_7 = "0"  # turn off RX & TX

@@ -1,18 +1,10 @@
+#!/usr/bin/python3
+
 import os, requests, sys, json
 import asyncio
+import argparse
 
 from fabfile import RPi_IPs
-
-if len(sys.argv) > 1:
-    if sys.argv[1] == 'check':
-        check = True
-    else:
-        check = False
-        filename = sys.argv[1]
-else:
-    print('Please provide absolute path file name as arg to flash')
-    print('check will check if all services are up')
-
 
 def send_flash_req(ip_addr, filename, devices=0):
     if filename:
@@ -44,8 +36,39 @@ def check_all_services(RPi_IPs):
         else:
             print('failed: ', ips['ip_addr'])
 
+if __name__ == '__main__':
+    # args
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--firmware-path', type=str)
 
-if check:
-    check_all_services(RPi_IPs)
-else:
-    flash_coroutine(RPi_IPs, filename)
+    parser.add_argument('--check', dest='check', action='store_true')
+    parser.set_defaults(check=False)
+
+    parser.add_argument('--flash-all', dest='flash_all', action='store_true')
+    parser.add_argument('--flash-one-node', dest='flash_all', action='store_false')
+    parser.set_defaults(flash_all=False)
+
+    parser.add_argument('--strip-id', type=int)
+    parser.add_argument('--node-id', type=int)
+
+    try:
+        args = parser.parse_args()
+    except:
+        print('args provided are wrong')
+        exit()
+
+    if args.check:
+        print('Check all services')
+        check_all_services(RPi_IPs)
+        exit()
+
+    if args.firmware_path is None:
+        print('Please provide absolute path file name as arg to flash')
+        exit()
+
+    if args.flash_all:
+        print('Flashing the whole floor')
+        flash_coroutine(RPi_IPs, args.firmware_path)
+    else:
+        print('Flashing node strip_id:', args.strip_id, 'node_id:', args.node_id)
+        send_flash_req(RPi_IPs[args.strip_id-1]['ip_addr'], args.firmware_path, devices=args.node_id)
