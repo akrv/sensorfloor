@@ -95,6 +95,11 @@ def turnoff():
     with cd('~/sensorfloor/floor_flasher'):
         run('python all_turn_on_comm_off.py --turn-off')
 
+@parallel
+def save_log():
+    with cd('~/sensorfloor/floor_flasher'):
+        run('python save_log.py')
+
 # /Users/akrv/Documents/dev/sensorfloor/imu_app/imu_ti_workspace/imu_data_interrupt/Release/imu_data_interrupt.bin
 
 def cssh():
