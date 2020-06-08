@@ -166,7 +166,8 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
                         }
         print(time() - total_time, 30 * '$')
         # pprint(latency_info)
-        ret = client1.publish('imu_reader/' + strip_id + '/latency', json.dumps(latency_info))  # publish
+        ret = client1.publish('imu_reader/' + strip_id[0] + '/latency', json.dumps(latency_info))  # publish
+        ret = client1.publish('imu_reader/' + str(strip_id[1]) + '/latency', json.dumps(latency_info))  # publish
 
 def getMAC(interface='eth0'):
     # Return the MAC address of the specified interface
