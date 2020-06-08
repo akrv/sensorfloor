@@ -179,7 +179,6 @@ def getMAC(interface='eth0'):
         str = "00:00:00:00:00:00"
         column_num = 0
 
-
     return [str[0:17],column_num]
 
 
