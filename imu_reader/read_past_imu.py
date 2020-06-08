@@ -175,7 +175,7 @@ def getMAC(interface='eth0'):
     try:
         str = open('/sys/class/net/%s/address' % interface).read()
         for ip in RPi_IPs:
-            if ip["mac_id"] == str:
+            if ip["mac_id"] == str[0:17]:
                 column_num = ip["column_num"]
     except:
         str = "00:00:00:00:00:00"
