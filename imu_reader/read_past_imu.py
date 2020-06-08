@@ -170,6 +170,7 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
 
 def getMAC(interface='eth0'):
     # Return the MAC address of the specified interface
+    column_num = 0
     try:
         str = open('/sys/class/net/%s/address' % interface).read()
         for ip in RPi_IPs:
