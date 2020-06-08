@@ -76,7 +76,7 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
 
                     # construct topic for publishing
                     mqtt_publish_topic = 'imu_reader' + "/" + strip_id[0] + "/" + node_id
-                    mqtt_publish_topic1 = 'imu_reader' + "/" + strip_id[1] + "/" + node_id
+                    mqtt_publish_topic1 = 'imu_reader' + "/" + str(strip_id[1]) + "/" + node_id
 
                     switching_start_time = time()
                     # set all devices PIO 6 and 7 RX and TX off.

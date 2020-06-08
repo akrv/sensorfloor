@@ -45,8 +45,13 @@ env.reject_unknown_hosts = False
 
 @parallel
 def r():
+    with cd('~/sensorfloor'):
+        run('git config --global user.email "aswinkarthik.ramachandran@tu-dortmund.de"')
+        run('git config --global user.name "akrv"')
 
-    run('sudo timedatectl set-timezone Europe/Berlin')
+        run('git stash')
+        run('git pull')
+    # run('ntpstat')
 
 
 @parallel
