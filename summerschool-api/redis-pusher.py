@@ -33,12 +33,14 @@ def on_connect(client, userdata, flags, rc):
   print("Connected with result code "+str(rc))
   for RPi in RPi_IPs:
       for node in range(1,16): # range 1 to 16 is an array from 1 to 15.
-        client.subscribe("imu_reader/"+RPi['mac_id']+"/"+str(node))
+        client.subscribe("imu_reader/"+str(RPi['column_num'])+"/"+str(node))
 
 
 def on_message(client, userdata, msg):
   if msg.payload.decode():
       j_msg = json.loads(msg.payload.decode('utf-8'))
+      # r.set('foo', 'bar')
+      print(RPi_IPs[j_msg["column_num"]-1]["redis_handler"].set(j_msg["node_id"],json.dumps(j_msg)))
 
 # set paho.mqtt callback
 client = mqtt.Client()
@@ -48,7 +50,12 @@ client.on_message = on_message
 
 # open as many dbs as required for every strip
 for ip in RPi_IPs:
-    ip['redis_handler']= redis.Redis(host='129.217.152.1', port=6379, db=ip["column_num"])
+    if ip["column_num"] <= 15:
+        ip['redis_handler']= redis.Redis(host='129.217.152.1', port=6379, db=ip["column_num"])
+    else:
+        # who is going to stop me from making shitty decisions, just me. but hey i built the whole stack and it was working
+        # you are reading this comment because this was a bad decision to start with
+        ip['redis_handler']= redis.Redis(host='129.217.152.1', port=6380, db=ip["column_num"]-15)
 
 try:
     client.loop_forever()
