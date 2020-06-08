@@ -49,7 +49,7 @@ for ip in RPi_IPs:
 
 @app.route('/<allowed_secret>/current_values')
 def send_current_values(allowed_secret):
-    print (allowed_secret)
+
     if allowed_secret in allowed_secrets:
         for ip in RPi_IPs:
             current_values = []
