@@ -5,7 +5,10 @@ from flask import jsonify
 app = Flask(__name__)
 
 
-allowed_secret = "97382689029b92c526a5a1fb0ed7e7f3"
+allowed_secrets = []
+f = open("allowed_secret.txt", "r")
+for i in range(10):
+    allowed_secrets.append(f.readline())
 
 RPi_IPs = [
             {"column_num": 1, "ip_addr": "129.217.152.74", "mac_id": "b8:27:eb:41:99:a0", "hostname": "raspberrypi"},
@@ -44,14 +47,17 @@ for ip in RPi_IPs:
         ip['redis_handler']= redis.Redis(host='129.217.152.1', port=6380, db=ip["column_num"]-15)
         # -15 to not exceed the max 16 dbs and there are two instances of redis exposed in two different ports
 
-@app.route('/'+allowed_secret+'/current_values')
-def send_current_values():
-    for ip in RPi_IPs:
-        current_values = []
-        for key in (ip["redis_handler"].keys()):
-            value_json = json.loads(ip["redis_handler"].get(key).decode("utf-8"))
-            print(type(value_json))
-            current_values.append(value_json)
+@app.route('/<allowed_secret>/current_values')
+def send_current_values(allowed_secret):
+    print (allowed_secret)
+    if allowed_secret in allowed_secrets:
+        for ip in RPi_IPs:
+            current_values = []
+            for key in (ip["redis_handler"].keys()):
+                value_json = json.loads(ip["redis_handler"].get(key).decode("utf-8"))
+                current_values.append(value_json)
+    else:
+        current_values = {"error": "your key is not authenticated"}
 
     return jsonify(current_values)
 # running the server

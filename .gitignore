@@ -111,3 +111,4 @@ imu_app/imu_ti_workspace/imu_data_interrupt/.DS_Store
 imu_reader/data_1.txt
 imu_reader/test_data_1.txt
 imu_reader/test_data_all_nodes.txt
+/summerschool-api/allowed_secret.txt
