@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 import redis, json
 from flask import jsonify
 
@@ -8,7 +8,7 @@ app = Flask(__name__)
 allowed_secrets = []
 f = open("allowed_secret.txt", "r")
 for i in range(10):
-    allowed_secrets.append(f.readline())
+    allowed_secrets.append(f.readline()[:-1]) # to remove the trailing \n
 
 RPi_IPs = [
             {"column_num": 1, "ip_addr": "129.217.152.74", "mac_id": "b8:27:eb:41:99:a0", "hostname": "raspberrypi"},
@@ -47,9 +47,8 @@ for ip in RPi_IPs:
         ip['redis_handler']= redis.Redis(host='129.217.152.1', port=6380, db=ip["column_num"]-15)
         # -15 to not exceed the max 16 dbs and there are two instances of redis exposed in two different ports
 
-@app.route('/<allowed_secret>/current_values')
+@app.route('/<allowed_secret>/current_values',methods=['GET'])
 def send_current_values(allowed_secret):
-
     if allowed_secret in allowed_secrets:
         for ip in RPi_IPs:
             current_values = []
@@ -58,8 +57,46 @@ def send_current_values(allowed_secret):
                 current_values.append(value_json)
     else:
         current_values = {"error": "your key is not authenticated"}
-
     return jsonify(current_values)
+
+
+def do_action(requested_json):
+    # all action related logic is performed here
+    if requested_json["action"] == "forward":
+        # call a function and return safe value from current location
+
+        # value cannot be more than 10. sent value is in meters
+        # value can be float
+        # anything less than 10cm is error
+        if int(requested_json["value"]) >= 1:
+            # check if this will crash the robot
+
+            # publish move_base message to robot
+            return_values = {"status": "forward value published to robot"}
+        else:
+            return_values = {"error": "requested action is not valid"}
+    elif requested_json["action"] == "turn":
+        # value cannot be float
+        # value can only be a multiple of 5
+        if int(requested_json["value"]) >= 10 and int(requested_json["value"]) % 5 == 0:
+            # check if this will crash the robot
+            return_values = {"status": "turn value published to robot"}
+        else:
+            return_values = {"error": "not a valid value"}
+    else:
+        return_values = {"error": "requested action is not valid"}
+    return return_values
+
+
+@app.route('/<allowed_secret>/robot/action',methods=['POST'])
+def move_robot_forward(allowed_secret):
+    # only the request is authenticated
+    if allowed_secret in allowed_secrets:
+        return_values = do_action(requested_json=request.get_json())
+    else:
+        return_values = {"error": "your key is not authenticated"}
+    return jsonify(return_values)
+
 # running the server
 app.run(debug = True) # to allow for debugging and auto-reload
 
