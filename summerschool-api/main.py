@@ -4,6 +4,7 @@ from flask import jsonify
 import paho.mqtt.client as mqttClient
 import sys
 from scipy.spatial.transform import Rotation as Rot
+import json
 
 
 #######################################################################################
@@ -46,8 +47,6 @@ client.subscribe("/robotnik/#", 0) # Topics with wild card and a robotnik namesp
 '''
 status = -1
 status_received = False
-client.message_callback_add("/robotnik/mqtt_ros_info", parse_status_data) # commands received from user ex: pick, place, etc
-
 
 app = Flask(__name__)
 
@@ -106,43 +105,6 @@ def send_current_values(allowed_secret):
         current_values = {"error": "your key is not authenticated"}
     return jsonify(current_values)
 
-
-def do_action(requested_json):
-    # TODO: Message Throttling
-    # all action related logic is performed here
-
-    if requested_json["action"] == "forward":
-        # call a function and return safe value from current location
-        position = {"x":int(requested_json["value"]), "y":0, "z":0}
-        msg = {"robot_id":ROBOT_ID, "action":"drive","position":position}
-        #msg.command_id = data.command_id # Maybe be used!
-        # value cannot be more than 10. sent value is in meters
-        # value can be float
-        # anything less than 10cm is error
-        client.publish('/robotnik/mqtt_ros_command',msg)
-        while(not status_received): pass
-        if status == 1: # status one (as in ROS move_base server) then goal is active and can be executed
-            # check if this will crash the robot
-            return_values = {"status": "forward value published to robot"}
-        else:
-            return_values = {"error": "requested action is not valid"}
-    elif requested_json["action"] == "turn":
-        # value cannot be float
-        # value can only be a multiple of 5
-        if int(requested_json["value"]) >= 10 and int(requested_json["value"]) % 5 == 0:
-            # check if this will crash the robot
-            r = Rot.from_euler('z', int(requested_json["value"]), degrees=True)
-            r = r.as_quat()
-            orientation = {"x":r[0], "y":r[1], "z":r[2], "w":r[3]}
-            msg = {"robot_id":ROBOT_ID, "action":"drive","orientation":orientation}
-            return_values = {"status": "turn value published to robot"}
-            client.publish('/robotnik/mqtt_ros_command',msg)
-        else:
-            return_values = {"error": "not a valid value"}
-    else:
-        return_values = {"error": "requested action is not valid"}
-    return return_values
-
 def parse_status_data(client, userdata, message):
         try:
             status_msg = json.loads(message.payload)
@@ -153,14 +115,76 @@ def parse_status_data(client, userdata, message):
         status_received = True
         #status_msg['command_id'] # Maybe be used!
 
+
+def do_action(requested_json):
+    # TODO: Message Throttling
+    # all action related logic is performed here
+    msg = {
+        "robot_id": ROBOT_ID,\
+        "command_id": "",\
+        "pose": {\
+        "position": {\
+        "x": 0,\
+        "y": 0,\
+        "z": 0\
+        },\
+        "orientation": {\
+        "x": 0,\
+        "y": 0,\
+        "z": 0,\
+        "w": 1\
+        }},\
+        "action": "drive",\
+        "cart_id": "KLT_7_neu",\
+        "station_id": "AS_5_neu",\
+        "bound_mode": "inbound", \
+        "cancellation_stamp": 0 \
+        }
+    if requested_json["action"] == "forward":
+        # call a function and return safe value from current location
+        #position = {"x":int(requested_json["value"]), "y":0, "z":0}
+        #msg = {"robot_id":ROBOT_ID, "action":"drive","position":position}
+        msg['pose']['position']['x'] = float(requested_json["value"])
+
+        #msg.command_id = data.command_id # Maybe be used!
+        # value cannot be more than 10. sent value is in meters
+        # value can be float
+        # anything less than 10cm is error
+        client.publish('/robotnik/mqtt_ros_command',json.dumps(msg,indent=4))
+        while(not status_received): pass
+        if status == 1: # status one (as in ROS move_base server) then goal is active and can be executed
+            # check if this will crash the robot
+            return_values = {"status": "forward value published to robot"}
+        else:
+            return_values = {"error": "requested action is not valid"}
+    elif requested_json["action"] == "turn":
+        # value cannot be float
+        # value can only be a multiple of 5
+        if abs(requested_json["value"]) >= 10 and int(requested_json["value"]) % 5 == 0:
+            # check if this will crash the robot
+            r = Rot.from_euler('z', int(requested_json["value"]), degrees=True)
+            r = r.as_quat()
+            orientation = {"x":r[0], "y":r[1], "z":r[2], "w":r[3]}
+            msg['pose']['orientation'] = orientation
+            return_values = {"status": "turn value published to robot"}
+            client.publish('/robotnik/mqtt_ros_command',json.dumps(msg,indent=4))
+        else:
+            return_values = {"error": "not a valid value"}  
+    else:
+        return_values = {"error": "requested action is not valid"}
+    return return_values
+
 @app.route('/<allowed_secret>/robot/action',methods=['POST'])
 def move_robot_forward(allowed_secret):
     # only the request is authenticated
     if allowed_secret in allowed_secrets:
+        requested_json=request.get_json()
         return_values = do_action(requested_json=request.get_json())
     else:
         return_values = {"error": "your key is not authenticated"}
     return jsonify(return_values)
+
+client.message_callback_add("/robotnik/mqtt_ros_info", parse_status_data) # commands received from user ex: pick, place, etc
 
 # running the server
 app.run(debug = True) # to allow for debugging and auto-reload
