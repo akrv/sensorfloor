@@ -200,6 +200,6 @@ def move_robot_forward(allowed_secret):
 client.message_callback_add("/robotnik/mqtt_ros_info", parse_status_data) # commands received from user ex: pick, place, etc
 
 # running the server
-app.run(debug = True) # to allow for debugging and auto-reload
+app.run(debug = True, host= "0.0.0.0") # to allow for debugging and auto-reload
 
 
