@@ -35,6 +35,9 @@ RPi_IPs = [
             {"column_num": 23, "ip_addr": "129.217.152.33", "mac_id": "b8:27:eb:c0:10:ae", "hostname": "raspberrypi"},
             ]
 
+# dead_nodes are the nodes that cannot be flashed, probably due to a hardware problem
+# TODO this list should be removed whenever they get fixed
+dead_nodes = ['/29.47FC2F000000', '/29.C6F92F000000', '/29.7C0230000000', '/29.BC992F000000']
 
 def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_connection_info):
     # strip id is important for constructing the topic
@@ -67,10 +70,9 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
         for sensor in node_list:
             # if sensor.type == "DS2408" and sensor._path == '/29.EF992F000000':
             if sensor.type == "DS2408":
-                if sensor._path == "/29.BC992F000000" or sensor._path == "/29.47FC2F000000":
+                if sensor._path in dead_nodes:
                     # sensor cannot be flashed.
                     data = [0,0,0,0,0,0,0,0,0]
-
                 else:
                     node_id = str(1 + strip_path_inorder.index(sensor._path))
 
@@ -110,8 +112,7 @@ def reader_worker(strip_id, strip_path_inorder, node_list, serial_handler, mqtt_
 
                     parsing_start_time = time()
                 # if its a not working sensor, then data is set to a list of 9 zeros
-                parse = True
-                if parse:
+
                     reading_to_publish = []
 
                     broken_node = False
