@@ -93,17 +93,24 @@ for ip in RPi_IPs:
         ip['redis_handler']= redis.Redis(host='129.217.152.1', port=6380, db=ip["column_num"]-15)
         # -15 to not exceed the max 16 dbs and there are two instances of redis exposed in two different ports
 
+redis_generated_frame = redis.Redis(host='129.217.152.1', port=6380, db=9) # db 9 is from danny's frame generator code
+
 @app.route('/<allowed_secret>/current_values',methods=['GET'])
 def send_current_values(allowed_secret):
+    # if allowed_secret in allowed_secrets:
+    #     current_values = []
+    #     for ip in RPi_IPs:
+    #         for key in (ip["redis_handler"].keys()):
+    #             value_json = json.loads(ip["redis_handler"].get(key).decode("utf-8"))
+    #             current_values.append(value_json)
+    # else:
+    #     current_values = {"error": "your key is not authenticated"}
+    #
+    # return jsonify(current_values)
+
     if allowed_secret in allowed_secrets:
-        for ip in RPi_IPs:
-            current_values = []
-            for key in (ip["redis_handler"].keys()):
-                value_json = json.loads(ip["redis_handler"].get(key).decode("utf-8"))
-                current_values.append(value_json)
-    else:
-        current_values = {"error": "your key is not authenticated"}
-    return jsonify(current_values)
+        value_json = json.loads(redis_generated_frame.get('frame').decode("utf-8"))
+        return jsonify(value_json)
 
 def parse_status_data(client, userdata, message):
         try:
