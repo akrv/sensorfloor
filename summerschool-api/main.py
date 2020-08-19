@@ -109,8 +109,9 @@ def parse_status_data(client, userdata, message):
         try:
             status_msg = json.loads(message.payload)
         except:
-            print('Json Message not correecly Formatted!')
+            print('Json Message not correctly Formatted!')
             return
+        global status
         status = status_msg['status']
         status_received = True
         #status_msg['command_id'] # Maybe be used!
@@ -151,16 +152,20 @@ def do_action(requested_json):
         # value can be float
         # anything less than 10cm is error
         client.publish('/robotnik/mqtt_ros_command',json.dumps(msg,indent=4))
-        while(not status_received): pass
-        if status == 1: # status one (as in ROS move_base server) then goal is active and can be executed
-            # check if this will crash the robot
-            return_values = {"status": "forward value published to robot"}
-        else:
-            return_values = {"error": "requested action is not valid"}
+        global status
+        while(status==1): pass # status 1 (as in ROS move_base server) then goal is active and can be executed
+
+        # TODO check status
+        return_values = {"status": "goal sent"}
+        #if status == 3:
+        #    return_values = {"status": "goal reached"}
+        #elif status == 4:
+        #    return_values = {"status": "goal failed"}
+        # TODO check if this will crash the robot
     elif requested_json["action"] == "turn":
         # value cannot be float
         # value can only be a multiple of 5
-        if abs(requested_json["value"]) >= 10 and int(requested_json["value"]) % 5 == 0:
+        if abs(int(requested_json["value"])) >= 10 and int(requested_json["value"]) % 5 == 0:
             # check if this will crash the robot
             r = Rot.from_euler('z', int(requested_json["value"]), degrees=True)
             r = r.as_quat()
@@ -168,8 +173,9 @@ def do_action(requested_json):
             msg['pose']['orientation'] = orientation
             return_values = {"status": "turn value published to robot"}
             client.publish('/robotnik/mqtt_ros_command',json.dumps(msg,indent=4))
+            return_values = {"status": "goal sent"}
         else:
-            return_values = {"error": "not a valid value"}  
+            return_values = {"error": "not a valid turn value"}  
     else:
         return_values = {"error": "requested action is not valid"}
     return return_values

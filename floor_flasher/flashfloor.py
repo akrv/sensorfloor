@@ -1,7 +1,4 @@
-#!/usr/bin/python3
-
 import os, requests, sys, json
-import asyncio
 import argparse
 
 from fabfile import RPi_IPs
