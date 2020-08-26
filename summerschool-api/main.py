@@ -6,9 +6,8 @@ import sys
 from scipy.spatial.transform import Rotation as Rot
 import json
 
-
 #######################################################################################
-# TODO determine which robot is used during the hackathon
+# TODO specify robot is used for the hackathon
 
 ROBOT_ID = "rb1_base_c"
 
@@ -40,14 +39,12 @@ client.on_connect= on_connect                          # attach function to call
 client.on_message= on_message                          # attach function to callback
 client.connect(broker_address, port=port)              # connect to broker
 client.loop_start()                                    # start the loop
-client.subscribe("/robotnik/#", 0) # Topics with wild card and a robotnik namespace 
+client.subscribe("/robotnik/mqtt_ros_info", 1) # Topics with wild card and a robotnik namespace 
 
 '''
 #######################################################################################
 '''
 status = -1
-status_received = False
-
 app = Flask(__name__)
 
 
@@ -113,19 +110,16 @@ def send_current_values(allowed_secret):
         return jsonify(value_json)
 
 def parse_status_data(client, userdata, message):
+        global status
         try:
             status_msg = json.loads(message.payload)
         except:
             print('Json Message not correctly Formatted!')
             return
-        global status
         status = status_msg['status']
-        status_received = True
-        #status_msg['command_id'] # Maybe be used!
-
 
 def do_action(requested_json):
-    # TODO: Message Throttling
+    global status
     # all action related logic is performed here
     msg = {
         "robot_id": ROBOT_ID,\
@@ -146,33 +140,18 @@ def do_action(requested_json):
         "cart_id": "KLT_7_neu",\
         "station_id": "AS_5_neu",\
         "bound_mode": "inbound", \
-        "cancellation_stamp": 0 \
+        "cancellation_stamp": 0, \
+        "ref_frame": "vicon_world"\
         }
     if requested_json["action"] == "forward":
         # call a function and return safe value from current location
-        #position = {"x":int(requested_json["value"]), "y":0, "z":0}
-        #msg = {"robot_id":ROBOT_ID, "action":"drive","position":position}
+        msg['ref_frame'] = "base_footprint"
         msg['pose']['position']['x'] = float(requested_json["value"])
-
-        #msg.command_id = data.command_id # Maybe be used!
-        # value cannot be more than 10. sent value is in meters
-        # value can be float
-        # anything less than 10cm is error
         client.publish('/robotnik/mqtt_ros_command',json.dumps(msg,indent=4))
-        global status
-        while(status==1): pass # status 1 (as in ROS move_base server) then goal is active and can be executed
-
-        # TODO check status
-        return_values = {"status": "goal sent"}
-        #if status == 3:
-        #    return_values = {"status": "goal reached"}
-        #elif status == 4:
-        #    return_values = {"status": "goal failed"}
-        # TODO check if this will crash the robot
+        while(status == -1 or status == 1): pass # status 1 (as in ROS move_base server) then goal is active and is being executed
     elif requested_json["action"] == "turn":
-        # value cannot be float
-        # value can only be a multiple of 5
-        if abs(int(requested_json["value"])) >= 10 and int(requested_json["value"]) % 5 == 0:
+        msg['ref_frame'] = "base_footprint"
+        if abs(int(requested_json["value"])) >= 10:
             # check if this will crash the robot
             r = Rot.from_euler('z', int(requested_json["value"]), degrees=True)
             r = r.as_quat()
@@ -180,11 +159,23 @@ def do_action(requested_json):
             msg['pose']['orientation'] = orientation
             return_values = {"status": "turn value published to robot"}
             client.publish('/robotnik/mqtt_ros_command',json.dumps(msg,indent=4))
-            return_values = {"status": "goal sent"}
+            while(status == -1 or status == 1): pass # status 1 (as in ROS move_base server) then goal is active and is being executed
         else:
-            return_values = {"error": "not a valid turn value"}  
+            return_values = {"error": "turn value cannot be less than 10 in either direction"}  
+    elif requested_json["action"] == "go_to_relative":
+        msg['ref_frame'] = "vicon_world"
+        msg['pose']['position']['x'] = float(requested_json["x"])
+        msg['pose']['position']['y'] = float(requested_json["y"])
+        orientation = {"x":"0", "y":"0", "z":"0.707", "w":"0.707"}
+        client.publish('/robotnik/mqtt_ros_command',json.dumps(msg,indent=4))
+        while(status == -1 or status == 1): pass # status 1 (as in ROS move_base server) then goal is active and is being executed
     else:
         return_values = {"error": "requested action is not valid"}
+    if status == 3:
+        return_values = {"status": "goal reached"}
+    elif status == 4:
+        return_values = {"status": "goal failed and cannot be reached. Probably it's outside of the arena"}
+    status = -1
     return return_values
 
 @app.route('/<allowed_secret>/robot/action',methods=['POST'])
@@ -201,5 +192,3 @@ client.message_callback_add("/robotnik/mqtt_ros_info", parse_status_data) # comm
 
 # running the server
 app.run(debug = True, host= "0.0.0.0") # to allow for debugging and auto-reload
-
-
