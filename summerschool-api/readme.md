@@ -36,4 +36,4 @@ https://documenter.getpostman.com/view/1411058/T1LV7i4v
 ### Sample code:
 We have made it easier for you to program the sensor floor based navigation stack using localisation and motion planning of the robot using a simple python code. You are not limited to our creativity and you are free to choose to implement the solution however you wish to in any language you prefer. We chose the web based REST API interface especially to allow for this flexibility. The link to the sample code is available below and all of the updated comments are in the file.
 
-competition_example.py
+https://github.com/akrv/sensorfloor/blob/master/summerschool-api/competition_example.py
