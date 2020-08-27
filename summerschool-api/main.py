@@ -39,12 +39,14 @@ client.on_connect= on_connect                          # attach function to call
 client.on_message= on_message                          # attach function to callback
 client.connect(broker_address, port=port)              # connect to broker
 client.loop_start()                                    # start the loop
-client.subscribe("/robotnik/mqtt_ros_info", 1) # Topics with wild card and a robotnik namespace 
-
+client.subscribe("/robotnik/mqtt_ros_info", 1)
+client.subscribe("/waypoints_feedback", 1)
 '''
 #######################################################################################
 '''
 status = -1
+waypoints_feedback_msg = None
+
 app = Flask(__name__)
 
 
@@ -188,7 +190,27 @@ def move_robot_forward(allowed_secret):
         return_values = {"error": "your key is not authenticated"}
     return jsonify(return_values)
 
-client.message_callback_add("/robotnik/mqtt_ros_info", parse_status_data) # commands received from user ex: pick, place, etc
+@app.route('/<allowed_secret>/robot/waypoints',methods=['GET'])
+def waypoints_feedback(allowed_secret):
+    global waypoints_feedback_msg
+    # only the request is authenticated
+    if allowed_secret in allowed_secrets:
+        return_values = waypoints_feedback_msg
+    else:
+        return_values = {"error": "your key is not authenticated"}
+    return jsonify(return_values)
+
+def store_feedback(client, userdata, message):
+        global waypoints_feedback_msg
+        try:
+            waypoints_feedback_msg = json.loads(message.payload)
+        except:
+            print('Json Message not correctly Formatted!')
+            return
+
+
+client.message_callback_add("/robotnik/mqtt_ros_info", parse_status_data)
+client.message_callback_add("/waypoints_feedback", store_feedback)
 
 # running the server
 app.run(debug = True, host= "0.0.0.0") # to allow for debugging and auto-reload
