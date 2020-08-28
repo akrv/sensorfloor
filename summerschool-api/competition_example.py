@@ -21,6 +21,14 @@ import time
 import numpy as np
 import pandas as pd
 
+w1 = [18,5]
+w2 = [18,9]
+w3 = [14,7]
+w4 = [10,5]
+w5 = [9,9]
+w6 = [8,7]
+w7 = [5,4]
+w8 = [4,6]
 
 ###############################################################################
 ###############################################################################
@@ -31,13 +39,19 @@ SERVER = "http://s17.phynetlab.com/"
 ALLOWED_SECRET = '5ebe2294ecd0e0f08eab7690d2a6ee69'
 
 # Specify the waypoint provided to each team (5 points)
-WAY_POINTS = np.array([[18,5], [8,7], [10,5], [5,4], [9,9]]) # Team 1 waypoints
+WAYPOINTS = [w1, w6, w4, w7, w5] # Team 1 waypoints
+WAYPOINTS = [w1, w6, w5, w7, w4] # Team 2 waypoints
+WAYPOINTS = [w2, w6, w4, w7, w8] # Team 3 waypoints
+WAYPOINTS = [w8, w3, w4, w7, w5] # Team 4 waypoints
+WAYPOINTS = [w8, w3, w5, w7, w6] # Team 5 waypoints
+WAY_POINTS = np.array(WAYPOINTS)
 ###############################################################################
 ###############################################################################
 
 class RobotController:
     def __init__(self):
         self.url_drive = SERVER + ALLOWED_SECRET  +'/robot/action'
+        self.url_waypoints = SERVER + ALLOWED_SECRET  +'/robot/waypoints'
 
     def go_forward(self,x):
         """
@@ -72,6 +86,14 @@ class RobotController:
         """
         payload = { 'action': 'go_to_relative', 'x': str(x) , 'y': str(y)}
         return requests.post(self.url_drive, json=payload)
+
+    def waypoint_feedback(self):
+        """
+        This functions returns a feedback about the number of waypoints reached
+        by the robot.
+        """
+        msg = requests.get(self.url_waypoints)
+        return msg.json()['waypoints_reached']
 
     def localize(self):
         """
@@ -152,7 +174,9 @@ if __name__ == '__main__':
 
     # Iterate over waypoints and keep looping until the robot gets a feedback
     # that each waypoint was successfully reached.
-    for way_point in WAY_POINTS:
+    count = 0
+    while True:
+        way_point = WAY_POINTS[count]
         relative_pos = np.array([0,0])
         way_point = way_point.flatten()
 
@@ -175,4 +199,14 @@ if __name__ == '__main__':
             relative_pos[1] = -abs_distance[1]
         robot.go_to_relative(relative_pos[0], relative_pos[1])
 
-        print("waypoint reached")
+        waypoint_feedback_count = robot.waypoint_feedback()
+        if waypoint_feedback_count > count:
+            count = waypoint_feedback_count
+            print("Waypoint reached.")
+        else:
+            print("Robot didn't reach waypoint, retrying.")
+
+        if count == 5:
+            break
+
+    print("Task successfully finished, robot reached all waypoints.")
