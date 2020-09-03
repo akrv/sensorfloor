@@ -5,6 +5,7 @@ import paho.mqtt.client as mqttClient
 import sys
 from scipy.spatial.transform import Rotation as Rot
 import json
+import time
 
 #######################################################################################
 # TODO specify robot is used for the hackathon
@@ -150,7 +151,7 @@ def do_action(requested_json):
         msg['ref_frame'] = "base_footprint"
         msg['pose']['position']['x'] = float(requested_json["value"])
         client.publish('/robotnik/mqtt_ros_command',json.dumps(msg,indent=4))
-        while(status == -1 or status == 1): pass # status 1 (as in ROS move_base server) then goal is active and is being executed
+        while(status == -1 or status == 1): time.sleep(0.1) # status 1 (as in ROS move_base server) then goal is active and is being executed
     elif requested_json["action"] == "turn":
         msg['ref_frame'] = "base_footprint"
         if abs(int(requested_json["value"])) >= 10:
@@ -161,7 +162,7 @@ def do_action(requested_json):
             msg['pose']['orientation'] = orientation
             return_values = {"status": "turn value published to robot"}
             client.publish('/robotnik/mqtt_ros_command',json.dumps(msg,indent=4))
-            while(status == -1 or status == 1): pass # status 1 (as in ROS move_base server) then goal is active and is being executed
+            while(status == -1 or status == 1): time.sleep(0.1) # status 1 (as in ROS move_base server) then goal is active and is being executed
         else:
             return_values = {"error": "turn value cannot be less than 10 in either direction"}  
     elif requested_json["action"] == "go_to_relative":
@@ -170,7 +171,7 @@ def do_action(requested_json):
         msg['pose']['position']['y'] = float(requested_json["y"])
         orientation = {"x":"0", "y":"0", "z":"0.707", "w":"0.707"}
         client.publish('/robotnik/mqtt_ros_command',json.dumps(msg,indent=4))
-        while(status == -1 or status == 1): pass # status 1 (as in ROS move_base server) then goal is active and is being executed
+        while(status == -1 or status == 1): time.sleep(0.1) # status 1 (as in ROS move_base server) then goal is active and is being executed
     else:
         return_values = {"error": "requested action is not valid"}
     if status == 3:
