@@ -1,5 +1,8 @@
-import os, requests, sys, json
-import argparse
+import os, requests, sys, json, argparse
+
+import aiohttp, asyncio
+
+from aiohttp import ClientSession
 
 from fabfile import RPi_IPs
 
@@ -33,7 +36,55 @@ def check_all_services(RPi_IPs):
         else:
             print('failed: ', ips['ip_addr'])
 
+
+async def fetch(url, session):
+    async with session.get(url) as response:
+        response_text = await response.text()
+        response_status = response.status
+        return (response_status,response_text)
+
+async def post_firmware(url, session, firmwarepath):
+    async with session.post(url, data={'file': open(firmwarepath, 'rb')}) as response:
+        response_text = await response.text()
+        response_status = response.status
+        return (response_status,response_text)
+
+
+async def run(type="check",RPi_IPs=RPi_IPs,firmware=None):
+    # by default check to disable accidental flash all.
+    tasks = []
+    if type=="check":
+        # Fetch all responses within one Client session,
+        # keep connection alive for all requests.
+        async with ClientSession() as session:
+            for RPI in RPi_IPs:
+                url = "http://" + RPI['ip_addr']
+                task =asyncio.ensure_future(fetch(url, session))
+                tasks.append(task)
+
+            responses = await asyncio.gather(*tasks)
+            # you now have all response bodies in this variable
+            for i in responses:
+                print(i[0])
+
+    elif type == "flashall":
+        # flash all concurrently but sending the requests one after the other right after the other
+        # keep connection alive for all requests.
+        async with ClientSession() as session:
+            for RPI in RPi_IPs:
+                url = "http://" + RPI['ip_addr']
+                task = asyncio.ensure_future(post_firmware(url, session,firmware))
+                tasks.append(task)
+
+            responses = await asyncio.gather(*tasks)
+            # you now have all response bodies in this variable
+            for i in responses:
+                print(i[0])
+
 if __name__ == '__main__':
+
+    print("args")
+
     # args
     parser = argparse.ArgumentParser()
     parser.add_argument('--firmware-path', type=str)
@@ -50,22 +101,29 @@ if __name__ == '__main__':
 
     try:
         args = parser.parse_args()
+        print(args)
     except:
         print('args provided are wrong')
-        exit()
+        #exit()
 
     if args.check:
         print('Check all services')
-        check_all_services(RPi_IPs)
-        exit()
+        loop = asyncio.get_event_loop()
+        future = asyncio.ensure_future(run("check"))
+        loop.run_until_complete(future)
+        #exit()
 
     if args.firmware_path is None:
         print('Please provide absolute path file name as arg to flash')
-        exit()
+        #exit()brew update && brew upgrade && brew install openssl
 
     if args.flash_all:
         print('Flashing the whole floor')
-        flash_coroutine(RPi_IPs, args.firmware_path)
-    else:
+        loop = asyncio.get_event_loop()
+        future = asyncio.ensure_future(run(type="flashall",RPi_IPs=RPi_IPs, firmware=args.firmware_path))
+        loop.run_until_complete(future)
+    elif args.strip_id:
         print('Flashing node strip_id:', args.strip_id, 'node_id:', args.node_id)
         send_flash_req(RPi_IPs[args.strip_id-1]['ip_addr'], args.firmware_path, devices=args.node_id)
+    else:
+        print("print arg options")

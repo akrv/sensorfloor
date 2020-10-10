@@ -72,33 +72,33 @@ for sensor in sensor_path:
 
 for sensor in sensor_path:
     print (sensor._path)
-    if sensor._path == '/29.47FC2F000000':
+    if sensor._path == '/29.00FC2F000000':
     # if sensor.type == "DS2408":
 
         # normal operation with Comms On
         # sleep(1)
 
-        # sensor.out_of_testmode = "0"
-        # sleep(.1)
-        # sensor.out_of_testmode = "1"
-        # sleep(.1)
-        # sensor.PIO_BYTE = "64"
-        # sleep(.1)
-        # sensor.PIO_BYTE = "147"
+        sensor.out_of_testmode = "0"
+        sleep(.1)
+        sensor.out_of_testmode = "1"
+        sleep(.1)
+        sensor.PIO_BYTE = "64"
+        sleep(.1)
+        sensor.PIO_BYTE = "147"
 
 
         # # set node bootloader mode
-        sensor.PIO_BYTE = "159"
-        sleep(.1)  # wait until chip boots to BL mode
-        sensor.PIO_BYTE = "150"
-        sleep(.1)
+        # sensor.PIO_BYTE = "159"
+        # sleep(.1)  # wait until chip boots to BL mode
+        # sensor.PIO_BYTE = "150"
+        # sleep(.1)
 
         # Interrupt to read IMU
-        # while 1:
-        #     sensor.PIO_2 = "1"
-        #     # sleep(1)
-        #     sensor.PIO_2 = "0"
-        #     # sleep(1)
-        #     sensor.PIO_2 = "1"
-        #     sleep(5)
+        while 1:
+            sensor.PIO_2 = "1"
+            # sleep(1)
+            sensor.PIO_2 = "0"
+            # sleep(1)
+            sensor.PIO_2 = "1"
+            sleep(5)
 
