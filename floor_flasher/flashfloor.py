@@ -79,7 +79,7 @@ async def run(type="check",RPi_IPs=RPi_IPs,firmware=None):
             responses = await asyncio.gather(*tasks)
             # you now have all response bodies in this variable
             for i in responses:
-                print(i[0])
+                print(i)
 
 if __name__ == '__main__':
 
