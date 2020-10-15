@@ -44,7 +44,8 @@ async def fetch(url, session):
         return (response_status,response_text)
 
 async def post_firmware(url, session, firmwarepath):
-    async with session.post(url, data={'file': open(firmwarepath, 'rb')}) as response:
+    payload = {'device': 0}
+    async with session.post(url, data=payload, files={'file': open(firmwarepath, 'rb')}) as response:
         response_text = await response.text()
         response_status = response.status
         return (response_status,response_text)
